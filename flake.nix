@@ -1,0 +1,55 @@
+{
+  description = "Moi Flake";
+
+  # Inputs
+  # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake.html#flake-inputs
+
+  # For more information about well-known outputs checked by `nix flake check`:
+  # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake-check.html#evaluation-checks
+
+  inputs = {
+    # NixOS official package source, using the nixos-26.05 branch here
+    nixpkgs = {
+      url = "github:NixOS/nixpkgs/nixos-unstable"; # Rolling Release (Unstable Branch)
+    };
+
+    # Disk Partitioning
+    disko = {
+      url = "github:nix-community/disko/latest";
+      inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
+    };
+
+  };
+
+  outputs =
+    { 
+      self,
+      nixpkgs,
+      disko, # Disk Partitioning
+      ...
+    }@inputs:
+    let
+      lib = nixpkgs.lib;
+    in
+    {
+
+      nixosConfigurations = {
+        # This is a function
+        nixos = lib.nixosSystem {
+          # Keep this the same as your hostname t oavoid having to do (...) --flake /etc/nixos#nixos
+
+          # Passing dependencies to submodules - only those that are defined in outputs are visible
+          # specialArgs = { inherit inputs; };
+          # Alternatively:
+          # _module.args = { inherit inputs; };
+
+          # submodules - not strictly hierarchical, but is passed to the same system.
+          modules = [
+            ./configuration.nix
+            disko.nixosModules.disko # Disk partitioning - module
+            ./disko.nix # Disk partitioning config
+          ];
+        };
+      };
+    };
+}
