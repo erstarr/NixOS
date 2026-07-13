@@ -2,7 +2,7 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/vda"; # /dev/nvme0n1
+        device = "/dev/vda"; # TODO --> /dev/nvme0n1
         type = "disk";
         content = {
           type = "gpt";
@@ -11,8 +11,7 @@
             ESP = {
               priority = 1;
               name = "ESP";
-              start = "1M"; # for GPT header
-              end = "1G";
+              size = "1G";
               type = "EF00";
               content = {
                 type = "filesystem";
@@ -21,8 +20,19 @@
                 mountOptions = [ "umask=0077" ];
               };
             };
+            # Virtual Disk Storage - EXT4
+            virtdsk = {
+              priority = 2;
+              size = "1G";
+              content = {
+                type = "filesystem";
+                format = "ext4";
+                mountpoint = "/var/lib/libvirt/images";
+              };
+            };
             # Root - BTRFS
             root = {
+              priority = 3;
               size = "100%";
               content = {
                 type = "btrfs";
@@ -33,14 +43,12 @@
                 ];
                 mountpoint = "/partition-root";
                 subvolumes = {
-                  "/root" = {
-                    mountpoint = "/";
-                    mountOptions = [
-                      "compress=zstd"
-                    ];
-                  };
                   # For impermanence:
                   # Empty subvolume - the initrd rollback restores root to a fresh snapshot of this on every boot ==> Created in the install script as disko doesn't have that function
+                  "/root" = {
+                    mountpoint = "/";
+                    mountOptions = [ "compress=zstd" ];
+                  };
                   "/nix" = {
                     mountpoint = "/nix";
                     mountOptions = [
@@ -57,38 +65,17 @@
                   };
                   "/persist" = {
                     mountpoint = "/persist";
-                    mountOptions = [
-                      "compress=zstd"
-                    ];
+                    mountOptions = [ "compress=zstd" ];
                   };
                   "/home" = {
                     mountpoint = "/home";
-                    mountOptions = [
-                      "compress=zstd"
-                    ];
+                    mountOptions = [ "compress=zstd" ];
                   };
                   "/swap" = {
                     mountpoint = "/.swapvol";
-                    swap.swapfile.size = "8G"; # VM; adjust to 32G on bare metal
+                    swap.swapfile.size = "8G"; # TODO --> VM; adjust to 32G on bare metal
                   };
                 };
-              };
-            };
-          };
-        };
-      };
-      libvirt = {
-        device = "/dev/vdb";
-        type = "disk";
-        content = {
-          type = "gpt";
-          partitions = {
-            images = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/var/lib/libvirt/images";
               };
             };
           };
