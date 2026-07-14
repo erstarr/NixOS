@@ -16,9 +16,14 @@ set -euo pipefail
 # Write an install log
 exec > >(tee /tmp/install.log) 2>&1
 
-FLAKE_DIR="${1:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
-DISKO_DIR="${2:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
-HOSTNAME="${3:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
+SCRIPT_DIR="$(dirname "$(realpath "$0")")"
+
+FLAKE_DIR="$SCRIPT_DIR" # the main flake root
+
+DISKO_PATH="$SCRIPT_DIR/flakes/disko.nix" # disko.nix is inside flakes/
+
+HOSTNAME="nixos" # match key in nixosConfigurations
+
 
 echo "Flake Dir: $FLAKE_DIR"
 echo "Disko Dir:  $DISKO_DIR"
@@ -26,7 +31,8 @@ echo "Host Name:  $HOSTNAME"
 
 # 1. Wipe, partition, format, mount
 confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Continue?"
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount     "$DISKO_DIR/disko.nix"
+# Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount "$DISKO_PATH"
 
 
 # 2. Create an empty root vol for impermemence
@@ -40,7 +46,8 @@ confirm "STEP 2.5: Generate hardware configuration. Continue?"
 # --no-filesystems because disko owns that
 # gen the hardware config, write it to current config dir
 sudo nixos-generate-config --root /mnt --no-filesystems --show-hardware-config > "$FLAKE_DIR/hardware-configuration.nix"
-  
+git add -A "$FLAKE_DIR/hardware-configuration.nix"
+
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
 # Explicitly use path not git since i don't want my hardware conf file to be tracked

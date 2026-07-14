@@ -1,5 +1,5 @@
 {
-  description = "Moi Flake";
+  description = "Main Flake";
 
   # Inputs
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake.html#flake-inputs
@@ -24,7 +24,7 @@
   outputs =
     { 
       self,
-      nixpkgs,
+      nixpkgs, # Nix Packages
       disko, # Disk Partitioning
       ...
     }@inputs:
@@ -42,7 +42,12 @@
           # system = "x86_64-linux";
           
           # Passing dependencies to submodules - only those that are defined in outputs are visible
-          # specialArgs = { inherit inputs; };
+          specialArgs = {
+            # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
+            # Switch this when on VM/BareMetal
+
+            vmMoe = true;            
+          };
           # Alternatively:
           # _module.args = { inherit inputs; };
 
@@ -50,7 +55,7 @@
           modules = [
             ./configuration.nix
             disko.nixosModules.disko # Disk partitioning - module
-            ./disko.nix # Disk partitioning config
+            ./flakes/disko.nix # Disk partitioning config
           ];
         };
       };
