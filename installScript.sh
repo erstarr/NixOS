@@ -20,6 +20,7 @@ HOSTNAME="${3:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
 
 echo "Flake Dir: $FLAKE_DIR"
 echo "Disko Dir:  $DISKO_DIR"
+echo "Host Name:  $HOSTNAME"
 
 # 1. Wipe, partition, format, mount
 confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Continue?"
