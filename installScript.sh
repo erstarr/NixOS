@@ -18,7 +18,7 @@ FLAKE_DIR="${1:?Usage: install.sh <flake-dir> <disko-dir>}"
 DISKO_DIR="${2:?Usage: install.sh <flake-dir> <disko-dir>}"
 
 
-echo "Flake Dir: $FLAKE_PATH"
+echo "Flake Dir: $FLAKE_DIR"
 echo "Disko Dir:  $DISKO_DIR"
 
 # 1. Wipe, partition, format, mount
