@@ -36,13 +36,15 @@ sudo btrfs subvolume snapshot -r /mnt/partition-root/root /mnt/partition-root/ro
 
 # 2.5 Create hardwareConfigurations file and copy it over
 confirm "STEP 2.5: Generate hardware configuration. Continue?"
-sudo nixos-generate-config --root /mnt
-sudo mv /mnt/etc/nixos/hardware-configuration.nix "$FLAKE_DIR/"
-suro rm -rf /mnt/nixos/*
 
+# --no-filesystems because disko owns that
+# gen the hardware config, write it to current config dir
+sudo nixos-generate-config --root /mnt --no-filesystems --show-hardware-config > "$FLAKE_DIR/hardware-configuration.nix"
+  
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
-sudo nixos-install --flake "$FLAKE_DIR#$HOSTNAME"
+# Explicitly use path not git since i don't want my hardware conf file to be tracked
+sudo nixos-install --flake "path:${FLAKE_DIR}#${HOSTNAME}"
 
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
