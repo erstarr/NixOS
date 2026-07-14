@@ -50,6 +50,8 @@ sudo nixos-install --flake "path:${FLAKE_DIR}#${HOSTNAME}"
 confirm "STEP 4: Setting user password. Continue?"
 sudo nixos-enter --root /mnt -c 'passwd redstar'
 
+echo "Moving the install log into /var/log (persistent target)"...
+sudo mv /tmp/install.log /mnt/var/log
 
 echo "install script complete. Reboot to continue to NixOS!"
 
