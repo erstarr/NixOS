@@ -13,6 +13,8 @@ confirm() {
 
 # Failiure Mode
 set -euo pipefail
+# Write an install log
+exec > >(tee /tmp/install.log) 2>&1
 
 FLAKE_DIR="${1:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
 DISKO_DIR="${2:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
