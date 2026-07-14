@@ -39,7 +39,7 @@
           # Keep this the same as your hostname t oavoid having to do (...) --flake /etc/nixos#nixos
 
           # When fresh installing, it needs this since it doesn't have a hardwareConfigurations file yet
-          system = "x86_64-linux";
+          # system = "x86_64-linux";
           
           # Passing dependencies to submodules - only those that are defined in outputs are visible
           # specialArgs = { inherit inputs; };
