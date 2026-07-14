@@ -34,6 +34,12 @@ confirm "STEP 2: Creating empty root-blank subvolume (read only). Continue?"
 sudo btrfs subvolume snapshot -r /mnt/partition-root/root /mnt/partition-root/root-blank
 
 
+# 2.5 Create hardwareConfigurations file and copy it over
+confirm "STEP 2.5: Generate hardware configuration. Continue?"
+sudo nixos-generate-config --root /mnt
+sudo mv /mnt/etc/nixos/hardware-configuration.nix "$FLAKE_DIR/"
+suro rm -rf /mnt/nixos/*
+
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
 sudo nixos-install --flake "$FLAKE_DIR#$HOSTNAME"
