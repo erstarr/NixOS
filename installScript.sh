@@ -28,15 +28,15 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 confirm "STEP 2: Creating empty root-blank subvolume (read only). Continue?"
 
 # 2. Create an empty root vol for impermemence
-btrfs subvolume snapshot -r /mnt/partition-root/root /mnt/partition-root/root-blank
+sudo btrfs subvolume snapshot -r /mnt/partition-root/root /mnt/partition-root/root-blank
 
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
-nixos-install --flake "$FLAKE_PATH"
+sudo nixos-install --flake "$FLAKE_PATH"
 
 
 confirm "STEP 4: Setting user password. Continue?"
 
-nixos-enter --root /mnt -c 'passwd redstar'
+sudo nixos-enter --root /mnt -c 'passwd redstar'
 
 
 echo "install script complete. Reboot to continue to NixOS!"
