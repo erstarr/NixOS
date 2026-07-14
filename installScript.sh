@@ -14,9 +14,9 @@ confirm() {
 # Failiure Mode
 set -euo pipefail
 
-FLAKE_DIR="${1:?Usage: install.sh <flake-dir> <disko-dir>}"
-DISKO_DIR="${2:?Usage: install.sh <flake-dir> <disko-dir>}"
-
+FLAKE_DIR="${1:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
+DISKO_DIR="${2:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
+HOSTNAME="${3:?Usage: install.sh <flake-dir> <disko-dir> <hostname>}"
 
 echo "Flake Dir: $FLAKE_DIR"
 echo "Disko Dir:  $DISKO_DIR"
@@ -33,8 +33,7 @@ sudo btrfs subvolume snapshot -r /mnt/partition-root/root /mnt/partition-root/ro
 
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
-sudo nixos-install --flake "$FLAKE_DIR"
-
+sudo nixos-install --flake "$FLAKE_DIR#$HOSTNAME"
 
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
