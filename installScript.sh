@@ -48,13 +48,13 @@ confirm "STEP 3: Run nixos-install. Continue?"
 sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}" --no-root-passwd
 
 echo "Prep for step 4: creating .gitignore for password files..."
-mkdir -p /mnt/persist/passwords
-"*" > /mnt/persist/password/.gitignore
+sudo mkdir -p /mnt/persist/passwords
+sudo echo "*" > /mnt/persist/passwords/.gitignore
 
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
-mkpasswd -m yescrypt > /mnt/persist/passwords/redstar
-chmod 700 /mnt/persist/passwords
+sudo mkpasswd -m yescrypt > /mnt/persist/passwords/redstar
+sudo chmod 700 /mnt/persist/passwords
 
 
 
@@ -66,7 +66,7 @@ sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/nixos_config/
 confirm "STEP 6: Fix config ownership in persisted vol. Continue?"
 sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/home/redstar/nixos_config'
 
-sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/password/.gitignore'
+sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/passwords/.gitignore'
 
 confirm "STEP 7: Persisting machine-id early. Continue?"
 sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
