@@ -30,7 +30,7 @@
                 mountpoint = "/boot/efi";
                 mountOptions = [
                   "umask=0077" # Emulate perm for FAT -- only root can read/write
-                  "-n efi_boot"
+                  "-n" "efi_boot" # Label the boot part
                 ];
               };
             };
@@ -53,7 +53,7 @@
                 type = "btrfs";
                 extraArgs = [
                   "-f" # Override existing partition
-                  "-L root_subvol" # Label subvol as root-subvol
+                  "-L" "root_subvol" # Label subvol as root-subvol
                 ];
                 mountpoint = "/partition-root";
                 subvolumes = {
