@@ -66,7 +66,7 @@
                   };
                   "/boot" = {
                     mountpoint = "/boot";
-                    mountOptions = "compress=zstd";
+                    mountOptions = ["compress=zstd"];
                   };
                   "/nix" = {
                     mountpoint = "/nix";
