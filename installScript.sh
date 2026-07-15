@@ -20,8 +20,6 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 FLAKE_DIR="$SCRIPT_DIR" # the main flake root
 
-DISKO_PATH="$SCRIPT_DIR/flakes/disko.nix" # disko.nix is inside flakes/
-
 HOSTNAME="nixos" # match key in nixosConfigurations
 
 
@@ -31,7 +29,7 @@ echo "Host Name:  $HOSTNAME"
 # 1. Wipe, partition, format, mount
 confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Continue?"
 # Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md - with modifs since disko is not a flake
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount "$DISKO_PATH" --flake "${FLAKE_DIR}#${HOSTNAME}"
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --flake "${FLAKE_DIR}#${HOSTNAME}"
 
 
 # 2.5 Create hardwareConfigurations file and copy it over
@@ -49,7 +47,8 @@ sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}" --no-root-passwd
 
 echo "Prep for step 4: creating .gitignore for password files..."
 sudo mkdir -p /mnt/persist/passwords
-sudo echo "*" > /mnt/persist/passwords/.gitignore
+echo "*" | sudo tee /mnt/persist/passwords/.gitignore > /dev/null
+
 
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
@@ -69,9 +68,10 @@ sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/home/redstar/nixos_c
 sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/passwords/.gitignore'
 
 confirm "STEP 7: Persisting machine-id early. Continue?"
+sudo mkdir -p /mnt/persist/etc
 sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
 
-confirm "STEP 8 Moving the install log into /var/log (persistent target)"...
+confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
 sudo mv /tmp/install.log /mnt/var/log
 
 echo "install script complete. Reboot to continue to NixOS!"
