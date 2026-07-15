@@ -28,8 +28,6 @@
 
     ./modules/swap.nix
     
-    ./modules/impermanence.nix
-
     ./modules/networking.nix
     ./modules/firewall.nix
 

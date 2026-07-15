@@ -19,6 +19,11 @@
       inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
     };
 
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
+    };
+
   };
 
   outputs =
@@ -26,6 +31,7 @@
       self,
       nixpkgs, # Nix Packages
       disko, # Disk Partitioning
+      impermanence, # Impermanence
       ...
     }@inputs:
     let
@@ -45,8 +51,11 @@
           specialArgs = {
             # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
             # Switch this when on VM/BareMetal
-
             vmMode = true;            
+
+
+
+            inherit disko impermanence;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };
@@ -54,8 +63,13 @@
           # submodules - not strictly hierarchical, but is passed to the same system.
           modules = [
             ./configuration.nix
-            disko.nixosModules.disko # Disk partitioning - module
-            ./flakes/disko.nix # Disk partitioning config
+
+            # Disko
+            ./flakes/disko.nix
+          
+            # impermanence
+            ./flakes/impermanence.nix
+
           ];
         };
       };

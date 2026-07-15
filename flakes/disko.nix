@@ -1,4 +1,18 @@
+
 {
+  disko,
+  ... 
+}:
+
+
+{
+
+  description = "Disko - disk partition and formatting";
+
+  imports = [ disko.nixosModules.disko ];
+
+
+
   disko.devices = {
     disk = {
       main = {
@@ -15,6 +29,7 @@
               type = "EF00";
               content = {
                 type = "filesystem";
+                label = "EFI";
                 format = "vfat";
                 mountpoint = "/boot/efi";
                 mountOptions = [ "umask=0077" ];
@@ -26,6 +41,7 @@
               size = "1G";
               content = {
                 type = "filesystem";
+                  label = "virt_disk";
                 format = "ext4";
                 mountpoint = "/var/lib/libvirt/images";
               };
@@ -36,9 +52,8 @@
               size = "100%";
               content = {
                 type = "btrfs";
+                label = "root";
                 extraArgs = [
-                  "-L"
-                  "nixos" # Explicit labeling
                   "-f" # Override existing partition
                 ];
                 mountpoint = "/partition-root";

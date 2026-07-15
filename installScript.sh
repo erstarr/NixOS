@@ -26,7 +26,6 @@ HOSTNAME="nixos" # match key in nixosConfigurations
 
 
 echo "Flake Dir: $FLAKE_DIR"
-echo "Disko Dir:  $DISKO_DIR"
 echo "Host Name:  $HOSTNAME"
 
 # 1. Wipe, partition, format, mount
