@@ -29,7 +29,10 @@
                 label = "EFI";
                 format = "vfat";
                 mountpoint = "/boot/efi";
-                mountOptions = [ "umask=0077" ];
+                mountOptions = [
+                  "umask=0077"
+                  "-n efi_boot"
+                ];
               };
             };
             # Virtual Disk Storage - EXT4
@@ -38,9 +41,9 @@
               size = "1G";
               content = {
                 type = "filesystem";
-                  label = "virt_disk";
                 format = "ext4";
                 mountpoint = "/var/lib/libvirt/images";
+                extraArgs = [ "-L" "virt_disk" ];  # -L sets the label for ext4/btrfs
               };
             };
             # Root - BTRFS
@@ -49,9 +52,9 @@
               size = "100%";
               content = {
                 type = "btrfs";
-                label = "root";
                 extraArgs = [
                   "-f" # Override existing partition
+                  "-L root_subvol" # Label subvol as root-subvol
                 ];
                 mountpoint = "/partition-root";
                 subvolumes = {

@@ -101,12 +101,12 @@
 
         mkdir -p /btrfs_tmp
 
-        # by label: root part is labelled as root
+        # by label: root part is labelled as root_subvol
         # root btrfs subvolume (the one that contains every other subvol).
-        mount /dev/disk/by-label/root /btrfs_tmp -o subvol=/ 
+        mount /dev/disk/by-label/root_subvol /btrfs_tmp -o subvol=/ 
         
         # Root Impermanence - rollback
-        # Move the old root to /persistent/old_roots
+        # Move the old root to /persist/old_roots
         if [[ -e /btrfs_tmp/root ]]; then
           mkdir -p /btrfs_tmp/persist/old_roots
           timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/root)" "+%Y-%m-%d_%H:%M:%S")
@@ -128,7 +128,7 @@
         # Home impermanence (Optional - can disable with the switch) - rollback
         ${lib.optionalString config.custom.impermanence.homeImpermanence ''
           
-          # Move old home to /persistent/old_homes
+          # Move old home to /persist/old_homes
           if [[ -e /btrfs_tmp/home ]]; then
             mkdir -p /btrfs_tmp/persist/old_homes
             timestamp=$(date --date="@$(stat -c %Y /btrfs_tmp/home)" "+%Y-%m-%d_%H:%M:%S")
