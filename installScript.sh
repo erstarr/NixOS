@@ -30,8 +30,8 @@ echo "Host Name:  $HOSTNAME"
 
 # 1. Wipe, partition, format, mount
 confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Continue?"
-# Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount "$DISKO_PATH"
+# Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md - with modifs since disko is not a flake
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount "$DISKO_PATH" --flake "${FLAKE_DIR}#${HOSTNAME}"
 
 
 # 2.5 Create hardwareConfigurations file and copy it over
@@ -45,7 +45,7 @@ git add -A "$FLAKE_DIR/hardware-configuration.nix"
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
 # Explicitly use path not git since i don't want my hardware conf file to be tracked
-sudo nixos-install --flake "path:${FLAKE_DIR}#${HOSTNAME}"
+sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}"
 
 confirm "STEP 4: Copy NixOS config to persistent home. Continue?"
 sudo mkdir -p /mnt/persist/home/redstar/nixos_config
