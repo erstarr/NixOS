@@ -47,14 +47,14 @@ confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a pas
 # Explicitly use path not git since i don't want my hardware conf file to be tracked
 sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}"
 
-confirm "STEP 4: Copy NixOS config to persistent home. Continue?"
+# 4. User Password setting - Username: redstar
+confirm "STEP 4: Setting user password. Continue?"
+sudo nixos-enter --root /mnt -c 'passwd redstar'
+
+
+confirm "STEP 5: Copy NixOS config to persistent home. Continue?"
 sudo mkdir -p /mnt/persist/home/redstar/nixos_config
 sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/nixos_config/
-
-
-# 4. User Password setting - Username: redstar
-confirm "STEP 5: Setting user password. Continue?"
-sudo nixos-enter --root /mnt -c 'passwd redstar'
 
 
 confirm "STEP 6: Fix config ownership in persisted vol. Continue?"
