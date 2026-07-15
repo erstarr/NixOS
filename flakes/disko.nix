@@ -32,7 +32,7 @@
                   "umask=0077" # Emulate perm for FAT -- only root can read/write
                 ];
                 extraArgs = [
-                   "-n efi_boot" # Label the boot part
+                   "-n BOOT" # Label the boot part
                 ];
               };
             };
