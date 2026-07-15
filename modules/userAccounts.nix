@@ -1,22 +1,16 @@
 {
   # Define a user account. Don't forget to set a password with ‘passwd’.
-  users.users.redstar = {
+
+
+  users.users = {
+
+redstar = {
     isNormalUser = true;
 hashedPasswordFile = "/persist/passwords/redstar";
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
-
-
-# Disable of cretion of users outside of nix config
-users.mutableUsers = false;
-
-   # Lock root
-   users.users.root.hashedPassword = "!";
-
-    # TODO - replace with hashed password asap!
-    initialPassword = "changeme"; # passwd it immediately after first login
 
     # mutableUsers = false; # Impermenence stuff - keep it on for now
 
@@ -25,5 +19,13 @@ users.mutableUsers = false;
     #     tree
     #   ];
   };
-  
+
+
+# Disable of cretion of users outside of nix config
+users.mutableUsers = false;
+
+
+   # Lock root
+   users.users.root.hashedPassword = "!";
+};
 }
