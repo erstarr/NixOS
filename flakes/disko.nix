@@ -6,9 +6,6 @@
 
 
 {
-
-  description = "Disko - disk partition and formatting";
-
   imports = [ disko.nixosModules.disko ];
 
 

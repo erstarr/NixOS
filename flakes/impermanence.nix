@@ -7,15 +7,25 @@
 }:
 
 {
+
+
+  ###################################################################################################################################
+  ###################################################################################################################################
+  # This operates PER-SUBVOLUME! If a subvolume isn't reset explicitly, it is not a part of Impermanence at all and is NOT TOUCHED! #
+  ###################################################################################################################################
+  ###################################################################################################################################
+
+
   imports = [ impermanence.nixosModules.impermanence ];
 
-  description = "Impermanence - as the name suggests";
 
+  options.custom.impermanence.homeImpermanence = lib.mkOption {
+    type = lib.types.bool;
+    default = true;
+    description = "Enable home impermanence";
+  };
 
-
-  options.custom.impermanence.homeImpermanence = lib.mkEnableOption "home impermanence";
-
-
+  # to override (change val) use config. prefix instead of option.: config.custom.impermanence.homeImpermanence = false;
 
   #MARK: Impermemence Filesystem Options
   config = {  # required when mixing options + config in same file
@@ -36,7 +46,7 @@
 
     # If homeImpermanence is enabled, early mount it as well
     fileSystems."/home" = {
-      neededForBoot = lib.mkIf config.custom.impermanence.homeImpermanence true;
+      neededForBoot = config.custom.impermanence.homeImpermanence;
     };
   
 
@@ -47,14 +57,22 @@
 
       allowTrash = true; # When smt in unpersisted, it goes here. Comment out after persistence works well.
 
+
+      # ONLY include stuff that Impermanence actually effects. Otherwise you'll shadow it!
+
       directories = [
         "/var/lib/nixos" # Mandatory
-        "/var/log" # Logs and such
+        # "/var/log" # Persisted cuz it's a btrfs subvolume
         "/etc/NetworkManager/system-connections" # Keep Connection Profiles (might symlink this from my config)
         # What else to be persisted goes here
-        "/home/redstar"
         # { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
-      ];
+      ]
+      # If home imperm is enabled,
+      ++ lib.optionals config.custom.impermanence.homeImpermanence [
+          "/home/redstar"
+          # "/home/whatever"
+        ];
+      
       files = [
         "/etc/machine-id"
         # { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
@@ -122,7 +140,7 @@
           # Make sure dir exists guard
           if [[ -d /btrfs_tmp/persist/old_homes ]]; then
             for i in $(find /btrfs_tmp/persist/old_homes/ -mindepth 1 -maxdepth 1 -mtime +$max_age); do
-              btrfs subvolume delete "$i"
+              btrfs subvolume delete --recursive "$i"
             done
           fi
 

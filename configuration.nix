@@ -52,6 +52,8 @@
 
   ]
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported
-  ++ lib.optionals vmMode [ ./modules/vm_specific.nix ];
+  ++ lib.optionals vmMode [
+    ./modules/vm_specific.nix
+    ];
 
 }
