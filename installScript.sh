@@ -60,8 +60,10 @@ sudo nixos-enter --root /mnt -c 'passwd redstar'
 confirm "STEP 6: Fix config ownership in persisted vol. Continue?"
 sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/home/redstar/nixos_config'
 
+confirm "STEP 7: Persisting machine-id early. Continue?"
+sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
 
-confirm "STEP 7 Moving the install log into /var/log (persistent target)"...
+confirm "STEP 8 Moving the install log into /var/log (persistent target)"...
 sudo mv /tmp/install.log /mnt/var/log
 
 echo "install script complete. Reboot to continue to NixOS!"
