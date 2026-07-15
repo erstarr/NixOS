@@ -46,7 +46,7 @@
             # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
             # Switch this when on VM/BareMetal
 
-            vmMoe = true;            
+            vmMode = true;            
           };
           # Alternatively:
           # _module.args = { inherit inputs; };

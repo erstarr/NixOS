@@ -20,9 +20,11 @@
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
+    ./modules/hardware.nix
+
     ./modules/boot.nix
 
-    ./modules/hardware.nix
+    ./modules/systemd.nix
 
     ./modules/swap.nix
     

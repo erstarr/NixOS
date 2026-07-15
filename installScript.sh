@@ -35,13 +35,8 @@ confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Co
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount "$DISKO_PATH"
 
 
-# 2. Create an empty root vol for impermemence
-confirm "STEP 2: Creating empty root-blank subvolume (read only). Continue?"
-sudo btrfs subvolume snapshot -r /mnt/partition-root/root /mnt/partition-root/root-blank
-
-
 # 2.5 Create hardwareConfigurations file and copy it over
-confirm "STEP 2.5: Generate hardware configuration. Continue?"
+confirm "STEP 2: Generate hardware configuration. Continue?"
 
 # --no-filesystems because disko owns that
 # gen the hardware config, write it to current config dir

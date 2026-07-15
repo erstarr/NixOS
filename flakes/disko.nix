@@ -68,6 +68,9 @@
                     mountpoint = "/home";
                     mountOptions = [ "compress=zstd" ];
                   };
+                  # NixOS sets the nodatacow atrribute on the inode itself since btrfs doesn't allow me to set it here (conflict with compress= on other subvol).
+                  # nodatacow also disables compression implicitly which is important!
+                  # lsattr /.swapvol/swapfile to check
                   "/swap" = {
                     mountpoint = "/.swapvol";
                     swap.swapfile.size = "8G"; # TODO --> VM; adjust to 32G on bare metal
