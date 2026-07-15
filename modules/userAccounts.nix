@@ -2,11 +2,15 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.redstar = {
     isNormalUser = true;
+hashedPasswordFile = "/persist/passwords/redstar";
     extraGroups = [
       "wheel"
       "networkmanager"
     ];
 
+
+# Disable of cretion of users outside of nix config
+users.mutableUsers = false;
 
    # Lock root
    users.users.root.hashedPassword = "!";
