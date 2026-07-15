@@ -10,15 +10,13 @@
         "networkmanager"
       ];
 
-
     # User packages - shouldn't need this
     #   packages = with pkgs; [
     #     tree
     #   ];
-  };
-
 
     };
+
 
     # Lock Root
     root.hashedPassword = "!";
