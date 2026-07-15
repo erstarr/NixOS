@@ -59,11 +59,14 @@
                 ];
                 mountpoint = "/partition-root";
                 subvolumes = {
-                  # For impermanence:
-                  # Empty subvolume - the initrd rollback restores root to a fresh snapshot of this on every boot ==> Created in the install script as disko doesn't have that function
+                  # For impermanence, Most of the subvols here are not explicitly persisted in imperm since they're already excluded from being wiped since they're their own subvolume.
                   "/root" = {
                     mountpoint = "/";
                     mountOptions = [ "compress=zstd" ];
+                  };
+                  "/boot" = {
+                    mountpoint = "/boot";
+                    mountOptions = "compress=zstd";
                   };
                   "/nix" = {
                     mountpoint = "/nix";
