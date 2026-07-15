@@ -44,8 +44,8 @@ git add -A "$FLAKE_DIR/hardware-configuration.nix"
 
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue (It'll hang until you provide a password)?"
-# Explicitly use path not git since i don't want my hardware conf file to be tracked
-sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}"
+# --no-root-passwd since the root is locked
+sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}" --no-root-passwd
 
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
