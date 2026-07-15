@@ -30,8 +30,10 @@
                 mountpoint = "/boot/efi";
                 mountOptions = [
                   "umask=0077" # Emulate perm for FAT -- only root can read/write
-                  "-n" "efi_boot" # Label the boot part
                 ];
+                extraArgs = [
+                   "-n efi_boot" # Label the boot part
+                "]
               };
             };
             # Virtual Disk Storage - EXT4
@@ -42,7 +44,7 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/var/lib/libvirt/images";
-                extraArgs = [ "-L" "virt_disk" ];  # -L sets the label for ext4/btrfs
+                extraArgs = [ "-L virt_disk" ];  # -L sets the label for ext4/btrfs
               };
             };
             # Root - BTRFS
@@ -53,7 +55,7 @@
                 type = "btrfs";
                 extraArgs = [
                   "-f" # Override existing partition
-                  "-L" "root_subvol" # Label subvol as root-subvol
+                  "-L root_subvol" # Label subvol as root-subvol
                 ];
                 mountpoint = "/partition-root";
                 subvolumes = {
