@@ -1,18 +1,15 @@
 {
-  # Define a user account. Don't forget to set a password with ‘passwd’.
-
+  users.mutableUsers = false;
 
   users.users = {
+    redstar = {
+      isNormalUser = true;
+      hashedPasswordFile = "/persist/passwords/redstar";
+      extraGroups = [
+        "wheel"
+        "networkmanager"
+      ];
 
-redstar = {
-    isNormalUser = true;
-hashedPasswordFile = "/persist/passwords/redstar";
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
-
-    # mutableUsers = false; # Impermenence stuff - keep it on for now
 
     # User packages - shouldn't need this
     #   packages = with pkgs; [
@@ -21,11 +18,9 @@ hashedPasswordFile = "/persist/passwords/redstar";
   };
 
 
-# Disable of cretion of users outside of nix config
-users.mutableUsers = false;
+    };
 
-
-   # Lock root
-   users.users.root.hashedPassword = "!";
-};
+    # Lock Root
+    root.hashedPassword = "!";
+  };
 }
