@@ -26,11 +26,10 @@
               type = "EF00";
               content = {
                 type = "filesystem";
-                label = "EFI";
                 format = "vfat";
                 mountpoint = "/boot/efi";
                 mountOptions = [
-                  "umask=0077"
+                  "umask=0077" # Emulate perm for FAT -- only root can read/write
                   "-n efi_boot"
                 ];
               };
