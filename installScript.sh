@@ -54,7 +54,7 @@ echo "*" | sudo tee /mnt/persist/passwords/.gitignore > /dev/null
 
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
-sudo mkpasswd -m yescrypt > /mnt/persist/passwords/redstar
+sudo mkpasswd -m yescrypt | sudo tee /mnt/persist/passwords/redstar > /dev/null
 sudo chmod 700 /mnt/persist/passwords
 
 
