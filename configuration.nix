@@ -23,6 +23,8 @@
 
     ./modules/systemd.nix
 
+    ./modules/flakeConfigOpts.nix
+
     ./modules/swap.nix
     
     ./modules/networking.nix
@@ -45,7 +47,7 @@
     ./modules/changeOnlyOnFreshInstall.nix   # first insall version
 
 
-    # ./modules/defaultStuff_commented.nix # Just Commented Stuff
+    ./modules/defaultStuff_commented.nix # Just Commented Stuff
 
   ]
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported
