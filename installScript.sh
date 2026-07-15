@@ -68,7 +68,6 @@ sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/home/redstar/nixos_c
 sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/passwords/.gitignore'
 
 confirm "STEP 7: Persisting machine-id early. Continue?"
-sudo mkdir -p /mnt/persist/etc
 sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
 
 confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
