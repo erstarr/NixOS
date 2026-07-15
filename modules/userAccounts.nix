@@ -7,6 +7,10 @@
       "networkmanager"
     ];
 
+
+   # Lock root
+   users.users.root.hashedPassword = "!";
+
     # TODO - replace with hashed password asap!
     initialPassword = "changeme"; # passwd it immediately after first login
 
