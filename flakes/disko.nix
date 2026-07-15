@@ -33,7 +33,7 @@
                 ];
                 extraArgs = [
                    "-n efi_boot" # Label the boot part
-                "]
+                ];
               };
             };
             # Virtual Disk Storage - EXT4
