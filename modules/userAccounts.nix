@@ -1,13 +1,26 @@
 {
   users.mutableUsers = false;
 
-  users.users = {
+
+users = {
+
+  groups = {
+
+    # Create a group same as my username - enforce UPG
+    redstar = {};
+
+  };
+
+
+  users = {
+
     redstar = {
       isNormalUser = true;
       hashedPasswordFile = "/persist/passwords/redstar";
+      group = "redstar";  # enforce UPG
       extraGroups = [
-        "wheel"
-        "networkmanager"
+        "wheel" # sudo
+        "networkmanager" # Allow editing network confs
       ];
 
     # User packages - shouldn't need this
@@ -19,6 +32,13 @@
 
 
     # Lock Root
-    root.hashedPassword = "!";
+    root = {
+      hashedPassword = "!";
+    };
   };
+
+};
+
+
+
 }
