@@ -20,7 +20,7 @@ SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
 FLAKE_DIR="$(dirname "$SCRIPT_DIR")"  # step up from scripts/ to repo root -- where flake.nix is
 
-# DISKO_PATH="$FLAKE_DIR/modules/imported/disko.nix" # disko.nix is inside flakes/
+# DISKO_PATH="$FLAKE_DIR/modules/imported/disko.nix" # disko.nix
 
 HOSTNAME="nixos" # match key in nixosConfigurations
 
