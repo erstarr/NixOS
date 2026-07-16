@@ -74,13 +74,13 @@
             ../configuration.nix
 
             # Disko
-            ../modules/disko.nix
+            ../modules/imported/disko.nix
 
             # Impermanence
-            ../modules/impermanence.nix
+            ../modules/imported/impermanence.nix
 
             # Home Manager
-            ../home_manager/home.nix
+            ../home_manager/imported/home.nix
 
             # Hyprland
 
