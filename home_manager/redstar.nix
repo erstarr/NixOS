@@ -3,7 +3,7 @@
 {
 
   imports = [
-    ./redstar_homeImpermanence.nix
+    ./modules/redstar_homeImpermanence.nix
     ./per_app_config/bash.nix
     ];
 
