@@ -27,8 +27,6 @@
 
     ./modules/swap.nix
 
-    ./modules/flakeConfigOpts.nix
-
 
     ./modules/networking.nix
     ./modules/firewall.nix

@@ -71,16 +71,16 @@
 
           # submodules - not strictly hierarchical, but is passed to the same system.
           modules = [
-            ../configuration.nix
+            ./configuration.nix
 
             # Disko
-            ../modules/imported/disko.nix
+            ./modules/imported/disko.nix
 
             # Impermanence
-            ../modules/imported/impermanence.nix
+            ./modules/imported/impermanence.nix
 
             # Home Manager
-            ../home_manager/imported/home.nix
+            ./modules/imported/home.nix
 
             # Hyprland
 
