@@ -22,12 +22,15 @@
     impermanence = {
       url = "github:nix-community/impermanence";
       inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
+      inputs.home-manager.follows = "home-manager";  # Imperm follows home manager so things don't break if they drift apart in version
     };
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Hyprland here - file already made
 
   };
 
@@ -78,6 +81,8 @@
 
             # Home Manager
             ./flakes/home.nix
+
+            # Hyprland
 
           ];
         };

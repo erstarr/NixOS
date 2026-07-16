@@ -2,7 +2,10 @@
 
 {
 
-  imports = [ ./redstar_homeImpermanence.nix ];
+  imports = [
+    ./redstar_homeImpermanence.nix
+    ./per_app_config/bash.nix
+    ];
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
