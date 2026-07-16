@@ -34,29 +34,33 @@ confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Co
 sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --flake "${FLAKE_DIR}#${HOSTNAME}"
 
 
-# 2.5 Create hardwareConfigurations file and copy it over
-confirm "STEP 2: Generate hardware configuration. Continue?"
 
+
+# 2 Create hardwareConfigurations file and copy it over
+confirm "STEP 2: Generate hardware configuration. Continue?"
 # --no-filesystems because disko owns that
 # gen the hardware config, write it to current config dir
 sudo nixos-generate-config --root /mnt --no-filesystems --show-hardware-config > "$FLAKE_DIR/hardware-configuration.nix"
 git add -A "$FLAKE_DIR/hardware-configuration.nix"
+
 
 # 3. Nix Install
 confirm "STEP 3: Run nixos-install. Continue?"
 # --no-root-passwd since the root is locked
 sudo nixos-install --flake "${FLAKE_DIR}#${HOSTNAME}" --no-root-passwd
 
+
+
 echo "Prep for step 4: creating .gitignore for password files..."
 sudo mkdir -p /mnt/persist/passwords
 echo "*" | sudo tee /mnt/persist/passwords/.gitignore > /dev/null
 
-
 # 4. User Password setting - Username: redstar
 confirm "STEP 4: Setting user password. Continue?"
 sudo mkpasswd -m yescrypt | sudo tee /mnt/persist/passwords/redstar > /dev/null
+# Tighten Permissions
 sudo chmod 700 /mnt/persist/passwords
-
+sudo chmod 600 /mnt/persist/passwords/redstar
 
 
 confirm "STEP 5: Copy NixOS config to persistent home. Continue?"
@@ -64,18 +68,15 @@ sudo mkdir -p /mnt/persist/home/redstar/NixOS_Config
 sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/NixOS_Config/
 
 
-confirm "STEP 6: Fix config ownership in persisted vol. Continue?"
+confirm "STEP 6: Fix ownership. Continue?"
+# In home so user must own it -- single user system so just redstar
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
 sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/NixOS_Config'
 
-sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/passwords/.gitignore'
-
+# Needed as systemd will first craete it in ephemeral filesystem otherwise.
 confirm "STEP 7: Persisting machine-id early. Continue?"
 sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
 
-# See if i really need this
-# confirm "STEP 8: Creating home dir for user redstar before first Home Manager run to ensure persistence. Continue?"
-# sudo mkdir -p /mnt/persist/home/redstar
-# sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
 
 confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
 sudo mv /tmp/install.log /mnt/var/log
