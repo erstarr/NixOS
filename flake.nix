@@ -8,7 +8,7 @@
   # https://nixos.org/manual/nix/unstable/command-ref/new-cli/nix3-flake-check.html#evaluation-checks
 
   inputs = {
-    # NixOS official package source, using the nixos-26.05 branch here
+    # NixOS official package source, using the nixos-unstable branch here
     nixpkgs = {
       url = "github:NixOS/nixpkgs/nixos-unstable"; # Rolling Release (Unstable Branch)
     };

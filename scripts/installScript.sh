@@ -18,9 +18,9 @@ exec > >(tee /tmp/install.log) 2>&1
 
 SCRIPT_DIR="$(dirname "$(realpath "$0")")"
 
-FLAKE_DIR="$SCRIPT_DIR" # the main flake root
+FLAKE_DIR="$(dirname "$SCRIPT_DIR")"  # step up from scripts/ to repo root -- where flake.nix is
 
-DISKO_PATH="$SCRIPT_DIR/flakes/disko.nix" # disko.nix is inside flakes/
+# DISKO_PATH="$FLAKE_DIR/modules/imported/disko.nix" # disko.nix is inside flakes/
 
 HOSTNAME="nixos" # match key in nixosConfigurations
 
@@ -75,6 +75,7 @@ sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/
 
 # Needed as systemd will first craete it in ephemeral filesystem otherwise.
 confirm "STEP 7: Persisting machine-id early. Continue?"
+# Imperm during nixos-install must have creted this by now
 sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
 
 
