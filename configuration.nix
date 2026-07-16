@@ -11,41 +11,41 @@
 }:
 
 {
-
-
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
 
     ./modules/hardware.nix
 
+    ./modules/btrfs.nix
+
     ./modules/boot.nix
 
     ./modules/systemd.nix
 
-    ./modules/flakeConfigOpts.nix
+    ./modules/nixStore.nix
 
     ./modules/swap.nix
-    
+
+    ./modules/flakeConfigOpts.nix
+
+
     ./modules/networking.nix
     ./modules/firewall.nix
 
     ./modules/timeAndLocale.nix
-    
+
     ./modules/sound.nix
-    
+
     ./modules/userAccounts.nix
-    
+
     ./modules/x11.nix
-    
+
     ./modules/defaultPrograms.nix
 
-    ./modules/packages_system.nix       # common packages
-    
+    ./modules/packages_system.nix # common packages
 
-
-    ./modules/changeOnlyOnFreshInstall.nix   # first insall version
-
+    ./modules/changeOnlyOnFreshInstall.nix # first insall version
 
     ./modules/defaultStuff_commented.nix # Just Commented Stuff
 
@@ -53,16 +53,15 @@
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported
   ++ lib.optionals vmMode [
     ./modules/vm_specific.nix
-    ];
-
-
-
+  ];
 
   # Config values live in /username/NixOS_Config!
   environment.etc."nixos".source = "/home/redstar/NixOS_Config";
 
-
-
-
+  nix.settings.experimental-features = [
+    # Enable Flakes
+    "nix-command"
+    "flakes"
+  ];
 
 }

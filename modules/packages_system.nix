@@ -11,11 +11,26 @@
   # You can use https://search.nixos.org/ to find more packages (and options).
 
 
+  # install packages with unfree LICENCES
+  nixpkgs.config.allowUnfree = true;
+
+  # Nix is not FHS-compliant so this is to compensate
+  programs.nix-ld.enable = true;
+
+
   environment.systemPackages = with pkgs; [
-    nano
     git
+    nano
+    wget
+
+    inetutils
+
+
   ];
 
+  fonts.packages = with pkgs; [
+    
+  ];
 
 
 }

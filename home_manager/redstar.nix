@@ -22,6 +22,7 @@
     userDirs = {
       enable = true;
       createDirectories = true;
+      setSessionVariables = true; # In case applications need xdg dirs set as env vars
     };
   };
 

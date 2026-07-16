@@ -6,10 +6,12 @@
 
   services = {
     xserver.videoDrivers = [ "amdgpu" ]; # GPU is AMD
+
+    fstrim.enable = true; # Trim on SSD
   };
 
   hardware.graphics = {
     enable = true;
-    #  enable32Bit = true;   # Steam/Proton/Wine - don't use so disabled for now
+    enable32Bit = true;   # Steam/Proton/Wine
   };
 }
