@@ -34,24 +34,40 @@
   config = {
     # required when mixing options + config in same file
     # Directories that need to be mounted before init system starts writing to them - i.e. if the init system is to write to these directories, they must be mounted early
-    # Is not strictly necessary for all the stuff in here to be mounted at initrd but won't hurt
-    fileSystems."/persist" = {
-      neededForBoot = true;
-    };
+    # Is not strictly necessary for all the stuff in here to be mounted at initrd but won't hurt - If a subvol isn't wiped (wiping / doesn't wipe /boot if /boot is its own subvol!)
 
-    # Logs need to be written to the non-ephemeral partition
+
+    # Redundant really since it't a subvol that's not wiped
     fileSystems."/var/log" = {
       neededForBoot = true;
     };
 
+    # Redundant really since it't a subvol that's not wiped
     fileSystems."/nix" = {
       neededForBoot = true;
     };
 
-    # If entireHomeDirImpermanence is enabled, early mount it as well
-    fileSystems."/home" = {
-      neededForBoot = config.custom.impermanence.entireHomeDirImpermanence;
+
+    # Redundant really since it't a subvol that's not wiped
+    fileSystems."/boot" = {
+      neededForBoot = true;
     };
+
+    # Swap need not be early mounted
+
+
+
+    # Must be early mounted so bind mounts can be set up
+    fileSystems."/persist" = {
+      neededForBoot = true;
+    };
+
+
+    # Needs to always early mount since it's always ephemeral now (always wiped, the only diff is what comes back)
+    fileSystems."/home" = {
+      neededForBoot = true;
+    };
+
 
     environment.persistence."/persist" = {
       enable = true;

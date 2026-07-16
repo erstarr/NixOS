@@ -1,11 +1,9 @@
-{ impermanence, osConfig, lib, ... }:
+{ osConfig, lib, ... }:
 {
-  imports = [ impermanence.homeManagerModules.impermanence ];
 
-  home.persistence."/persist/home/redstar" =
+  home.persistence."/persist" =
     # if not persisting entire home dir
     lib.mkIf (!osConfig.custom.impermanence.entireHomeDirImpermanence) {
-      allowOther = true;  # required for non-root bind mounts (i.e. needed for home imperm. managed by HM)
       directories = [
         ".local"
         "Desktop"
