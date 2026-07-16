@@ -24,14 +24,22 @@
       inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
     };
 
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
   outputs =
-    { 
+    {
       self,
       nixpkgs, # Nix Packages
+
+      # Flakes
       disko, # Disk Partitioning
       impermanence, # Impermanence
+      home-manager, # Home Management
       ...
     }@inputs:
     let
@@ -46,16 +54,14 @@
 
           # When fresh installing, it needs this since it doesn't have a hardwareConfigurations file yet
           # system = "x86_64-linux";
-          
+
           # Passing dependencies to submodules - only those that are defined in outputs are visible
           specialArgs = {
             # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
             # Switch this when on VM/BareMetal
-            vmMode = true;            
+            vmMode = true;
 
-
-
-            inherit disko impermanence;
+            inherit disko impermanence home-manager;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };
@@ -66,9 +72,12 @@
 
             # Disko
             ./flakes/disko.nix
-          
-            # impermanence
+
+            # Impermanence
             ./flakes/impermanence.nix
+
+            # Home Manager
+            ./flakes/home.nix
 
           ];
         };

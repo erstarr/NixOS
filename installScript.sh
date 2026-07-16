@@ -65,12 +65,17 @@ sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/nixos_config/
 
 
 confirm "STEP 6: Fix config ownership in persisted vol. Continue?"
-sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/home/redstar/nixos_config'
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/nixos_config'
 
-sudo nixos-enter --root /mnt -c 'chown -R redstar: /persist/passwords/.gitignore'
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/passwords/.gitignore'
 
 confirm "STEP 7: Persisting machine-id early. Continue?"
 sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
+
+# See if i really need this
+# confirm "STEP 8: Creating home dir for user redstar before first Home Manager run to ensure persistence. Continue?"
+# sudo mkdir -p /mnt/persist/home/redstar
+# sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
 
 confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
 sudo mv /tmp/install.log /mnt/var/log
