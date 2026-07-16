@@ -7,6 +7,7 @@
     lib.mkIf (!osConfig.custom.impermanence.entireHomeDirImpermanence) {
       allowOther = true;  # required for non-root bind mounts (i.e. needed for home imperm. managed by HM)
       directories = [
+        ".local"
         "Desktop"
         "Documents"
         "Downloads"
@@ -16,6 +17,9 @@
         "Public"
         "Templates"
         "Videos"
+
+        # My Nix and Dotfiles
+        "NixOS_Config"
       ];
       files = [
         ".bash_history"

@@ -58,8 +58,8 @@
 
 
 
-  # Config values live in /username/nixos_config!
-  environment.etc."nixos".source = "/home/redstar/nixos_config";
+  # Config values live in /username/NixOS_Config!
+  environment.etc."nixos".source = "/home/redstar/NixOS_Config";
 
 
 

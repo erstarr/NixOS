@@ -10,7 +10,7 @@
 
   home = {
     username = "redstar";
-  homeDirectory = "/home/redstar";
+    homeDirectory = "/home/redstar";
   };
 
   # TODO: is it an enable home manager at all switch or?

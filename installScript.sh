@@ -60,12 +60,12 @@ sudo chmod 700 /mnt/persist/passwords
 
 
 confirm "STEP 5: Copy NixOS config to persistent home. Continue?"
-sudo mkdir -p /mnt/persist/home/redstar/nixos_config
-sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/nixos_config/
+sudo mkdir -p /mnt/persist/home/redstar/NixOS_Config
+sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/NixOS_Config/
 
 
 confirm "STEP 6: Fix config ownership in persisted vol. Continue?"
-sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/nixos_config'
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/NixOS_Config'
 
 sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/passwords/.gitignore'
 
