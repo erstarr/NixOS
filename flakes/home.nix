@@ -1,5 +1,6 @@
 
 {
+  osConfig,
   home-manager,
   impermanence,
   ...
@@ -28,6 +29,10 @@
     };
 
 
+
+  # Allow home manager to handled home impermemence
+  # Bound to entireHomeDirImpermanence since if that's disabled, home manager doesn't manage home imperm anymore
+  programs.fuse.userAllowOther = !osConfig.custom.impermanence.entireHomeDirImpermanence;
 
 
 

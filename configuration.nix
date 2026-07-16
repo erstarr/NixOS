@@ -58,7 +58,6 @@
 
 
 
-
   # Config values live in /username/nixos_config!
   environment.etc."nixos".source = "/home/redstar/nixos_config";
 

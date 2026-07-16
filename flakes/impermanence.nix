@@ -21,9 +21,10 @@
 
   imports = [ impermanence.nixosModules.impermanence ];
 
+  # Persist the entire /home. Disables home manager's home persistence stuff.
   options.custom.impermanence.entireHomeDirImpermanence = lib.mkOption {
     type = lib.types.bool;
-    default = true;
+    default = false;
     description = "Persist entire home dir. False = selective persistence.";
   };
 
