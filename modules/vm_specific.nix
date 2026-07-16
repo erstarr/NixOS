@@ -1,6 +1,7 @@
 
 
 {
+  lib,
   pkgs,
   ...
 }:
@@ -15,7 +16,7 @@
 
   };
   # THIS IS VM SPECIFIC - Allow SSHD through
-  networking.firewall.allowedTCPPorts = [ 22 ];
+  networking.firewall.allowedTCPPorts = lib.mkForce [ 22 ];
 
 
   environment.systemPackages = with pkgs; [

@@ -1,3 +1,5 @@
+{lib, ...}:
+
 {
 
   ############################################################################################################
@@ -13,7 +15,11 @@
   firewall = {
 
     enable = true;
-  
+
+    # Blanket ban any implicit opening of the firewall
+    # You have to use lib.mkForce to open them as well
+    allowedTCPPorts = lib.mkForce [];
+    allowedUDPPorts = lib.mkForce [];
   };
 
 

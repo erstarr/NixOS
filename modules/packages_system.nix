@@ -25,6 +25,7 @@
 
     inetutils
 
+    man-pages
 
   ];
 
