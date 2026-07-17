@@ -28,4 +28,18 @@
     trusted-users = ["root" "@wheel"];
   };
 
+
+
+  # Graphical Session for Hyprland - Need to do this manually at least for now
+  # Home Manager Option! It's written here but it's tied to home manager being present on system
+  systemd.user.targets.hyprland-session = {
+    Unit = {
+      Description = "Hyprland session";
+      BindsTo = "graphical-session.target";
+      Wants = "graphical-session-pre.target";
+      After = "graphical-session-pre.target";
+      PropagatesStopTo = "graphical-session.target";
+    };
+  };
+
 }

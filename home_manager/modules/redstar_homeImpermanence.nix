@@ -20,8 +20,7 @@
         "NixOS_Config"
 
         # Flatpak files
-        .var/app
-        # .local/share/flatpak already covered by blanked persistance of .local above
+        ".var/app"
       ];
       files = [
         ".bash_history"

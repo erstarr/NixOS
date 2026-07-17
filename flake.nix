@@ -30,6 +30,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nix-flatpak = {
+      url = "github:gmodena/nix-flatpak/?ref=latest";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # Hyprland here - file already made
 
   };
@@ -43,6 +48,7 @@
       disko, # Disk Partitioning
       impermanence, # Impermanence
       home-manager, # Home Management
+      nix-flatpak, # nix-flatpak - Decleratively manager flatpaks
       ...
     }@inputs:
     let
@@ -64,7 +70,7 @@
             # Switch this when on VM/BareMetal
             vmMode = true;
 
-            inherit disko impermanence home-manager;
+            inherit disko impermanence home-manager nix-flatpak;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };
@@ -82,8 +88,10 @@
             # Home Manager
             ./modules/imported/home.nix
 
-            # Hyprland
-
+            # nix-flatpak - Decleratively manager flatpaks
+            modules/imported/flatpak.nix
+          
+          
           ];
         };
       };
