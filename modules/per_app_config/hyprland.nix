@@ -1,5 +1,17 @@
+{pkgs, ...}:
+
 {
 
+  # Configuration done in the lua config file, not here
+
+  # Hyprland
+  programs.hyprland.enable = true;
+  # Hypridle
+  services.hypridle.enable = true;
+  # Hyprlock
+  programs.hyprlock.enable = true;
+
+  programs.hyprland.xwayland.enable = true;
 
 
   # Cache so you don't rebuild all hyprland deps every time you update (inc mesa. etc...)
@@ -11,4 +23,5 @@
     # Use @wheel for all sudo users, or list your username explicitly.
     trusted-users = ["root" "@wheel"];
   };
+
 }

@@ -27,10 +27,21 @@
 
     man-pages
 
+    kitty
+
+    # Hyprland installed - via its own .nix file
+
+    btop
+
+    fastfetch
+    
+
+
   ];
 
   fonts.packages = with pkgs; [
-    
+    noto-fonts
+
   ];
 
 
