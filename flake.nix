@@ -89,7 +89,7 @@
             ./modules/imported/home.nix
 
             # nix-flatpak - Decleratively manager flatpaks
-            modules/imported/flatpak.nix
+            ./modules/imported/flatpak.nix
           
           
           ];

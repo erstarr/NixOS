@@ -1,0 +1,4 @@
+[Context]
+sockets=!ssh-auth;wayland;!x11
+devices=shm;kvm;input
+filesystems=!xdg-run/app/com.discordapp.Discord;!/run/media;!/mnt;!/media;~/Documents/Archive/Specific Program Related/Obsidian/Obsidian_Notebooks;!home

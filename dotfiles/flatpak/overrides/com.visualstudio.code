@@ -1,0 +1,19 @@
+[Context]
+sockets=!ssh-auth;!fallback-x11;!x11
+devices=!all;shm;kvm;input;dri
+features=!devel
+filesystems=!host
+persistent=/.ssh
+
+[Environment]
+FREETYPE_PROPERTIES="autofitter:no-stem-darkening=0 autofitter:darkening-parameters=500,500,1000,500,2500,500,4000,0 cff:no-stem-darkening=0 type1:no-stem-darkening=0 t1cid:no-stem-darkening=0"
+
+[System Bus Policy]
+org.freedesktop.login1=none
+
+[Session Bus Policy]
+org.freedesktop.Flatpak=none
+org.kde.kwalletd5=none
+com.canonical.AppMenu.Registrar=none
+com.canonical.AppMenu.Registrar.*=none
+org.kde.kwalletd6=none

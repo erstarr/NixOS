@@ -1,0 +1,12 @@
+[Context]
+sockets=!cups;!pcsc;!fallback-x11;!x11
+devices=!all;shm;kvm;input;dri
+features=!devel
+filesystems=!/run/.heim_org.h5l.kcm-socket;!xdg-download;/home/redstar/Downloads
+
+[System Bus Policy]
+org.freedesktop.NetworkManager=none
+
+[Session Bus Policy]
+org.gtk.vfs.*=none
+org.a11y.Bus=none

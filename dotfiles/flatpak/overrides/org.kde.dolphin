@@ -1,0 +1,17 @@
+[Context]
+sockets=!fallback-x11;!x11
+devices=shm;kvm;input
+filesystems=!~/.var/app;/mnt;/home/redstar/Desktop;/home/redstar/Documents;/home/redstar/Downloads;/home/redstar/Pictures;/home/redstar/Videos;/home/redstar/Music;!home
+
+[System Bus Policy]
+org.freedesktop.UDisks2=none
+
+[Session Bus Policy]
+org.kde.kded5=none
+org.freedesktop.Flatpak=none
+org.kde.kiod6=none
+org.kde.kiod5=none
+org.kde.kded6=none
+org.kde.kpasswdserver=none
+com.canonical.AppMenu.Registrar=none
+org.kde.kpasswdserver6=none

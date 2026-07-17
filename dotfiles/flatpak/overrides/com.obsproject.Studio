@@ -1,0 +1,8 @@
+[Context]
+sockets=!fallback-x11;!x11
+devices=!all;shm;kvm;input;dri
+filesystems=/home/redstar/Videos/OBS;!host
+
+[Session Bus Policy]
+org.freedesktop.Flatpak=none
+org.a11y.Bus=none

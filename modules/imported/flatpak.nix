@@ -32,53 +32,51 @@
         ../../dotfiles/flatpak/overrides/org.kde.kate
         ../../dotfiles/flatpak/overrides/org.mozilla.firefox
       ];
-
-      # remotes = []; # By default  flathub is already added
-      packages = [
-
-        {
-          appId = "com.github.tchx84.Flatseal";
-          origin = "flathub";
-        }
-
-        {
-          appId = "org.mozilla.firefox";
-          origin = "flathub";
-        }
-
-        {
-          appId = "com.obsproject.Studio";
-          origin = "flathub";
-        }
-
-        {
-          appId = "com.visualstudio.code";
-          origin = "flathub";
-        }
-
-        {
-          appId = "md.obsidian.Obsidian";
-          origin = "flathub";
-        }
-
-        {
-          appId = "net.ankiweb.Anki";
-          origin = "flathub";
-        }
-
-        {
-          appId = "org.kde.dolphin";
-          origin = "flathub";
-        }
-
-        {
-          appId = "org.kde.kate";
-          origin = "flathub";
-        }
-
-      ];
     };
+    # remotes = []; # By default  flathub is already added
+    packages = [
 
+      {
+        appId = "com.github.tchx84.Flatseal";
+        origin = "flathub";
+      }
+
+      {
+        appId = "org.mozilla.firefox";
+        origin = "flathub";
+      }
+
+      {
+        appId = "com.obsproject.Studio";
+        origin = "flathub";
+      }
+
+      {
+        appId = "com.visualstudio.code";
+        origin = "flathub";
+      }
+
+      {
+        appId = "md.obsidian.Obsidian";
+        origin = "flathub";
+      }
+
+      {
+        appId = "net.ankiweb.Anki";
+        origin = "flathub";
+      }
+
+      {
+        appId = "org.kde.dolphin";
+        origin = "flathub";
+      }
+
+      {
+        appId = "org.kde.kate";
+        origin = "flathub";
+      }
+
+    ];
   };
 
 }
