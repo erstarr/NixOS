@@ -18,6 +18,10 @@
 
         # My Nix and Dotfiles
         "NixOS_Config"
+
+        # Flatpak files
+        .var/app
+        # .local/share/flatpak already covered by blanked persistance of .local above
       ];
       files = [
         ".bash_history"

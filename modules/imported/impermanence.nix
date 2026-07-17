@@ -80,7 +80,10 @@
         "/var/lib/nixos" # Mandatory
         # "/var/log" # Persisted cuz it's a btrfs subvolume
         "/etc/NetworkManager/system-connections" # Keep Connection Profiles (might symlink this from my config)
-        # What else to be persisted goes here
+        
+        # Flatpak install dir
+        "/var/lib/flatpak"
+
         # { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
       ]
       # If persisting the entire home dir,

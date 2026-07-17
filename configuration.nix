@@ -52,6 +52,8 @@
     # Per app files
     ./modules/per_app_config/man.nix
 
+    ./modules/per_app_config/hyprland.nix
+
 
   ]
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported

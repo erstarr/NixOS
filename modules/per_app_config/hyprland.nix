@@ -11,8 +11,12 @@
   # Hyprlock
   programs.hyprlock.enable = true;
 
+  # XWayland switch - it's enabled by def but explicitly enable here too
   programs.hyprland.xwayland.enable = true;
 
+
+  # For file picker
+  xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Cache so you don't rebuild all hyprland deps every time you update (inc mesa. etc...)
   nix.settings = {
