@@ -21,6 +21,8 @@
 
     ./modules/boot.nix
 
+    ./modules/power.nix
+
     ./modules/systemd.nix
 
     ./modules/nixStore.nix
@@ -56,6 +58,8 @@
     ./modules/per_app_config/man.nix
 
     ./modules/per_app_config/hyprland.nix
+
+    ./modules/yazi.nix
 
 
   ]

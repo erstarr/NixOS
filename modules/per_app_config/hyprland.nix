@@ -11,11 +11,24 @@
   # Hyprlock
   programs.hyprlock.enable = true;
 
+
+
+
+  environment.systemPackages = with pkgs; [
+
+      hyprpicker
+      hyprsunset
+
+      hyprpolkitagent
+  ];
+
+
+
   # XWayland switch - it's enabled by def but explicitly enable here too
   programs.hyprland.xwayland.enable = true;
 
 
-  # For file picker
+  # For file pickermodules
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
   # Cache so you don't rebuild all hyprland deps every time you update (inc mesa. etc...)
