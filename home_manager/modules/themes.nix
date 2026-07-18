@@ -20,7 +20,7 @@
 
   qt = {
     enable = true;
-    platformTheme.name = "gtk"; # follows GTK
+    platformTheme.name = "gtk3"; # follows GTK
     style = {
       name = "adwaita-dark";
       package = with pkgs; [ adwaita-qt adwaita-qt6 ]; # qt5/6

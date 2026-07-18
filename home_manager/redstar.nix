@@ -4,8 +4,10 @@
 
   imports = [
     ./modules/redstar_homeImpermanence.nix
-    ./per_app_config/bash.nix
     ./modules/themes.nix
+
+    ./per_app_config/bash.nix
+    ./per_app_config/yazi_hm.nix
     ];
 
   # Home Manager needs a bit of information about you and the

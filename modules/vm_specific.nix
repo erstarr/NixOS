@@ -23,4 +23,15 @@
     nixd # Language Server
     nixfmt # Formatter
   ];
+
+  # File Share from Host (virtiofs) - comment out when not in use
+  boot.kernelModules = [ "virtiofs" ];
+
+  fileSystems."/mnt/shared" = {
+    device  = "fileShare";
+    fsType  = "virtiofs";
+    options = [ "_netdev" ];
+  };
+
+
 }
