@@ -49,6 +49,8 @@
     ripgrep
     _7zz # 7zip
     poppler_utils # for pdftoppm
+
+    clipse
   ];
 
   fonts.packages = with pkgs; [
