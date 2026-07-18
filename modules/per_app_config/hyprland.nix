@@ -30,8 +30,7 @@
 
 
 
-  # Graphical Session for Hyprland - Need to do this manually at least for now
-  # Home Manager Option! It's written here but it's tied to home manager being present on system
+  # Graphical Session for Hyprland (since it's def at system level, it's defined for all users) - Need to do this manually at least for now
   systemd.user.targets.hyprland-session = {
     unitConfig = {
       Description = "Hyprland session";

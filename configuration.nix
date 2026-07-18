@@ -46,7 +46,10 @@
     ./modules/changeOnlyOnFreshInstall.nix # first insall version
 
     ./modules/defaultStuff_commented.nix # Just Commented Stuff
+  
 
+    # gtk themeing shit
+    ./dconf.nix
 
 
     # Per app files

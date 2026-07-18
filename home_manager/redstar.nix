@@ -5,6 +5,7 @@
   imports = [
     ./modules/redstar_homeImpermanence.nix
     ./per_app_config/bash.nix
+    ./modules/themes.nix
     ];
 
   # Home Manager needs a bit of information about you and the
