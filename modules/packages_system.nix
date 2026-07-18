@@ -44,13 +44,19 @@
     waybar
     rofi
 
+
+    # For yazi
     fd
     fzf
     ripgrep
     _7zz # 7zip
     poppler_utils # for pdftoppm
 
+    wl-clipboard # Need to explicitly pull it in cuz clipse does not
+    wtype # For auto-paste script
     clipse
+
+    satty
   ];
 
   fonts.packages = with pkgs; [

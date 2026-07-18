@@ -20,6 +20,9 @@
       hyprsunset
 
       hyprpolkitagent
+
+
+      grimblast
   ];
 
 
