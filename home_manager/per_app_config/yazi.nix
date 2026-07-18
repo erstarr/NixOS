@@ -3,8 +3,9 @@
     name = "Yazi File Manager";
     icon = "yazi";
     comment = "Blazing fast terminal file manager written in Rust, based on async I/O";
-    terminal = false;
-    exec = "kitty --detach yazi %u";
+    terminal = true;
+    exec = "yazi %f";
+    type = "Application";
     mimeType = [ "inode/directory" ];
     categories = [
       "System"
