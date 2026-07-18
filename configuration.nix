@@ -29,7 +29,7 @@
 
     ./modules/swap.nix
 
-    ./module/snapshot.nix
+    ./modules/snapshot.nix
 
 
     ./modules/networking.nix
