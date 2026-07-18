@@ -49,7 +49,7 @@
   
 
     # gtk themeing shit
-    ./dconf.nix
+    ./modules/dconf.nix
 
 
     # Per app files

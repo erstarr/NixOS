@@ -12,6 +12,8 @@
   # Required for Pipewire
   security.rtkit.enable = true;
 
+  # To achieve parity with arch
+  services.pipewire.jack.enable = true;
 
 
 

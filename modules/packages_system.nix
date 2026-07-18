@@ -35,6 +35,8 @@
 
     fastfetch
     
+    alsa-utils
+    pavucontrol
 
 
   ];

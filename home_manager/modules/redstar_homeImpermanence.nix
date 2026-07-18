@@ -5,7 +5,7 @@
     # if not persisting entire home dir
     lib.mkIf (!osConfig.custom.impermanence.entireHomeDirImpermanence) {
       directories = [
-        ".local"
+        ".local" # covers quite a bit of apps config stuff like pavucontrol, ...
         "Desktop"
         "Documents"
         "Downloads"

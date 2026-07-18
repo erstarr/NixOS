@@ -12,6 +12,10 @@
 
     kernelPackages = pkgs.linuxPackages_latest;
 
+
+    # TODO - PUT THIS IN A PER-HOST FILE! ONLY ON DESKTOP SYSTEMS!
+    blacklistedKernelModules = [ "iwlwifi" ]; # Disable wifi driver
+
     loader = {
 
       grub = {
