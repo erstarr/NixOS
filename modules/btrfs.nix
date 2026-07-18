@@ -8,6 +8,5 @@
   };
 
 
-  # TODO set up snapshots
 
 }

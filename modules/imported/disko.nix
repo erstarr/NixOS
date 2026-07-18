@@ -60,37 +60,37 @@
                 mountpoint = "/partition-root";
                 subvolumes = {
                   # For impermanence, Most of the subvols here are not explicitly persisted in imperm since they're already excluded from being wiped since they're their own subvolume.
-                  "/root" = {
+                  "root" = {
                     mountpoint = "/";
                     mountOptions = [ "compress=zstd" ];
                   };
-                  "/boot" = {
+                  "boot" = {
                     mountpoint = "/boot";
                     mountOptions = ["compress=zstd"];
                   };
-                  "/nix" = {
+                  "nix" = {
                     mountpoint = "/nix";
                     mountOptions = [
                       "compress=zstd"
                       "noatime" # Optimisation
                     ];
                   };
-                  "/log" = {
+                  "log" = {
                     mountpoint = "/var/log";
                     mountOptions = [ "compress=zstd" ];
                   };
-                  "/persist" = {
+                  "persist" = {
                     mountpoint = "/persist";
                     mountOptions = [ "compress=zstd" ];
                   };
-                  "/home" = {
+                  "home" = {
                     mountpoint = "/home";
                     mountOptions = [ "compress=zstd" ];
                   };
                   # NixOS sets the nodatacow atrribute on the inode itself since btrfs doesn't allow me to set it here (conflict with compress= on other subvol).
                   # nodatacow also disables compression implicitly which is important!
                   # lsattr /.swapvol/swapfile to check
-                  "/swap" = {
+                  "swap" = {
                     mountpoint = "/.swapvol";
                     swap.swapfile.size = "8G"; # TODO --> VM; adjust to 32G on bare metal
                   };

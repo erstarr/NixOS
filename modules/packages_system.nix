@@ -52,9 +52,10 @@
     _7zz # 7zip
     poppler-utils # for pdftoppm
 
+    # Clipboard
+    clipse
     wl-clipboard # Need to explicitly pull it in cuz clipse does not
     wtype # For auto-paste script
-    clipse
 
     satty
   ];

@@ -29,6 +29,8 @@
 
     ./modules/swap.nix
 
+    ./module/snapshot.nix
+
 
     ./modules/networking.nix
     ./modules/firewall.nix
