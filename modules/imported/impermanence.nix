@@ -84,6 +84,9 @@
         # Flatpak install dir
         "/var/lib/flatpak"
 
+        # Libvirt stuff. Virtual Disks are in their own partition so they will mount over the imperm mount and shadow it; which is ok.
+        "/var/lib/libvirt"
+
         # { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
       ]
       # If persisting the entire home dir,

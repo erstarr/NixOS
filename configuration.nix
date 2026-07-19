@@ -31,6 +31,7 @@
 
     ./modules/snapshot.nix
 
+    ./modules/virtualisation.nix
 
     ./modules/networking.nix
     ./modules/firewall.nix

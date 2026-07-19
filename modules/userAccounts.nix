@@ -20,7 +20,8 @@ users = {
       group = "redstar";  # enforce UPG
       extraGroups = [
         "wheel" # sudo
-        "networkmanager" # Allow editing network confs
+        "networkmanager" # For NetworkManager
+        "libvirtd"       # For libvirt
       ];
 
     # User packages - shouldn't need this
