@@ -16,6 +16,9 @@
         "Templates"
         "Videos"
 
+        # SSH - mainly for known hosts --> for github ssh auth
+        ".ssh"
+
         # My Nix and Dotfiles
         "NixOS_Config"
 

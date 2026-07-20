@@ -95,6 +95,10 @@
       ];
       files = [
         "/etc/machine-id" # In first boot after install, this needs to be moved into /persist which is done by the install script
+
+        # systemd credentials storage - libvirt uses this
+        "/var/lib/systemd/credential.secret"
+
         # { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       ];
     };
