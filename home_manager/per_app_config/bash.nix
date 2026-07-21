@@ -18,7 +18,7 @@
 
     # HISTSIZE and HISTFILESIZE
     historySize = 1000;
-    historyFileSize = 2500;
+    historyFileSize = 10000;
 
 
 

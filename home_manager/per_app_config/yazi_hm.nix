@@ -1,3 +1,8 @@
+{config, ...}:
+
+let
+  dotDir = "NixOS_Config/dotfiles";
+in
 {
   # TODO: keep in sync with yazi.desktop
   xdg.desktopEntries.yazi = {
@@ -25,4 +30,13 @@
     enable = true;
     defaultApplications."inode/directory" = "yazi.desktop";
   };
+
+
+
+  # Yazi
+  xdg.configFile."yazi".source =
+    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/yazi";
+
+
+
 }

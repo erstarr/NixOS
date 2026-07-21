@@ -30,10 +30,6 @@ in
   xdg.configFile."kitty".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/kitty";
 
-  # Yazi
-  xdg.configFile."yazi".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/yazi";
-
   # Wireplumber
   xdg.configFile."wireplumber".source =
     config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/wireplumber";
