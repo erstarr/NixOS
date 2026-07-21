@@ -13,6 +13,13 @@
   ###################################################################################################################################
   ###################################################################################################################################
 
+
+  ######################
+  # IMPORTANT: ADDING STUFF TO PERSISTANCE PAST FIRST INSTALL REQUIRES THE MANUAL COPYING OF THE FILES PRESENT THERE IF THE CURRENT STATE MUST BE SAVED!
+  ####> sudo cp -p to preserve owner,group,perms
+  ######################
+
+
   # Setup: Root is always wiped - subvolumes are not touched, and from the dirs/files that are touched some are explicitly persisted.
   #        Home is always wiped. If entireHomeDirImpermanence = true, the entire home dir is persisted (it's in separate subvol so its imperm is done explicitly in script).
   #                              If entireHomeDirImpermanence = false, only some dirs/files are persisted in home.
