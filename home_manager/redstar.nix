@@ -7,7 +7,13 @@
     ./modules/themes.nix
 
     ./per_app_config/bash.nix
+
+    ./per_app_config/misc_conf.nix
+    ./per_app_config/clipse.nix
+
+
     ./per_app_config/yazi_hm.nix
+
     ];
 
   # Home Manager needs a bit of information about you and the

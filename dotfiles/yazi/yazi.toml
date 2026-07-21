@@ -1,0 +1,97 @@
+[mgr]
+show_hidden = true
+show_symlink = true
+
+sort_dir_first = true
+sort_sensitive = false
+
+linemode = "mtime"
+
+
+
+[preview]
+wrap = "yes"
+
+
+
+
+
+
+
+
+[opener]
+play = [
+    { run = 'xdg-open "$1"', block = false, orphan = true, desc = "Play - xdg-open", for = "unix" },
+]
+edit = [
+	{ run = 'nano "$1"', block = true, orphan = false, desc = "Edit - nano", for = "unix" },
+]
+open = [
+	{ run = 'xdg-open "$1"', block = false, orphan = true, desc = "Open - xdg-open", for = "unix" },
+]
+reveal = [
+    { run = 'kitty --detach yazi "$1"', block = false, orphan = true, desc = "Reveal - Yazi", for = "unix" },
+]
+vscode = [
+    { run = 'flatpak run --file-forwarding com.visualstudio.code @@ "$1" @@', block = false, orphan = true, desc = "VSCode", for = "unix" },
+]
+kate = [
+    { run = 'flatpak run --file-forwarding org.kde.kate -n @@ "$1" @@', block = false, orphan = true, desc = "Kate", for = "unix" }, # -n is so kate opens files in a new window instead of in a new tab
+]
+satty = [
+    { run = 'satty --filename "$1"', block = true, orphan = true, desc = "Satty", for = "unix" },
+]
+
+
+
+# All entries are to have "reveal" as well, so that i can select files in search and Shift - o {O} -> reveal to open each element in its own yazi window. (Open in New Tab equivalent)
+
+[open]
+prepend_rules = [
+    { mime = "text/plain", use = [ "vscode", "kate", "edit", "open", "reveal" ] }, # All plaintext mimes -- This will appear ontop of the open with menu. To move it down, move this entry down
+    { url = "*.txt", use = [ "vscode", "kate", "edit", "open", "reveal" ] }, # Explicit since it seems that files with spaces in names don't get picked up by mime = "text/plain"
+    { url = "*.md", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.lua", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.html", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.htm", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.css", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.scss", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.less", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.js", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.ts", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.jsx", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.tsx", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.json", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.jsonc", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.yaml", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.conf", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.rasi", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.yml", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.toml", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.xml", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.csv", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.tsv", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.py", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.java", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.c", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.cpp", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.h", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.hpp", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.cs", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.php", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.go", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.sh", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.bat", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+    { url = "*.cmd", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
+
+
+    { url = "*.jpg", use = [ "satty", "open", "reveal" ] },
+    { url = "*.png", use = [ "satty", "open", "reveal" ] },
+
+
+]
+
+
+append_rules = [
+    { url = "*", use = [ "edit", "vscode", "open", "reveal" ] }, # Fallback - Open any file with "edit" -> nano ||| open -> xdg-open
+]

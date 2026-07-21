@@ -1,0 +1,12 @@
+
+
+
+return {
+    HYPRLAND_BORDER_SIZE = 1,
+    HYPRLAND_GAPS_IN = 3,
+    HYPRLAND_GAPS_OUT = 2,
+    HYPRLAND_ROUNDING = 5,
+}
+
+
+

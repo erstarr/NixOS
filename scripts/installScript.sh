@@ -36,8 +36,8 @@ echo "extracting disko version from flake.lock..."
 DISKO_REV=$(nix eval --impure --raw --expr \
   "(builtins.fromJSON (builtins.readFile \"${FLAKE_DIR}/flake.lock\")).nodes.disko.locked.rev")
 
-# Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md - with modifs since disko is not a flake
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/${DISKO_REV} -- --mode destroy,format,mount --flake "${FLAKE_DIR}#${HOSTNAME}"
+# Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md - with modifs
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/${DISKO_REV}#disko -- --mode destroy,format,mount --flake "${FLAKE_DIR}#${HOSTNAME}"
 
 
 

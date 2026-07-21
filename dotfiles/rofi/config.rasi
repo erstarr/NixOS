@@ -1,0 +1,353 @@
+* {
+    window-background-color:                      transparent;
+    window-text-color:                            #FFFFFF;
+    window-border-color:                          rgba(97, 97, 97, 1);
+    mainbox-background-color:                     rgba(45, 45, 45, 0.66);
+
+    imagebox-background-color:                    transparent;
+
+    inputbar-background-color:                    rgba(26, 26, 26, 0.84);
+    inputbar-border-color:                        rgba(140, 140, 140, 0.84);
+
+    textbox-prompt-colon-text-color:              rgba(170, 170, 170, 1);
+    textbox-prompt-colon-background-color:        transparent;
+
+    entry-background-color:                       transparent;
+    entry-text-color:                             rgba(233, 233, 233, 1);
+
+    listbox-background-color:                     transparent;
+
+    message-background-color:                     transparent;
+
+    message-textbox-background-color:             rgba(30, 30, 30, 0.69);
+    message-textbox-text-color:                   rgba(241, 241, 241, 1);
+
+    listview-background-color:                    transparent;
+    listview-border-color:                        transparent;
+
+    mode-switcher-background-color:               transparent;
+
+    button-background-color:                      rgba(86, 86, 86, 0.69);
+    button-text-color:                            rgba(220, 220, 220, 1);
+
+    button-selected-text-color:                   rgba(38, 38, 38, 1);
+    button-selected-background-color:             rgba(121, 121, 121, 1);
+    button-selected-border-color:                 rgba(207, 207, 207, 1);
+
+    element-background-color:                     transparent;
+
+    element-selected-normal-background-color:     rgba(26, 26, 26, 0.94);
+    element-selected-normal-border-color:         rgba(216, 216, 216, 0.45);
+    element-selected-normal-text-color:           rgba(241, 241, 241, 1);
+
+    element-normal-normal-border-color:           transparent;
+    element-normal-normal-text-color:             rgba(240, 240, 240, 1);
+
+    element-normal-urgent-border-color:           transparent;
+    element-normal-urgent-text-color:             rgba(240, 240, 240, 1);
+
+    element-normal-active-border-color:           transparent;
+    element-normal-active-text-color:             rgba(240, 240, 240, 1);
+
+    element-selected-urgent-border-color:         transparent;
+    element-selected-urgent-text-color:           rgba(240, 240, 240, 1);
+
+    element-selected-active-border-color:         transparent;
+    element-selected-active-text-color:           rgba(240, 240, 240, 1);
+
+    element-alternate-normal-border-color:        transparent;
+    element-alternate-normal-text-color:          rgba(240, 240, 240, 1);
+
+    element-alternate-urgent-border-color:        transparent;
+    element-alternate-urgent-text-color:          rgba(240, 240, 240, 1);
+
+    element-alternate-active-border-color:        transparent;
+    element-alternate-active-text-color:          rgba(240, 240, 240, 1);
+
+    element-icon-background-color:                transparent;
+
+    element-text-background-color:                transparent;
+}
+
+
+
+
+
+
+
+
+/* ---- Configuration ---- */                /* General configuration block */
+configuration {
+    modi:                       "drun,filebrowser,window,run";   /* Modes available: app launcher, file browser, window switcher, run command */
+    font:                       "Fira Sans 11";                  /* Font used in Rofi */
+    show-icons:                 true;                            /* Show icons next to entries */
+    icon-theme:                 "Tela-circle-dracula";           /* Icon theme */
+    display-drun:                " ";                          /* Label/icon for drun mode */
+    display-run:                 " ";                          /* Label/icon for run mode */
+    display-filebrowser:         " ";                          /* Label/icon for file browser mode */
+    display-window:              " ";                          /* Label/icon for window mode */
+    drun-display-format:        "{name}";                        /* Format for displaying drun entries */
+    hover-select:               false;                           /* Disable hover selection */
+    scroll-method:              1;                               /* Scroll method */
+    me-select-entry:            "";                              /* Mouse entry selection binding */
+    me-accept-entry:            "MousePrimary";                  /* Mouse accept entry binding */
+    window-format:              "{w} · {c} · {t}";               /* Format for window entries */
+    
+}
+
+
+
+/* Specific Module Configuration*/
+configuration {
+    filebrowser {
+                    /** Directory the file browser starts in. */
+                    directory: "/home/redstar";
+                    /** Group directories before files. */
+                    directories-first: true;
+                    /** Show hidden files. */
+                    show-hidden: true;
+                    /** command */
+                    command: "xdg-open";
+                 }
+
+}
+
+
+
+
+
+
+/* ---- Load font ---- */                   /* Font configuration */
+configuration { font: "Fira Sans 11"; }
+
+/* ---- Load colors ---- */                 /* Load external color theme */
+
+/* ---- Load wallpaper ---- */              /* Placeholder for wallpaper config */
+
+
+/* ---- Load border width ---- */           /* Global border width */
+* { border-width: 1px; }
+
+/* ---- Load border radius ---- */          /* Global border radius */
+* { border-radius: 0em; }
+
+// Main //
+window {
+    transparency:                "real";                         /* Enable real transparency */
+    background-color:             @window-background-color;                   /* Transparent background */
+    width:                        30em;                          /* Window width */
+    /*//x-offset:                     0em;*/                     /* Optional horizontal offset */
+    /*//y-offset:                     2em;*/                         /* Optional vertical offset */
+    spacing:                      0em;                           /* No spacing */
+    padding:                      0em;                           /* No padding */
+    margin:                       0em;                           /* No margin */
+    color:                      @window-text-color;                         /* Text color */
+    border:                       @border-width;                 /* Border width */
+    border-color:                 @window-border-color;                     /* Border color */
+    cursor:                       "default";                     /* Cursor style */
+    transparency:                 "real";                        /* Transparency mode */
+    /*//location:                     north;*/                   /* Optional location */
+    /*//anchor:                       north;*/                   /* Optional anchor */
+    fullscreen:                   false;                         /* Not fullscreen */
+    enabled:                      true;                          /* Window enabled */
+}
+
+mainbox {
+    enabled:                     true;                           /* Main container enabled */
+    spacing:                     0em;                            /* No spacing */
+    padding:                     0em;                            /* No padding */
+    orientation:                 horizontal;                     /* Horizontal layout */
+    children:                    [ "listbox" ];                  /* Contains listbox */
+    background-color:            @mainbox-background-color;                      /* Transparent background */
+}
+
+/* ---- Imagebox ---- */                   /* Container for input bar */
+imagebox {
+    padding:                      1em;                           /* Padding around imagebox */
+    background-color:             @imagebox-background-color;                   /* Transparent background */
+    orientation:                  horizontal;                    /* Horizontal layout */
+    children:                     [ "inputbar" ];                /* Contains inputbar */
+}
+
+// Inputs //
+inputbar {
+    enabled:                     true;                           /* Input bar enabled */
+    spacing:                     0.4em;                          /* Spacing between children */
+    margin:                      0.6em;                          /* Horizontal margins */
+    padding:                     0.4em;                          /* Compact padding */
+    children:                    [ "textbox-prompt-colon", "entry" ]; /* Contains prompt and entry */
+    background-color:            @inputbar-background-color;      /* Semi-transparent background */
+    border:                      1;                              /* Border width */
+    border-color:                @inputbar-border-color;      /* Border color */
+}
+
+textbox-prompt-colon {
+    enabled:                     true;                           /* Prompt enabled */
+    expand:                      false;                          /* Do not expand */
+    str:                         "  ";                          /* Prompt string/icon */
+    padding:                     0.6em 0.2em 0em 0em;            /* Padding around prompt */
+    text-color:                  @textbox-prompt-colon-text-color;                      /* Text color */
+    background-color:            @textbox-prompt-colon-background-color;                    /* Transparent background */
+}
+
+entry {
+    enabled:                     true;                           /* Entry field enabled */
+    spacing:                     1em;                            /* Spacing */
+    padding:                     0.5em;                          /* Padding */
+    background-color:            @entry-background-color;                    /* Transparent background */
+    text-color:                  @entry-text-color;       /* Text color */
+    cursor:                      text;                           /* Cursor type */
+    placeholder:                 "Search";                       /* Placeholder text */
+    placeholder-color:           inherit;                        /* Placeholder color */
+}
+
+// Lists //
+listbox {
+    padding:                     0em;                            /* No padding */
+    spacing:                     0em;                            /* No spacing */
+    background-color:            @listbox-background-color;                    /* Transparent background */
+    orientation:                 vertical;                       /* Vertical layout */
+    children:                    [ "inputbar", "mode-switcher", "message" , "listview" ]; /* Contains inputbar, mode-switcher, message, listview */
+}
+
+message {
+    margin:                      0em;                            /* No margin */
+    padding:                     0.4em;                          /* Padding */
+    background-color:            @message-background-color;                    /* Transparent background */
+    border:                      0;                              /* No border */
+}
+textbox {
+    margin:                      0px 30px;                      /* top/bottom 0, left/right 50px */
+    background-color:            @message-textbox-background-color;       /* White background */
+    horizontal-align:            0.5;                            /* Center horizontally */
+    vertical-align:              0.5;                             /* Center vertically */
+    border-radius:               1em; 
+    text-color:                  @message-textbox-text-color;                    /* Text color */
+
+}
+
+
+
+listview {
+    padding:                     0.6em;                          /* Padding */
+    spacing:                     0.2em;                          /* Spacing between items */
+    margin:                      0em;                            /* No margin */
+    enabled:                     true;                           /* Listview enabled */
+    columns:                     1;                              /* Single column */
+    lines:                       3;                              /* Show 3 lines */
+    cycle:                       false;                          /* No looping scroll */
+    dynamic:                     true;                           /* Dynamic resizing */
+    scrollbar:                   false;                          /* Hide scrollbar */
+    layout:                      vertical;                       /* Vertical layout */
+    reverse:                     false;                          /* Normal order */
+    fixed-height:                true;                           /* Fixed height */
+    fixed-columns:               true;                           /* Fixed columns */
+    cursor:                      "default";                      /* Cursor style */
+    background-color:            @listview-background-color;                    /* Transparent background */
+    border: 0;
+    border-color: @listview-border-color;
+}
+
+mode-switcher {
+    orientation:                 horizontal;                     /* Horizontal layout */
+    enabled:                     true;                           /* Enabled */
+    padding:                     0.3em;                          /* Padding */
+    margin:                      0 0.6em;                        /* Horizontal margin */
+    spacing:                     0.4em;                          /* Spacing between buttons */
+    background-color:            @mode-switcher-background-color;                    /* Transparent background */
+}
+
+button {
+    padding:                     0.35em 0.7em;                   /* Button padding */
+    border:                      0;                              /* No border */
+    cursor:                      pointer;                        /* Pointer cursor */
+    background-color:            @button-background-color;            /* Dark background */
+    text-color:                  @button-text-color;                    /* Text color */
+}
+
+button selected {
+    padding:                     0.35em 0.7em;                   /* Padding */
+    border:                      1px;                          /* Border width */
+    text-color:                  @button-selected-text-color;                    /* Text color */
+    background-color:            @button-selected-background-color;         /* Selected background */
+    border-color:                @button-selected-border-color;      /* Border color */
+}
+
+// Elements //
+element {
+    enabled:                     true;                           /* Element enabled */
+    padding:                     1em;                            /* Padding */
+    margin:                      0em;                            /* No margin */
+    cursor:                      pointer;                        /* Pointer cursor */
+    background-color:            @element-background-color;                    /* Transparent background */
+}
+
+element selected.normal {
+    background-color:            @element-selected-normal-background-color;           /* Background for selected normal */
+    border:                      2px;                          /* Border width */
+    border-color:                @element-selected-normal-border-color;            /* Border color */
+    text-color:                  @element-selected-normal-text-color;                     /* Text color */
+}
+
+element normal.normal {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-normal-normal-border-color;           /* Magenta border for selected active items */
+    text-color:                  @element-normal-normal-text-color;                 /* Text color */
+}
+
+element normal.urgent {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-normal-urgent-border-color;             /* Red border for urgent items */
+    text-color:                  @element-normal-urgent-text-color;                 /* Text color */
+}
+
+element normal.active {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-normal-active-border-color;        /* Green border for active items */
+    text-color:                  @element-normal-active-text-color;                  /* Text color */
+}
+
+element selected.urgent {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-selected-urgent-border-color;           /* Cyan border for selected urgent items */
+    text-color:                  @element-selected-urgent-text-color;                  /* Text color */
+}
+
+element selected.active {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-selected-active-border-color;           /* Magenta border for selected active items */
+    text-color:                  @element-selected-active-text-color;                 /* Text color */
+}
+
+element alternate.normal {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-alternate-normal-border-color;           /* Magenta border for selected active items */
+    text-color:                  @element-alternate-normal-text-color;                 /* Text color */
+}
+
+element alternate.urgent {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-alternate-urgent-border-color;           /* Magenta border for selected active items */
+    text-color:                  @element-alternate-urgent-text-color;                 /* Text color */
+}
+
+element alternate.active {
+    background-color:            inherit;                        /* Inherit background */
+    border-color:                @element-alternate-active-border-color;           /* Magenta border for selected active items */
+    text-color:                  @element-alternate-active-text-color;                 /* Text color */
+}
+
+element-icon {
+    size:                        2em;                            /* Icon size */
+    margin:                      0 0.8em 0 0;                    /* Margin around icon */
+    background-color:            @element-icon-background-color;                    /* Transparent background for icons */
+    padding:                     0;                              /* No padding */
+}
+
+element-text {
+    vertical-align:              0.5;                            /* Vertically centered text */
+    horizontal-align:            0.0;                            /* Left-aligned text */
+    cursor:                      inherit;                        /* Cursor inherits from parent */
+    background-color:            @element-text-background-color;                    /* Transparent background */
+    text-color:                  inherit;                        /* Inherit text color */
+}

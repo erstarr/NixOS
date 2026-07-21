@@ -1,0 +1,891 @@
+/*****************************************
+ *  COLOR TOKENS
+ *****************************************/
+
+
+/* ----------------------------------------
+ * Base tokens
+ * ---------------------------------------- */
+
+/* Text */
+@define-color text_primary                 rgba(243, 243, 243, 0.91);
+@define-color text_tooltip                 rgba(246, 246, 246, 0.98);
+@define-color text_muted                   #8e8e8e;
+
+
+/* Surfaces */
+@define-color surface_container_bg         rgba(37, 37, 37, 0.64);
+/* Works for the middle and right */
+@define-color surface_container_border     rgba(134, 134, 134, 0.9);
+
+/* Accents */
+@define-color accent_blue                  #89b4fa;
+@define-color accent_pink                  #ff79c6;
+
+/* Status */
+
+/*not used anywhere atm*/
+@define-color status_ok                    #69ff94;
+
+@define-color status_good                  #50fa7b;
+@define-color status_warning               #f1fa8c;
+@define-color status_critical              #ff5555;
+
+/* Tooltip */
+@define-color tooltip_bg                   rgba(34, 34, 34, 0.912);
+@define-color tooltip_border               rgba(120, 120, 120, 1);
+
+/* Critical blink animation colors */
+@define-color critical_blink_bg            rgba(101, 0, 0, 0.78);
+@define-color critical_blink_text          rgba(233, 233, 233, 0.974);
+
+/* Network (base) */
+@define-color network_wifi                 #8be9fd;
+
+
+/* ----------------------------------------
+ * Module-specific tokens
+ * ---------------------------------------- */
+
+/* Rofi Button */
+@define-color rofi_bg                      @surface_container_bg;
+@define-color rofi_color                   #89b4fa;
+@define-color rofi_hover_color             rgba(241, 241, 241, 0.99);
+@define-color rofi_hover_bg                alpha(@accent_blue, 0.25);
+@define-color rofi-border                  @surface_container_border;
+
+/* Media Controls */
+@define-color media_hub_icon_color         rgba(223, 223, 223, 0.89);
+@define-color media_background             @surface_container_bg;
+@define-color media_color                  @text_primary;
+@define-color media_hover_bg               rgba(52, 52, 52, 0.95);
+@define-color media_hover_color            rgba(252, 252, 252, 0.96);
+@define-color media_border                 @surface_container_border;
+
+
+@define-color now_playing_nowplaying_text_color @text_primary;
+
+
+/* Clock */
+@define-color clock_background             @surface_container_bg;
+@define-color clock_color                  @text_primary;
+@define-color clock_hover_bg               rgba(53, 53, 53, 0.97);
+
+/* systemd-failed-units */
+@define-color systemd_color                @text_primary;
+
+@define-color systemd_ok_color             @text_primary;
+@define-color systemd_ok_bg                @surface_container_bg;
+
+@define-color systemd_degraded_color       @text_primary;
+@define-color systemd_degraded_bg          @surface_container_bg;
+
+@define-color systemd_border_color         @surface_container_border;
+
+/* Workspace Bar */
+@define-color ws_bar_bg                    @surface_container_bg;
+@define-color ws_bar_border                @surface_container_border;
+
+/* Workspace button states */
+@define-color ws_persistent_button_color   @text_primary;
+@define-color ws_btn_border                rgba(142, 142, 142, 0.81);
+
+@define-color ws_persistent_text           rgba(64, 64, 64, 0.339);
+@define-color ws_persistent_bg             rgba(38, 38, 38, 0.81);
+
+/* JUST APPLIES TO THE ONE VARIABLE BELOW, NOT ALL OF BELOW! -- Not used currently since it uses the unified button border color for button color and button color (persistent)*/
+@define-color ws_persistent_border         rgba(68, 71, 90, 0.85);
+
+@define-color ws_active_text               rgba(14, 14, 14, 0.95);
+@define-color ws_active_bg                 rgba(147, 147, 147, 0.91);
+@define-color ws_active_border             rgba(199, 199, 199, 0.987);
+
+@define-color ws_urgent_text               rgba(213, 213, 213, 0.95);
+@define-color ws_urgent_bg                 rgba(176, 60, 60, 0.95);
+@define-color ws_urgent_border             rgba(162, 162, 162, 0.988);
+
+@define-color ws_hover_text                rgba(244, 244, 244, 0.979);
+@define-color ws_hover_bg                  rgba(0, 0, 0, 0.935);
+@define-color ws_hover_border              rgba(224, 224, 224, 0.967);
+
+
+
+
+
+/* Workspace taskbar (hyprland/workspaces -> workspace-taskbar)  -----   This all seems not to change anything. Maybe it will if i choose to render the currently active window*/
+@define-color ws_taskbar_topline_inactive     rgba(255, 0, 0, 0);
+@define-color ws_taskbar_topline_visible      rgba(255, 0, 0, 0);
+
+@define-color ws_taskbar_window_fg            rgba(255,0,0,1);
+@define-color ws_taskbar_window_fg_muted      rgba(255,0,0,1);
+
+@define-color ws_taskbar_window_active_bg     rgba(255, 0, 0, 1);
+@define-color ws_taskbar_window_hover_bg      rgba(255, 0, 0, 1);
+
+@define-color ws_taskbar_window_active_border rgba(255, 0, 0, 1);
+@define-color ws_taskbar_window_hover_border  rgba(255, 0, 0, 1);
+
+
+
+
+
+
+
+/* Hover/overlay fills */
+/*Not used atm*/
+@define-color systemd_warning_bg           alpha(@status_critical, 0.35);
+
+
+/* Taskbar */
+@define-color taskbar_btn_bg               rgba(29, 29, 29, 0.653);
+@define-color taskbar_btn_text             rgba(255, 0, 0, 1);
+@define-color taskbar_btn_border           @text_muted;
+
+@define-color taskbar_btn_bg_hover         rgba(199, 199, 199, 0.819);
+@define-color taskbar_btn_border_hover     rgba(193, 192, 192, 0.859);
+
+@define-color taskbar_btn_bg_active        rgba(150, 150, 150, 0.82);
+@define-color taskbar_btn_border_active    rgba(205, 205, 205, 0.816);
+
+@define-color taskbar_btn_bg_urgent        rgba(124, 71, 71, 0.884);
+@define-color taskbar_btn_border_urgent    rgba(225, 89, 89, 0.904);
+
+/* Power button hover */
+@define-color power_hover                  #ff6e6e;
+
+
+/* Right Side Modules Cluster (explicit surface colors) */
+@define-color right_cluster_bg             @surface_container_bg;
+@define-color right_cluster_border         @surface_container_border;
+@define-color right_cluster_hover_fg       @accent_blue;
+
+/* Taskbar (right cluster) */
+@define-color taskbar_icon_fg              @text_primary;
+@define-color taskbar_icon_open_fg         @accent_blue;
+
+/* Disk */
+@define-color disk_warning_fg              @status_warning;
+@define-color disk_critical_fg             @status_critical;
+
+/* Temperature */
+@define-color temperature_warning_bg       transparent;
+@define-color temperature_critical_bg      transparent;
+@define-color temperature_warning_fg         #de9426;
+@define-color temperature_critical_fg         #de2626;
+
+/* Pulseaudio */
+@define-color pulseaudio_muted_fg          @text_muted;
+
+/* Network */
+@define-color network_disconnected_fg      @status_critical;
+@define-color network_wifi_fg              @network_wifi;
+@define-color network_ethernet_fg          @status_good;
+
+/* Idle inhibitor */
+@define-color idle_inhibitor_activated_fg  @status_warning;
+@define-color idle_inhibitor_deactivated_fg @text_muted;
+
+
+
+/* Blue Light Filter Toggle Button */
+@define-color blue_light_filter_hover alpha(@accent_blue, 0.85);
+
+
+/* Power profiles daemon */
+@define-color power_profiles_performance_fg @status_critical;
+@define-color power_profiles_balanced_fg    @accent_blue;
+@define-color power_profiles_powersaver_fg  @status_good;
+
+/* Lock screen + notification */
+@define-color lock_screen_hover_fg          @accent_pink;
+@define-color notification_hover_fg         @accent_blue;
+
+/* Privacy */
+@define-color privacy_audio_in_fg           @status_critical;
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Simple blink animation for critical states */
+@keyframes blink {
+    to {
+        background: @critical_blink_bg;
+        color: @critical_blink_text;
+    }
+}
+
+/*****************************************
+ *  GLOBAL DEFAULTS (COMPACT)
+ *****************************************/
+
+/* Base font and reset */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-weight: bold;
+    font-size: 13px;     /* compact */
+    min-height: 0;
+}
+
+/* Waybar root window:
+ * fully transparent so only specific modules/containers have blur
+ */
+window#waybar {
+    background: transparent;
+    color: @text_primary; /* Color of the bar icons */
+}
+
+/* Tooltips */
+tooltip {
+    background: @tooltip_bg;
+    opacity: 0.95;
+    border-radius: 10px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: @tooltip_border;
+}
+tooltip label {
+    color: @text_tooltip;
+}
+
+/*****************************************
+ *  WORKSPACES (hyprland/workspaces) (COMPACT)
+ *****************************************/
+
+/* Workspaces container – pill */
+#workspaces {
+    background: @ws_bar_bg;
+    opacity: 1;
+
+    /* tighter verticals */
+    margin: 0px 4px 0px 0px;
+    padding: 0px 12px;
+
+    border-radius: 8px;
+    min-width: 210px;
+    margin-left: 10px; /* keep left gap  TODO play with this*/
+}
+
+/*BORDER - Workspaces*/
+#workspaces {
+    border: 1px solid @ws_bar_border;
+}
+
+/* Normal + persistent workspace buttons */
+#workspaces button,
+#workspaces button.persistent {
+    background: @ws_persistent_bg;
+    color: @ws_persistent_button_color;
+
+    padding: 0px 5px;
+    margin: 1px 2px;
+
+    border-radius: 6px;
+    border: 1px solid @ws_btn_border;
+
+    transition-property: background, color, border-radius, border-color;
+    transition-duration: 0.35s;
+    transition-timing-function: ease-in-out;
+}
+
+/* Active workspace */
+#workspaces button.active {
+    color: @ws_active_text;
+    background: @ws_active_bg;
+
+    border-width: 1px;
+
+    border-radius: 12px;
+    border-color: @ws_active_border;
+    min-width: 28px;
+}
+
+/* Urgent workspace */
+#workspaces button.urgent {
+    color: @ws_urgent_text;
+    background: @ws_urgent_bg;
+
+    border-radius: 12px;
+    border-color: @ws_urgent_border;
+}
+
+/* Hover */
+#workspaces button:hover {
+    color: @ws_hover_text;
+    background: @ws_hover_bg;
+
+    border-radius: 12px;
+    border-color: @ws_hover_border;
+    box-shadow: none;
+}
+
+
+
+/*****************************************
+ *  WORKSPACE TASKBAR
+ *****************************************/
+
+/* The workspace label element inside each workspace button */
+#workspaces .workspace-label {
+    padding-left: 3px;
+    border-top: 1px solid @ws_taskbar_topline_inactive;
+}
+
+/* Each window “slot” shown by workspace-taskbar */
+#workspaces .taskbar-window {
+    border-top: 1px solid @ws_taskbar_topline_inactive;
+    font-weight: normal;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    color: @ws_taskbar_window_fg;
+}
+
+/* When the workspace button is visible (focused/active output in the module),
+   show the top line like the example does */
+#workspaces button.visible .taskbar-window,
+#workspaces button.visible .workspace-label {
+    border-color: @ws_taskbar_topline_visible;
+}
+
+/* Active window inside the workspace-taskbar */
+#workspaces .taskbar-window.active {
+    background-color: @ws_taskbar_window_active_bg;
+    border-color: @ws_taskbar_window_active_border;
+}
+
+/* Hover feedback on window items (safe even if it’s not a button widget) */
+#workspaces .taskbar-window:hover {
+    background-color: @ws_taskbar_window_hover_bg;
+    border-color: @ws_taskbar_window_hover_border;
+}
+
+/* Align icon vertically like the example */
+#workspaces .taskbar-window image {
+    margin-top: 1px;
+}
+
+
+
+
+
+
+
+/*****************************************
+ *  LEFT SIDE MODULES (COMPACT)
+ *****************************************/
+
+/* App launcher (custom/rofi) */
+#custom-rofi {
+    background: @rofi_bg;
+    opacity: 1;
+
+    /* compact vertical padding */
+    padding: 0px 14px 0px 8px;
+
+    /* Gap from media controls */
+    margin: 0px 12px 0px 0px;
+
+    border-radius: 0 8px 8px 0; /*Left side is not rounded, the rigt side is*/
+        
+    color: @rofi_color;
+    font-size: 17px;
+
+    transition-property: background, color;
+    transition-duration: 0.2s;
+    transition-timing-function: ease;
+}
+
+#custom-rofi:hover {
+    background: @rofi_hover_bg;
+    color: @rofi_hover_color;
+}
+
+/*
+---------- BORDERS -----------
+*/
+#custom-rofi {
+    /* ...existing... */
+    border: 1px solid @rofi-border;
+}
+/* ---- Borders - End ---- */
+
+
+/* Media control buttons (custom/media-*) – one big pill block */
+#custom-media-prev,
+#custom-media-backward,
+#custom-media-nowplaying,
+#custom-media-forward,
+#custom-media-next {
+    font-size: 17px;           /* compact */
+    padding: 0px 8px;
+    margin: 0px 0px;
+    background: @media_background;
+    color:      @media_color;
+    border-radius: 0;
+
+    transition-property: background, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease;
+}
+
+/* Left and right edges of the media block */
+#custom-media-prev {
+    border-radius: 8px 0 0 8px;
+    margin-left: 4px;
+}
+#custom-media-next {
+    border-radius: 0 8px 8px 0;
+}
+
+
+/* Add vertical push-down (these can force a taller bar) */
+#custom-media-backward,
+#custom-media-forward {
+    padding-top: 0px;
+}
+
+/* Hover */
+#custom-media-prev:hover,
+#custom-media-backward:hover,
+#custom-media-nowplaying:hover,
+#custom-media-forward:hover,
+#custom-media-next:hover {
+    background: @media_hover_bg;
+    color: @media_hover_color;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+  ------------- BORDER - Media --------------
+*/
+
+/*Making the whole media control section one border: top and bottom*/
+#custom-media-prev,
+#custom-media-backward,
+#custom-media-nowplaying,
+#custom-media-forward,
+#custom-media-next {
+    border-top: 1px solid @media_border;
+    border-bottom: 1px solid @media_border;
+}
+
+
+#custom-media-nowplaying {
+
+  color: @now_playing_nowplaying_text_color;
+  
+  font-family: "Noto Sans", "DejaVu Sans", sans-serif;
+  font-size: 12px;
+
+}
+
+
+
+/* The left border of the strip*/
+#custom-media-prev {
+    border-left: 1px solid @media_border;
+}
+
+/* Middle buttons: avoid double borders between buttons */
+#custom-media-backward,
+#custom-media-nowplaying,
+#custom-media-forward,
+#custom-media-next {
+    border-left: 0;
+}
+
+/* Borders: Right edge of the strip */
+#custom-media-next {
+    border-right: 1px solid @media_border;
+}
+
+
+
+
+
+
+/*
+
+    The "container" overrides. these override the prev media settings. just delete this block and delete the group-media in jsonc to get the media buttons always visible state back
+
+*/
+
+
+/***********************
+ * MEDIA GROUP (DRAWER)
+ * modeled after group-taskbar-expanded
+ ***********************/
+
+ /* HUB: always visible */
+#custom-media-hub {
+  background: transparent;
+  border: 0px solid transparent;
+  border-radius: 8px;
+  color: @media_hub_icon_color;
+  font-size: 17px;
+  padding-right: 7px;
+  padding-left: 0px;
+}
+
+
+#custom-media-hub:hover {
+  background: transparent;
+  color: @media_hover_color;
+}
+
+
+
+
+
+
+/*****************************************
+ *  CENTER MODULES (COMPACT)
+ *****************************************/
+
+#clock {
+    color: @clock_color;
+    background: @clock_background;
+    padding: 0px 8px;
+    margin: 0px 0px 0px 6px;
+    border-radius: 5px 0px 0px 5px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+#clock:hover {
+    background: @clock_hover_bg;
+}
+
+#systemd-failed-units {
+    color: @systemd_color;
+    background: @surface_container_bg;
+    padding: 0px 8px;
+    margin: 0px 6px 0px 0px;
+    border-radius: 0px 5px 5px 0px;
+    transition: background 0.2s ease, color 0.2s ease;
+}
+
+#systemd-failed-units.ok {
+    color: @systemd_ok_color;
+    background: @systemd_ok_bg;
+}
+
+#systemd-failed-units.degraded {
+    color: @systemd_degraded_color;
+    background: @systemd_degraded_bg;
+    animation: blink 1s step-start infinite;
+}
+
+/*                 */
+/*                 */
+/*     Border      */
+/*                 */
+/*                 */
+
+/* For Borders: Top/bottom Border outline across both */
+#clock,
+#systemd-failed-units {
+    border-top: 1px solid @systemd_border_color;
+    border-bottom: 1px solid @systemd_border_color;
+}
+
+/* Left edge belongs to clock */
+#clock {
+    border-left: 1px solid @systemd_border_color;
+}
+
+/* Right edge belongs to systemd */
+#systemd-failed-units,
+#systemd-failed-units.degraded
+{
+    border-right: 1px solid @systemd_border_color;
+    border-left: 0; /* prevents double border between them */
+}
+
+
+
+/* This section puts back the left border on systemd failed units modeule */
+
+/* Right edge belongs to systemd */
+#systemd-failed-units,
+#systemd-failed-units.degraded
+{
+    border-left: 1px solid @systemd_border_color;
+}
+
+
+
+
+
+/*****************************************
+ *  COMMON MODULE BASE (COMPACT)
+ *****************************************/
+
+#privacy,
+#custom-lock_screen,
+#custom-power,
+#custom-notification,
+#cpu,
+#disk,
+#memory,
+#pulseaudio,
+#network,
+#custom-bluelight,
+#tray,
+#temperature,
+#idle_inhibitor,
+#power-profiles-daemon,
+#taskbar,
+#group-taskbar-expanded,
+#group-media,
+#custom-taskbar-icon {
+    background: transparent;
+    opacity: 1;
+    padding: 0px 5px;
+    margin: 0px 0px;       /* compact */
+    border-radius: 5px;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+/*****************************************
+ *  RIGHT SIDE MODULES CLUSTER (COMPACT)
+ *****************************************/
+
+ /*the right side background*/
+.modules-right {
+    background: @right_cluster_bg;
+    border-radius: 8px 0 0 8px; /*Right side is not rounded, the left side is*/
+    /* compact: remove vertical padding */
+    padding-top: 0px;
+    padding-right: 5px;
+    padding-bottom: 0px;
+    padding-left: 12px;
+
+    margin-right: 0px;
+
+    /* BORDER - right side unified background*/
+    border: 1px solid @right_cluster_border;
+}
+
+.modules-right > * {
+    background: transparent;
+    margin: 0px 0px;       /* compact */
+    padding: 0px 5px;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+/* Hover feedback */
+.modules-right > *:hover {
+    color: @right_cluster_hover_fg;
+}
+
+/* Taskbar */
+#taskbar {
+    background: transparent;
+    border-radius: 0;
+    margin: 0px 0px;
+}
+
+#group-taskbar-expanded {
+    padding-right: 4px;
+}
+
+#custom-taskbar-icon {
+    padding-right: 2px;
+    color: @taskbar_icon_fg;
+}
+
+#group-taskbar-expanded.open #custom-taskbar-icon {
+    color: @taskbar_icon_open_fg;
+}
+
+/* Taskbar buttons (COMPACT) */
+#taskbar button {
+    background: @taskbar_btn_bg;
+    color: @taskbar_btn_text;
+
+    border: 1px solid @taskbar_btn_border;
+    border-radius: 6px;
+
+    padding: 1px 6px;     /* compact */
+    margin: 0px 2px;
+
+    transition-property: background, border-color, color;
+    transition-duration: 0.15s;
+    transition-timing-function: ease-in-out;
+}
+
+#taskbar button:hover {
+    background: @taskbar_btn_bg_hover;
+    border-color: @taskbar_btn_border_hover;
+    color: @taskbar_btn_text;
+}
+
+/* Active window styling (make sure it stays visible) */
+#taskbar button.active {
+    background: @taskbar_btn_bg_active;
+    border-color: @taskbar_btn_border_active;
+    color: @taskbar_btn_text;
+}
+
+/* Urgent window styling */
+#taskbar button.urgent {
+    background: @taskbar_btn_bg_urgent;
+    border-color: @taskbar_btn_border_urgent;
+    color: @taskbar_btn_text;
+}
+
+/* Tray */
+#tray {
+    background: transparent;
+    border-radius: 0;
+    margin: 0px 0px;
+}
+
+/*****************************************
+ *  INDIVIDUAL RIGHT-SIDE MODULES
+ *****************************************/
+
+/* Disk usage: color by state */
+#disk.warning {
+    color: @disk_warning_fg;
+}
+#disk.critical {
+    color: @disk_critical_fg;
+    animation: blink 1s step-start infinite;
+}
+
+/* Temperature */
+#temperature.warning {
+    background: @temperature_warning_bg;
+    color: @temperature_warning_fg;
+}
+#temperature.critical {
+    background: @temperature_critical_bg;
+    color: @temperature_critical_fg;
+    animation: blink 1s step-start infinite;
+}
+
+/* Muted audio */
+#pulseaudio.muted {
+    color: @pulseaudio_muted_fg;
+}
+
+/* Network disconnected */
+#network.disconnected {
+    color: @network_disconnected_fg;
+}
+
+#network.wifi {
+    color: @network_wifi_fg;
+}
+#network.ethernet {
+    color: @network_ethernet_fg;
+}
+
+/* Idle inhibitor */
+#idle_inhibitor.activated {
+    color: @idle_inhibitor_activated_fg;
+}
+#idle_inhibitor.deactivated {
+    color: @idle_inhibitor_deactivated_fg;
+}
+
+
+
+
+/* Blue Light Filter Toggle Button */
+/* ------------------------------- */
+
+#custom-bluelight.on {
+    color: inherit; /* no special active color */
+}
+
+#custom-bluelight.off {
+    color: @idle_inhibitor_deactivated_fg; /* same as idle inhibitor inactive */
+}
+
+/* faint blue hover, overriding the generic .modules-right > *:hover */
+.modules-right #custom-bluelight:hover {
+    color: @blue_light_filter_hover;
+}
+
+
+
+
+
+/* Power profiles daemon */
+#power-profiles-daemon.performance {
+    color: @power_profiles_performance_fg;
+}
+#power-profiles-daemon.balanced {
+    color: @power_profiles_balanced_fg;
+}
+#power-profiles-daemon.power-saver {
+    color: @power_profiles_powersaver_fg;
+}
+
+/* Custom power button */
+#custom-power {
+    padding-left: 4px;
+    padding-right: 4px;
+}
+#custom-power:hover {
+    color: @power_hover;
+}
+
+
+#custom-lock_screen {
+    padding-left: 0px;
+}
+
+/* Lock screen button */
+#custom-lock_screen:hover {
+    color: @lock_screen_hover_fg;
+}
+
+/* Notification indicator */
+#custom-notification {
+    padding-left: 8px;
+    padding-right: 0px;
+}
+#custom-notification:hover {
+    color: @notification_hover_fg;
+}
+
+/*****************************************
+ *  PRIVACY MODULE TWEAKS
+ *****************************************/
+
+
+#privacy {
+    padding-right: 0px;
+}
+
+
+/* Make the mic (audio-in) privacy icon red */
+#privacy .audio-in,
+#privacy .audio-in image {
+    color: @privacy_audio_in_fg;
+}

@@ -1,0 +1,32 @@
+[general]
+zoom-factor = 1.0
+
+
+
+
+
+# Custom colours for the colour palette
+[color-palette]
+# These will be shown in the toolbar for quick selection
+palette = [
+    "#dc143c",
+    "#ffd700",
+    "#008000",
+    "#00ffff",
+    "#ff1493",
+    "#a52a2a",
+    "#000000",
+    "#ffffff",
+]
+
+
+# These will be available in the color picker as presets
+# Leave empty to use GTK's default
+custom = [
+    "#dc143c",
+    "#ffd700",
+    "#008000",
+    "#00ffff",
+    "#ff1493",
+    "#a52a2a",
+]

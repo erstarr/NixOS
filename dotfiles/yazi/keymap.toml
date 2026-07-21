@@ -1,0 +1,5 @@
+
+[mgr]
+append_keymap = [
+  { on = "<C-q>", run = "shell --orphan 'kitty --detach .'", desc = "Open the current directory in Kitty" },
+]

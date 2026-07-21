@@ -1,0 +1,599 @@
+{
+  // ========================================================================
+  // BAR GEOMETRY / LAYERING
+  // ========================================================================
+
+  "layer": "top",                 // Drawn on the top layer (above normal windows).
+  "position": "top",              // Screen edge to attach to.
+  "mode": "dock",                 // Dock mode (pairs with "exclusive": true to reserve space).
+  "exclusive": true,              // Reserve space so windows don’t overlap the bar.
+  "passthrough": false,           // If true, clicks pass through the bar (keep false to interact).
+  "gtk-layer-shell": true,        // Enable gtk-layer-shell integration (Wayland).
+  "height": 30,                   // Bar height in pixels.
+  "margin-right": 0,              // Outer margin on the right side of the bar.
+  "margin-left": 0,               // Outer margin on the left side of the bar.
+
+  // ========================================================================
+  // MODULE PLACEMENT
+  // Order here is the order they appear on the bar (this order matters).
+  // ========================================================================
+
+  "modules-left": [
+    "custom/rofi",                // App launcher icon/button (currently no click command).
+    "group/media",
+    // "custom/media-prev",          // Media: previous track.
+    // "custom/media-backward",      // Media: seek backward.
+    // "custom/media-nowplaying",     // Media: play/pause + title in tooltip.
+    // "custom/media-forward",       // Media: seek forward.
+    // "custom/media-next",          // Media: next track.
+    "hyprland/workspaces"         // Hyprland workspaces indicator/switcher.
+  ],
+
+  "modules-center": [
+    "clock",                      // Clock + calendar tooltip.
+    "systemd-failed-units"        // Shows failed systemd units (system + user).
+  ],
+
+  "modules-right": [
+    "group/taskbar-expanded",     // Drawer group: a handle icon + the expanded wlr/taskbar.
+    "tray",                       // System tray.
+    "pulseaudio",                 // Volume control (wpctl).
+    "cpu",                        // CPU usage.
+    "memory",                     // RAM usage.
+    "disk",                       // Disk usage for /.
+    "temperature",                // Temperature from thermal zone.
+    "network",                    // Network status (wifi/ethernet/disconnected).
+    "custom/bluelight",           // Blue Light Filter Toggle (Uses hyprsunset)
+    "idle_inhibitor",             // Toggle hypridle (kills/starts process).
+    "power-profiles-daemon",      // Power profile indicator.
+    "custom/power",               // Power icon (no actions set yet).
+    "custom/lock_screen",         // Runs hyprlock.
+    "privacy",                    // Portal privacy indicators (mic/screenshare/etc).
+    "custom/notification"         // swaync indicator + toggles.
+  ],
+
+  // ========================================================================
+  // MODULE CONFIGS (definitions)
+  // These can be in any order; Waybar matches by module name.
+  // ========================================================================
+
+  // ------------------------------------------------------------------------
+  // PRIVACY MODULE (portal indicators)
+  // ------------------------------------------------------------------------
+  "privacy": {
+    "icon-spacing": 4,            // Space between individual privacy icons.
+    "icon-size": 18,              // Icon size in px.
+    "transition-duration": 250,   // Show/hide animation speed in ms.
+    "modules": [
+      {
+        "type": "screenshare",    // Visible when screensharing is active.
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-out",      // Visible when audio output is being captured/used.
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      },
+      {
+        "type": "audio-in",       // Visible when microphone is being captured/used.
+        "tooltip": true,
+        "tooltip-icon-size": 24
+      }
+    ],
+    "ignore-monitor": true,       // Don’t restrict privacy reporting to one monitor.
+    "ignore": []                  // Add types here to hide them.
+  },
+
+  // ------------------------------------------------------------------------
+  // POWER BUTTON (custom)
+  // ------------------------------------------------------------------------
+  "custom/power": {
+    "format": "⏻",                // What the bar shows.
+    "tooltip": false,             // No tooltip on hover.
+    "on-click": "",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+  },
+
+  // ------------------------------------------------------------------------
+  // SYSTEMD FAILED UNITS (center)
+  // ------------------------------------------------------------------------
+  // TODO: hide on ok ON and format ok be commented
+  "systemd-failed-units": {
+    "hide-on-ok": false,          // If true, module disappears when failures == 0.
+    "format": "✗ ➝ {nr_failed}", // Display when there are failures.
+    "format-ok": "✓",            // Display when failures == 0 (if not hidden).
+    "system": true,               // Watch system-wide units.
+    "user": true,                 // Watch user units.
+    "tooltip": false              // Disable tooltip.
+  },
+
+  // ------------------------------------------------------------------------
+  // TASKBAR DRAWER GROUP (right)
+  // ------------------------------------------------------------------------
+  // The group with a visible header icon as first child
+  "group/taskbar-expanded": {
+    "orientation": "horizontal",  // Layout children in a row.
+    "drawer": {
+      "transition-duration": 300, // Drawer animation speed.
+      "children-class": "taskbar-item", // CSS class for drawer children.
+      "transition-left-to-right": true, // Drawer expands left->right.
+      "click-to-reveal": false    // Drawer reveal behavior.
+    },
+    "modules": [
+      "custom/taskbar-icon",      // visible button; clicking toggles the drawer
+      "wlr/taskbar"               // expanded content
+    ]
+  },
+
+  // The header icon (visible symbol)
+  "custom/taskbar-icon": {
+    "format": "  ",              // Drawer "handle" icon.
+    "tooltip": false,
+    "on-click": "",           // no-op; click on first child toggles the drawer
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+  },
+
+  // Actual task list (drawer content)
+  "wlr/taskbar": {
+    "format": "{icon}",           // Show only the icon.
+    "icon-size": 20,              // Task icon size.
+    "all-outputs": true,          // Include windows from all monitors.
+    "tooltip-format": "[{short_state}]-{name}: {title}",
+    "on-click": "activate",       // Left click focuses/activates.
+    "on-click-middle": "close",   // Middle click closes.
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "ignore-list": [
+      ""
+    ]
+  },
+
+  // ------------------------------------------------------------------------
+  // MEDIA CONTROLS (playerctl) (left)
+  // ------------------------------------------------------------------------
+  
+
+
+
+  "group/media": {
+    "orientation": "horizontal",
+    "drawer": {
+      "transition-duration": 250,
+      "transition-left-to-right": true,
+      "click-to-reveal": true,
+      "children-class": "media-item"
+
+    },
+    "modules": [
+      "custom/media-hub",
+      "custom/media-prev",
+      "custom/media-backward",
+      "custom/media-nowplaying",
+      "custom/media-forward",
+      "custom/media-next"
+    ]
+  },
+
+  "custom/media-hub": {
+
+    "interval": 3,
+    "return-type": "json",
+    "format": "{text}",
+    "exec": "bash -lc 'status=$(playerctl status 2>/dev/null || true); case \"$status\" in Playing) icon=\"\";; Paused) icon=\"\";; *) icon=\"󱖏\";; esac; python3 -c \"import json,sys; icon=sys.argv[1]; print(json.dumps({\\\"text\\\": icon}))\" \"$icon\"'",
+
+    "tooltip": true,
+    "tooltip-format": "Media controls",
+    // "on-click": "",
+    // "on-click-right": "",
+    "on-scroll-up": ":", // If i don't put `:` in there, waybar cpu use goes up when scrolling on the icon
+    "on-scroll-down": ":", // If i don't put `:` in there, waybar cpu use goes up when scrolling on the icon
+
+    "escape": true
+  },
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  "custom/media-prev": {
+    "format": "󰒫",
+    "on-click": "playerctl previous",
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "tooltip": false
+  },
+
+  "custom/media-backward": {
+    "format": "󰒮",
+    "on-click": "playerctl position 15-",
+    "on-click-right": "playerctl position 30-",
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "tooltip": false
+  },
+
+
+
+
+  "custom/media-nowplaying": {
+   "interval": 3,
+   "return-type": "json",
+ 
+   // Normal mode: always just the icon
+   "format": "{text}",
+ 
+   // Right-click toggles to this: show the title / "No media"
+   "format-alt": "{alt}",
+
+   "format-alt-click": "click-right",
+
+ 
+   // Hover tooltip: show the title / "No media"
+   "tooltip-format": "{alt}",
+ 
+   "exec": "bash -lc 'status=$(playerctl status 2>/dev/null || true); case \"$status\" in Playing) icon=\"⏸\";; Paused) icon=\"▶\";; *) icon=\"⏯\";; esac; title=$(playerctl metadata --format \"{{xesam:title}}\" 2>/dev/null || true); [ -n \"$title\" ] || title=\"No media\"; python3 -c \"import json,sys; icon=sys.argv[1]; title=sys.argv[2].replace(\\\"\\\\n\\\", \\\" \\\").strip(); print(json.dumps({\\\"text\\\": icon, \\\"alt\\\": title}))\" \"$icon\" \"$title\"'",
+ 
+   "on-click": "playerctl play-pause",
+   "on-scroll-up": "playerctl position 10+",
+   "on-scroll-down": "playerctl position 10-",
+ 
+   "escape": true
+  },
+
+
+  
+  "custom/media-forward": {
+    "format": "󰒭",
+    "on-click": "playerctl position 15+",
+    "on-click-right": "playerctl position 30+",
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "tooltip": false
+  },
+
+  "custom/media-next": {
+    "format": "󰒬",
+    "on-click": "playerctl next",
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "tooltip": false
+  },
+
+  // ------------------------------------------------------------------------
+  // APP LAUNCHER (left)
+  // ------------------------------------------------------------------------
+  "custom/rofi": {
+    "format": "",                // Arch icon glyph.
+    "on-click": "kitty",               // Empty = no action (placeholder for rofi command).
+    "tooltip": false
+  },
+
+  /*TODO - Bluetooth*/
+
+  // ------------------------------------------------------------------------
+  // IDLE INHIBITOR (right)
+  // ------------------------------------------------------------------------
+  "idle_inhibitor": {
+    "format": "{icon}",           // Uses icons from format-icons below.
+    "format-icons": {
+      "activated": "\u202F",          // "inhibit active" -- \u202F is narrow no-break space
+      "deactivated": "\u202F"         // "inhibit inactive"
+    },
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "timeout": 360 /*time in minutes*/
+  },
+
+
+
+
+
+  // ------------------------------------------------------------------------
+  // Blue Light Filter (right)
+  // ------------------------------------------------------------------------
+
+"custom/bluelight": {
+  "interval": 2,
+  "return-type": "json",
+  "exec": "sh -c 'pgrep -x hyprsunset >/dev/null && echo \"{\\\"text\\\":\\\"󰖔\\\",\\\"class\\\":\\\"on\\\"}\" || echo \"{\\\"text\\\":\\\"󰖕\\\",\\\"class\\\":\\\"off\\\"}\"'",
+  "on-click": "sh -c 'pgrep -x hyprsunset >/dev/null && killall hyprsunset || (nohup hyprsunset >/dev/null 2>&1 &)'"
+},
+
+
+
+
+  // ------------------------------------------------------------------------
+  // NOTIFICATIONS (swaync) (right)
+  // ------------------------------------------------------------------------
+  "custom/notification": {
+    "tooltip": false,
+    "format": "{icon}\u2009<span><sup>{0}</sup></span>", // To add a tiny gap: insert a thin/hair space between {icon} and <span>.
+    "format-icons": {
+        "notification": "󱅫",
+        "none": "󰂚",
+        "dnd-notification": "󰂛",
+        "dnd-none": "󰂛",
+        "inhibited-notification": "󱅫",
+        "inhibited-none": "󰂚",
+        "dnd-inhibited-notification": "󰂛",
+        "dnd-inhibited-none": "󰂛"
+      },
+    "return-type": "json",        // swaync-client outputs JSON.
+    "exec-if": "which swaync-client", // Only run if swaync-client exists.
+    "exec": "swaync-client -swb", // Waybar-compatible stream output.
+    "on-click": "swaync-client -t -sw",       // Toggle notification center.
+    "on-click-right": "swaync-client -d -sw", // Toggle DND.
+    "escape": true
+  },
+
+  // ------------------------------------------------------------------------
+  // LOCK SCREEN (right)
+  // ------------------------------------------------------------------------
+  "custom/lock_screen": {
+    "format": " 󰌾",
+    "on-click": "hyprlock",
+    "tooltip": false
+  },
+
+  // ------------------------------------------------------------------------
+  // HYPRLAND WORKSPACES (left)
+  // ------------------------------------------------------------------------
+  "hyprland/workspaces": {
+    "format": "{name} : {windows}",
+    
+    //"ignore-workspaces": [""], // In the effort of removing that empty workspace that throws me to -1337 when i click on it
+    
+    "all-outputs": true,          // Include workspaces across monitors.
+    "show-special": true,         // Show special workspaces.
+    
+    "format-window-separator": " | ",
+    
+
+    "workspace-taskbar": {
+      "enable": true,
+      "update-active-window": false,
+      "format": "{icon}",
+      "icon-size": 18,
+      "on-click-window": "~/.config/hypr/scripts/Hyprland_Waybar_minimiseMaximise.sh {address} {button}"
+    },
+
+    "persistent-workspaces": {
+      "": []
+    },
+
+    "on-click": "activate",       // Click to switch.
+    "on-click-right": "activate",       // Right Click to also switch.
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "disable-scroll": true        // Disable scroll-to-change-workspace.
+
+
+    
+  },
+
+
+
+
+  // ------------------------------------------------------------------------
+  // TRAY (right) --- Still not implemented/ in beta so it'll pop up one day when it's out of beta
+  // ------------------------------------------------------------------------
+  "tray": {
+    "icon-size": 12,              // Tray icon size in px.
+    "spacing": 10,                // Gap between tray icons.
+    "reverse-direction": true,     // Reverse tray ordering.
+    "show-passive-items": true
+ },
+
+  // ------------------------------------------------------------------------
+  // CPU (right)
+  // ------------------------------------------------------------------------
+  "cpu": {
+    "interval": 10,               // Update interval (seconds).
+    "format": "{icon} {usage}%",
+    "format-icons": [
+        "<span color='#5ddb82' alpha='90%'>▁</span>",
+        "<span color='#4a9ddb' alpha='90%'>▂</span>",
+        "<span color='#d4d4cc' alpha='90%'>▃</span>",
+        "<span color='#d4d4cc' alpha='90%'>▄</span>",
+        "<span color='#e6e68a' alpha='90%'>▅</span>",
+        "<span color='#e6e68a' alpha='90%'>▆</span>",
+        "<span color='#db8866' alpha='90%'>▇</span>",
+        "<span color='#c24a35' alpha='90%'>█</span>" 
+    ],
+    "max-length": 10,             // Truncate if too long.
+    "format-alt-click": "click-right",
+    "format-alt": "{icon} {avg_frequency}GHz",
+    "on-click": "",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+
+  },
+
+  // ------------------------------------------------------------------------
+  // MEMORY (right)
+  // ------------------------------------------------------------------------
+  "memory": {
+    "interval": 30,               // Update interval (seconds).
+    "format": " {percentage}%",
+    "format-alt-click": "click-right",
+    "format-alt": "⟲ {swapPercentage}%",
+    "max-length": 10,
+    "tooltip": true,
+    "tooltip-format": "RAM: {used:0.1f}GiB/{total:0.1f}GiB\nSwap: {swapUsed:0.1f}GiB/{swapTotal:0.1f}GiB",
+    "on-click": "",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+  },
+
+  // ------------------------------------------------------------------------
+  // DISK (right)
+  // ------------------------------------------------------------------------
+  "disk": {
+    "interval": 900,              // Update interval (seconds).
+    "path": "/",                  // Filesystem path to monitor.
+    "format": " {percentage_used}%",
+    "format-alt-click": "click-right", // Right click toggles alt format.
+    "format-alt": "",            // optional
+    "tooltip": true,
+    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
+    "states": {
+      "warning": 85,              // Adds .warning CSS class when >= 85%.
+      "critical": 90              // Adds .critical CSS class when >= 90%.
+    },
+    "on-click": "",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+
+  },
+
+  // ------------------------------------------------------------------------
+  // TEMPERATURE (right)
+  // ------------------------------------------------------------------------
+  "temperature": {
+    "interval": 10, /*Interval in seconds*/
+
+    // Shows the temp used by fan curves --- Use sensors -u to see temp sensors. Ususally "k10temp" is the cpu temps. In the hwmon dir, check the name file to see the name, and point to the sensor output fle you wanna read
+    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "format": " {temperatureC}°C",
+    "format-alt-click": "click-right",
+    "format-alt": " {temperatureK}°K",
+    "warning-threshold": 85,
+    "critical-threshold": 95,     // Critical at/above this.
+    "format-critical": " {temperatureC}°C",
+    "on-click": "",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+  },
+
+  // ------------------------------------------------------------------------
+  // AUDIO (pulseaudio module using wpctl / PipeWire) (right)
+  // ------------------------------------------------------------------------
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "ᛒ{icon} {volume}%",
+    "format-muted": "{icon} 0%",
+    "format-icons": {
+    
+      // Apple USB-C - 3.5mm jack adapter
+    "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_REPLACED_SERIAL-00.analog-stereo": ["" ,"", ""],
+    "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_REPLACED_SERIAL-00.analog-stereo-muted": "",
+
+    "default": ["", "", ""],
+    "default-muted": "",
+    "headphone": "",
+    "headphone-muted": "󰟎",
+    "speaker": "󰓃",
+    "speaker-muted": "󰓄",
+    "hdmi": "󰡁",
+    "hdmi-muted": "󰡁",
+    "headset": "󰋎",
+    "headset-muted": "󰋐",
+    "hands-free": "",
+    "portable": "",
+    "car": "",
+    "hifi": "HiFi",
+    "hifi": "HiFi ",
+    "phone": "",
+    "phone-muted": ""
+    },
+    "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",      // Toggle mute.
+    "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle", // toggle mic-off
+    "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%+", // -l -> limit. 1.5 -> 150% | 1.0 -> 100%
+    "on-scroll-down": "wpctl set-volume -l 1.5 @DEFAULT_AUDIO_SINK@ 5%-",  // -l -> limit. 1.5 -> 150% | 1.0 -> 100%
+    "on-click-middle": "",
+    "scroll-step": 1.0,
+    "max-volume": 150,
+    "tooltip": true,
+    "tooltip-format": "{icon} {volume}%\n{format_source} {source_volume}%\n{desc}",
+    "format-source": "",
+    "format-source-muted": ""
+  },
+
+  // ------------------------------------------------------------------------
+  // NETWORK (right)
+  // ------------------------------------------------------------------------
+  "network": {
+    "interval": 60, /*in seconds*/
+    "family": "ipv4_6",
+    "format": "{ifname}",         // Base format when not matching wifi/ethernet/disconnected/... .
+    "format-wifi": "󰖩\u2009",     // \u2009 is "Thin Space" in an effort to have equidistant icons
+    "format-ethernet": "\u2009",
+    "format-linked": "\u2009",
+    "format-disconnected": "󰌙\u2009",
+    "format-disabled": "\u2009",
+    "tooltip": true,
+    "tooltip-format": "Up: {bandwidthUpBits} Down: {bandwidthDownBits}\n {ifname} via {gwaddr}",
+    "tooltip-format-wifi": " {essid} ({signalStrength}% )\nIP: {ipaddr}\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-ethernet": " {ifname} {ipaddr}/{cidr}\nUp: {bandwidthUpBits} Down: {bandwidthDownBits}",
+    "tooltip-format-disconnected": "Disconnected",
+    // "tooltip-format-linked": "Linked", // wiki doesn't seem to have an entry for this
+    "tooltip-format-disabled": "Disabled",
+    "max-length": 50
+  },
+
+  // ------------------------------------------------------------------------
+  // POWER PROFILES (right)
+  // ------------------------------------------------------------------------
+  "power-profiles-daemon": {
+    "format": "{icon}",           // Show icon only; CSS can color by profile class.
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+
+  // ------------------------------------------------------------------------
+  // CLOCK + CALENDAR (center)
+  // ------------------------------------------------------------------------
+  "clock": {
+    "interval": 60,               // Update interval (seconds).
+    "format": "  {:%H:%M %a}",   // Main clock display.
+    "format-alt": "{:%d-%m-%Y}", // Alternate display.
+    "tooltip-format": "{:%A, %d-%m-%Y}\n\n{calendar}", // Tooltip includes embedded calendar.
+    "calendar": {
+      "mode": "month",             // Calendar mode (year shown in tooltip).
+      "mode-mon-col": 3,          // Month columns when in year mode.
+      "weeks-pos": "right",       // Week numbers position.
+      "on-scroll": 1,             // Enables scrolling inside the tooltip calendar.
+      "format": {
+        "months": "<span color='#ffead3'><b>{}</b></span>",
+        "days": "<span color='#ecc6d9'><b>{}</b></span>",
+        "weeks": "<span color='#99ffdd'><b>W{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      }
+    },
+    "actions": {
+      "on-click-right": "mode",   // Right click changes calendar mode.
+      "on-scroll-up": "shift_up", // Scroll navigates calendar.
+      "on-scroll-down": "shift_down"
+    }
+  }
+}
