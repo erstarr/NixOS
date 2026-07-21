@@ -9,6 +9,7 @@ let
   snapshotExcludedDirs = [
     { path = "/persist/home/redstar/Downloads"; mode = "0755"; owner = "redstar:redstar"; }
     { path = "/persist/home/redstar/Videos";    mode = "0755"; owner = "redstar:redstar"; }
+    # old roots and homes from imperm are their own subvols so they are excluded
   ];
 in
 {
@@ -49,6 +50,7 @@ in
             mkdir -p "$(dirname "$dir")"
             btrfs subvolume create "$dir"
           fi
+          # The dir was created as root:root by btrfs so we need to fix that - the contents of the files's permissions/ownerships should have been preserved by cp -a
           chmod "$mode" "$dir"
           chown "$owner" "$dir"
         }
