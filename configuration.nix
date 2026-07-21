@@ -6,7 +6,6 @@
   config,
   lib,
   pkgs,
-  vmMode,
   ...
 }:
 
@@ -62,12 +61,16 @@
 
     ./modules/per_app_config/hyprland.nix
 
+
+    # Various toggleable switches
+    ./modules/switches.nix
+
   ]
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported
-  ++ lib.optionals (vmMode) [
+  ++ lib.optionals (config.custom.virtualMachines) [
     ./modules/vm_specific.nix
   ]
-  ++ lib.optionals (!vmMode) [
+  ++ lib.optionals (!config.custom.virtualMachines) [
     ./modules/ssh.nix
   ]
   ;

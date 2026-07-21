@@ -35,6 +35,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    # Flake - Also has a nixpkgs version
+    hyprland = {
+
+      url = "github:hyprwm/Hyprland/commit/36b2e0cfe0c6094dbc47bd42a437431315bb3087"; # Pinned to 0.56.0 release commit
+      # Not following nixpkgs as mesa will be pinned according to the hyprland commit
+    };
+
     # Hyprland here - file already made
 
   };
@@ -49,6 +56,7 @@
       impermanence, # Impermanence
       home-manager, # Home Management
       nix-flatpak, # nix-flatpak - Decleratively manager flatpaks
+      hyprland, # Hyprland - flake
       ...
     }@inputs:
     let
@@ -66,11 +74,13 @@
 
           # Passing dependencies to submodules - only those that are defined in outputs are visible
           specialArgs = {
-            # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
-            # Switch this when on VM/BareMetal
-            vmMode = true;
 
-            inherit disko impermanence home-manager nix-flatpak;
+            inherit
+              disko
+              impermanence
+              home-manager
+              nix-flatpak
+              hyprland;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };

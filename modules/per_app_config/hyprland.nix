@@ -1,5 +1,15 @@
-{pkgs, ...}:
+# Can use the nix pkgs package or can use a flake. Flip the switch to switch between them
 
+
+{pkgs, config, lib,
+# Hyprland flake
+hyprland,
+...}:
+
+let
+  useFlake = config.custom.hyprland.useFlake;
+  sys      = pkgs.stdenv.hostPlatform.system;
+in
 {
 
   # Configuration done in the lua config file, not here
@@ -11,6 +21,25 @@
   # Hyprlock
   programs.hyprlock.enable = true;
 
+  programs.hyprland = {
+
+    package = if useFlake
+      then hyprland.packages.${sys}.hyprland
+      else pkgs.hyprland;
+
+    # keeps the portal in sync with whichever source chosen
+    portalPackage = if useFlake
+      then hyprland.packages.${sys}.xdg-desktop-portal-hyprland
+      else pkgs.xdg-desktop-portal-hyprland;
+  };
+
+
+  # Pin mesa to Hyprland's locked nixpkgs IF using the flake.
+  # lib.mkIf is important --> lazy evaluation means the right-hand side is never forced when useFlake = false, so there's no spurious evaluation of Hyprland's pkgsi686Linux tree.
+  hardware.graphics.package   = lib.mkIf useFlake
+    (hyprland.inputs.nixpkgs.legacyPackages.${sys}.mesa);
+  hardware.graphics.package32 = lib.mkIf useFlake
+    (hyprland.inputs.nixpkgs.legacyPackages.${sys}.pkgsi686Linux.mesa);
 
 
 
