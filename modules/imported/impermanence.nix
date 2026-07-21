@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   impermanence,
   ...
 }:
@@ -122,6 +123,11 @@
       Defaults lecture = never
     '';
 
+
+    # For diffing old and new-old home in the script
+    boot.initrd.systemd.extraBin.comm = "${pkgs.coreutils}/bin/comm";
+
+
     boot.initrd.systemd.services.impermanence = {
 
       description = "Ephemeral root and home rollback";
@@ -152,13 +158,51 @@
         max_age=30  # days until removed
         # Make sure dir exists guard
         if [[ -d /btrfs_tmp/persist/old_roots ]]; then
-          for i in $(find /btrfs_tmp/persist/old_roots/ -mindepth 1 -maxdepth 1 -mtime +$max_age); do
+          for i in $(find /btrfs_tmp/persist/old_roots/ -mindepth 1 -maxdepth 1 -type d -mtime +$max_age); do
             btrfs subvolume delete --recursive "$i"
           done
         fi
 
         # Create a fresh root
         btrfs subvolume create /btrfs_tmp/root
+
+
+
+        # Diff current home against the most recently saved old home before rolling over -- only file/dir presence/absence.
+        if [[ -e /btrfs_tmp/home ]] && [[ -d /btrfs_tmp/persist/old_homes ]]; then
+          # Don't take down the entire script - if diffing fails, still try to home imperm
+          (
+            prev_home=$(find /btrfs_tmp/persist/old_homes -mindepth 1 -maxdepth 1 -type d | sort | tail -1)
+            if [[ -n "$prev_home" ]]; then
+              prev_ts=$(basename "$prev_home")
+              curr_ts=$(date --date="@$(stat -c %Y /btrfs_tmp/home)" "+%Y-%m-%d_%H:%M:%S")
+
+              find "$prev_home"    -mindepth 1 | sed "s|''${prev_home}/||"    | sort > /tmp/hl_old.txt
+              find /btrfs_tmp/home -mindepth 1 | sed 's|/btrfs_tmp/home/||' | sort > /tmp/hl_new.txt
+
+              only_in_old=$(comm -23 /tmp/hl_old.txt /tmp/hl_new.txt)
+              only_in_new=$(comm -13 /tmp/hl_old.txt /tmp/hl_new.txt)
+              rm -f /tmp/hl_old.txt /tmp/hl_new.txt
+
+              if [[ -n "$only_in_old" ]] || [[ -n "$only_in_new" ]]; then
+                {
+                  printf 'Diff: %s  ->  %s\n\n' "$prev_ts" "$curr_ts"
+                  if [[ -n "$only_in_old" ]]; then
+                    printf '=== Only in old (%s) ===\n' "$prev_ts"
+                    printf '%s\n' "$only_in_old"
+                    printf '\n'
+                  fi
+                  if [[ -n "$only_in_new" ]]; then
+                    printf '=== Only in new (%s) ===\n' "$curr_ts"
+                    printf '%s\n' "$only_in_new"
+                  fi
+                } > "/btrfs_tmp/persist/old_homes/''${prev_ts}->''${curr_ts}_diff.txt"
+              fi
+            fi
+          ) || echo "impermanence: diff block failed, skipping diff" > /dev/kmsg
+        fi
+
+
 
         # Home impermanence - rollback
           
@@ -169,14 +213,17 @@
           mv /btrfs_tmp/home "/btrfs_tmp/persist/old_homes/$timestamp"
         fi
 
-        # Remove old homes periodically.
-        max_age=30  # days until removed
-        # Make sure dir exists guard
+
+        # Remove old homes and their associated diff files periodically.
+        max_age=30
         if [[ -d /btrfs_tmp/persist/old_homes ]]; then
-          for i in $(find /btrfs_tmp/persist/old_homes/ -mindepth 1 -maxdepth 1 -mtime +$max_age); do
+          for i in $(find /btrfs_tmp/persist/old_homes/ -mindepth 1 -maxdepth 1 -type d -mtime +$max_age); do
+            ts=$(basename "$i")
+            find /btrfs_tmp/persist/old_homes/ -maxdepth 1 -name "''${ts}->*_diff.txt" -delete
             btrfs subvolume delete --recursive "$i"
           done
         fi
+
 
         # Create a fresh home.
         btrfs subvolume create /btrfs_tmp/home

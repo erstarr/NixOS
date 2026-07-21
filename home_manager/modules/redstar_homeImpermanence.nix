@@ -10,6 +10,7 @@
     lib.mkIf (!osConfig.custom.impermanence.entireHomeDirImpermanence) {
       directories = [
         ".local" # covers quite a bit of apps config stuff like pavucontrol, ... TODO - fragment this! TODO make a script that scans the last X home impermbackups and detecs if there's a dir/file that was in one and not the others
+        ".cache" # To avoid the overhead of some long term cached stuff from being recreated every time. The can just be nuked manually
         "Desktop"
         "Documents"
         "Downloads"
