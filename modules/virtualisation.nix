@@ -33,7 +33,7 @@
 
 
   # for passthrough
-  boot.kernelParams = [ "iommu=pt" ];
+  # IOMMU is set in boot.nix
   # boot.kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
 
 }

@@ -30,8 +30,14 @@ echo "Host Name:  $HOSTNAME"
 
 # 1. Wipe, partition, format, mount
 confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Continue?"
+
+# To avoid surprises, use the disko version from flake.lock to partition disks
+echo "extracting disko version from flake.lock..."
+DISKO_REV=$(nix eval --impure --raw --expr \
+  "(builtins.fromJSON (builtins.readFile \"${FLAKE_DIR}/flake.lock\")).nodes.disko.locked.rev")
+
 # Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md - with modifs since disko is not a flake
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount --flake "${FLAKE_DIR}#${HOSTNAME}"
+sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/${DISKO_REV} -- --mode destroy,format,mount --flake "${FLAKE_DIR}#${HOSTNAME}"
 
 
 
