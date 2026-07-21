@@ -21,9 +21,12 @@
         connection = {
           # IPv6 Privacy
           "ipv6.ip6-privacy" = "2";
-
         };
 
+        connectivity = {
+          enabled = true;
+        };
+        
       };
 
     };
