@@ -27,4 +27,14 @@
     };
   };
 
+
+  # Cursor
+  home.pointerCursor = {
+    gtk.enable = true;
+    name = "Adwaita";
+    size = 24;
+    package = pkgs.adwaita-icon-theme;
+  };
+
+
 }
