@@ -73,13 +73,13 @@ confirm "STEP 6: Fix ownership. Continue?"
 sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
 sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/NixOS_Config'
 
-# Needed as systemd will first craete it in ephemeral filesystem otherwise.
-confirm "STEP 7: Persisting machine-id early. Continue?"
-# Imperm during nixos-install must have creted this by now
-sudo nixos-enter --root /mnt -c 'cat /etc/machine-id > /persist/etc/machine-id'
+# Needed as systemd will first craete it in ephemeral filesystem otherwise. --> there's an exception for this already and it's auto handled
+# confirm "STEP 7: Persisting machine-id early. Continue?"
+# # Imperm during nixos-install must have creted this by now
+# sudo nixos-enter --root /mnt -c 'sudo cp -p /etc/machine-id /persist/etc/machine-id'
 
 
-confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
+confirm "STEP 7 Moving the install log into /var/log (persistent target)..."
 sudo mv /tmp/install.log /mnt/var/log
 
 echo "install script complete. Reboot to continue to NixOS!"

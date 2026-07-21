@@ -30,6 +30,7 @@
         ".var/app"
       ];
       files = [
+        # IMPORTANT note about file persistance in imperm (creation of dangling symlink if file not already in /persist) - read the system level imperm nix file
         ".bash_history"
         # ".bash_logout"
         # ".bash_profile"

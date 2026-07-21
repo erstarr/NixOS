@@ -101,6 +101,13 @@
         "/home/redstar"
       ];
       files = [
+
+        ######################
+        # IMPORTANT: Imperm ceates a dandling symlink for files that don't exist in /persist but are persisted. If the program unlinks and then creates over it, it'll be lost next boot and you must sudo cp -p it to /persist
+        # manually
+        ######################
+
+        
         "/etc/machine-id" # In first boot after install, this needs to be moved into /persist which is done by the install script
 
         # systemd credentials storage - libvirt uses this
