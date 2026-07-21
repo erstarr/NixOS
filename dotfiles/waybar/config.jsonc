@@ -498,8 +498,8 @@
     "format-icons": {
     
       // Apple USB-C - 3.5mm jack adapter
-    "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_REPLACED_SERIAL-00.analog-stereo": ["" ,"", ""],
-    "alsa_output.usb-Apple__Inc._USB-C_to_3.5mm_Headphone_Jack_Adapter_REPLACED_SERIAL-00.analog-stereo-muted": "",
+    "alsa_output.apple-usb-headphone": ["" ,"", ""],
+    "alsa_output.apple-usb-headphone-muted": "",
 
     "default": ["", "", ""],
     "default-muted": "",
