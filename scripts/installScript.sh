@@ -82,7 +82,7 @@ sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/
 # Needed as systemd will first craete it in ephemeral filesystem otherwise. --> there's an exception for this already and it's auto handled
 # confirm "STEP 7: Persisting machine-id early. Continue?"
 # # Imperm during nixos-install must have creted this by now
-# sudo nixos-enter --root /mnt -c 'sudo cp -p /etc/machine-id /persist/etc/machine-id'
+# sudo nixos-enter --root /mnt -c 'sudo cp -a /etc/machine-id /persist/etc/machine-id'
 
 
 confirm "STEP 7 Moving the install log into /var/log (persistent target)..."

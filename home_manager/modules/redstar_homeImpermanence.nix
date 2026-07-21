@@ -2,7 +2,7 @@
 {
   ######################
   # IMPORTANT: ADDING STUFF TO PERSISTANCE PAST FIRST INSTALL REQUIRES THE MANUAL COPYING OF THE FILES PRESENT THERE IF THE CURRENT STATE MUST BE SAVED!
-  ####> sudo cp -p to preserve owner,group,perms
+  ####> sudo cp -a to preserve owner,group,perms
   ######################
 
   home.persistence."/persist" =

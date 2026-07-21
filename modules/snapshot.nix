@@ -1,8 +1,16 @@
 # using snapper
 # Snapshots are in .snapshots inside the dir they are snapshotting; which means they survive imperm if the dir they're snapshotting survives
 
+# Excluding dirs - make the /persist/... path a btrfs subvolume. Doing this post first install is a pain. Can create a systemd oneshot for this maybe
 
+{pkgs, ...}:
 
+let
+  snapshotExcludedDirs = [
+    { path = "/persist/home/redstar/Downloads"; mode = "0755"; owner = "redstar:redstar"; }
+    { path = "/persist/home/redstar/Videos";    mode = "0755"; owner = "redstar:redstar"; }
+  ];
+in
 {
 
   # After https://github.com/NixOS/nixpkgs/pull/368449 is merged, this is redundant
@@ -10,11 +18,45 @@
     "v /persist/.snapshots  0750 root root -" # v type creates a btrfs subvolume only when the root directory / is itself a btrfs subvolume
     # "v /var/log/.snapshots  0750 root root -"
 
-    # Excluded Dirs (the way to do this in snapper at least as of july 2026 is to make them a btrfs subvolume)
-    "v /persist/home/redstar/Downloads        0755 redstar redstar -"
-    "v /persist/home/redstar/Videos           0755 redstar redstar -"
   ];
 
+
+
+    # If dir doesn't exist, create the dir and btrfs subvolume it
+    # If dir already exists, make it a btrfs subvol by moving the contents, making the subvol and copying them back
+    # Then fix permissions
+    systemd.services.btrfs-ensure-snapshot-exclusions = {
+      description = "Ensure snapper-excluded dirs are btrfs subvolumes";
+      wantedBy    = [ "multi-user.target" ];
+      after       = [ "local-fs.target" ];
+      before      = [ "snapper-timeline.service" "snapper-cleanup.service" "snapperd.service" ];
+      serviceConfig = { Type = "oneshot"; RemainAfterExit = true; };
+      path   = [ pkgs.btrfs-progs pkgs.coreutils ];
+      script = ''
+
+        set -euo pipefail
+
+        ensure_subvol() {
+          local dir=$1 mode=$2 owner=$3
+          btrfs subvolume show "$dir" &>/dev/null && return 0
+          if [[ -d "$dir" ]]; then
+            tmp="$dir.__conv_$$"
+            mv "$dir" "$tmp"
+            btrfs subvolume create "$dir"
+            cp -a "$tmp/." "$dir/"
+            rm -rf "$tmp"
+          else
+            mkdir -p "$(dirname "$dir")"
+            btrfs subvolume create "$dir"
+          fi
+          chmod "$mode" "$dir"
+          chown "$owner" "$dir"
+        }
+
+        ${builtins.concatStringsSep "\n"
+            (map (d: ''ensure_subvol "${d.path}" "${d.mode}" "${d.owner}"'') snapshotExcludedDirs)}
+      '';
+    };
 
 
     services.snapper = {

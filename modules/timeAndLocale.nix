@@ -1,6 +1,6 @@
 {
   time = {
-    timeZone = "Europe/Rome"; # Same timezone as self but different city for privacy
+    timeZone = "Europe/Amsterdam"; # Different city for privacy
   };
 
   # Select internationalisation properties.

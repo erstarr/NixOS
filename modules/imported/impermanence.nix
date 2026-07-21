@@ -16,7 +16,7 @@
 
   ######################
   # IMPORTANT: ADDING STUFF TO PERSISTANCE PAST FIRST INSTALL REQUIRES THE MANUAL COPYING OF THE FILES PRESENT THERE IF THE CURRENT STATE MUST BE SAVED!
-  ####> sudo cp -p to preserve owner,group,perms
+  ####> sudo cp -a to preserve owner,group,perms
   ######################
 
 
@@ -103,7 +103,7 @@
       files = [
 
         ######################
-        # IMPORTANT: Imperm ceates a dandling symlink for files that don't exist in /persist but are persisted. If the program unlinks and then creates over it, it'll be lost next boot and you must sudo cp -p it to /persist
+        # IMPORTANT: Imperm ceates a dandling symlink for files that don't exist in /persist but are persisted. If the program unlinks and then creates over it, it'll be lost next boot and you must sudo cp -a it to /persist
         # manually
         ######################
 
