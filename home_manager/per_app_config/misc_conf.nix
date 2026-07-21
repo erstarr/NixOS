@@ -2,37 +2,37 @@
 { config, ... }:
 
 let
-  dotDir = "NixOS_Config/dotfiles";
+  dotDir = "${config.home.homeDirectory}/NixOS_Config/dotfiles";
 in
 {
 
   # Hyprland
   xdg.configFile."hypr".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/hypr";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/hypr";
 
   # Waybar
   xdg.configFile."waybar".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/waybar";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/waybar";
 
   # rofi
   xdg.configFile."rofi".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/rofi";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/rofi";
 
   # SwayNC
   xdg.configFile."swaync".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/swaync";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/swaync";
 
   # Satty
   xdg.configFile."satty".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/satty";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/satty";
 
   # Kitty
   xdg.configFile."kitty".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/kitty";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/kitty";
 
   # Wireplumber
   xdg.configFile."wireplumber".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/wireplumber";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/wireplumber";
 
   # home.file.".somerc".source =
   #   config.lib.file.mkOutOfStoreSymlink

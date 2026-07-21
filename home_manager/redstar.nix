@@ -9,9 +9,9 @@
     ./per_app_config/bash.nix
 
     ./per_app_config/misc_conf.nix
-    
+
     ./per_app_config/clipse.nix
-    ./per_app_config/yazi_hm.nix
+    ./per_app_config/yazi.nix
 
     ];
 

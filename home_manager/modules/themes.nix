@@ -30,7 +30,7 @@
 
   # Cursor
   home.pointerCursor = {
-    gtk.enable = true;
+    enable = true;
     name = "Adwaita";
     size = 24;
     package = pkgs.adwaita-icon-theme;

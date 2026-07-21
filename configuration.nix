@@ -62,9 +62,6 @@
 
     ./modules/per_app_config/hyprland.nix
 
-    ./modules/yazi.nix
-
-
   ]
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported
   ++ lib.optionals (vmMode) [

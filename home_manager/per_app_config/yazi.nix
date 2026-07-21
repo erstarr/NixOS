@@ -1,7 +1,8 @@
+# If you want plugins and stuff, configure yazi through the module [system module] (would need to set settings, etc... in nix and not in .toml file)
 {config, ...}:
 
 let
-  dotDir = "NixOS_Config/dotfiles";
+  dotDir = "${config.home.homeDirectory}/NixOS_Config/dotfiles";
 in
 {
   # TODO: keep in sync with yazi.desktop
@@ -35,7 +36,7 @@ in
 
   # Yazi
   xdg.configFile."yazi".source =
-    config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/${dotDir}/yazi";
+    config.lib.file.mkOutOfStoreSymlink "${dotDir}/yazi";
 
 
 

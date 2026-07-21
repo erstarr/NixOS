@@ -45,6 +45,7 @@
     rofi
 
 
+    yazi
     # For yazi
     fd
     fzf
