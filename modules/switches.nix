@@ -2,7 +2,15 @@
 {
 
 
-  config.custom.virtualMachines.vmMode = true;
+  #MARK: IMPORTANT!!
+  #########################################################################################################
+  ###############################################################################################
+  ####################################################################################
+  ####### vmMode switch is in flake.nix!!! MUST NOT TURN THAT ON ON BAREMETAL!
+  ####################################################################################
+  ###############################################################################################
+  #########################################################################################################
+  #MARK: IMPORTANT!!
 
   config.custom.impermanence.entireHomeDirImpermanence = false;
 
@@ -28,15 +36,6 @@
     description = "Use Hyprland flake input (with its pinned mesa) instead of nixpkgs.";
   };
 
-
-
-  # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
-  # Switch this when on VM/BareMetal
-  options.custom.virtualMachines.vmMode = lib.mkOption {
-    type    = lib.types.bool;
-    default = false;
-    description = "Enable VM only config options. DO NOT ENABLE IF NOT IN A VM!";
-  };
 
 
 }

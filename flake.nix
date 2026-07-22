@@ -82,6 +82,13 @@
               nix-flatpak
               hyprland
               ;
+
+
+              # Toggleable option!
+              # TODO: integrate Vm specific logic to disko config too, rn it has to be done by hand
+              # Switch this when on VM/BareMetal
+              # Enable VM only config options. DO NOT ENABLE IF NOT IN A VM!
+              vmMode = true;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };

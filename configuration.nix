@@ -6,6 +6,7 @@
   config,
   lib,
   pkgs,
+  vmMode,
   ...
 }:
 
@@ -67,10 +68,10 @@
 
   ]
   # VM Switch. Append if vmMode is true. If not, the whole .nix file won't be imported
-  ++ lib.optionals (config.custom.virtualMachines.vmMode) [
+  ++ lib.optionals (vmMode) [
     ./modules/vm_specific.nix
   ]
-  ++ lib.optionals (!config.custom.virtualMachines.vmMode) [
+  ++ lib.optionals (!vmMode) [
     ./modules/ssh.nix
   ]
   ;
