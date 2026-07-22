@@ -32,7 +32,7 @@
 
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/"; # TODO: on main, not stable because 0.7.0 doesn't have support for override files yet. When that comes, switch to stable
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs"; # Silence the errro
     };
 
     # Flake - Also has a nixpkgs version
