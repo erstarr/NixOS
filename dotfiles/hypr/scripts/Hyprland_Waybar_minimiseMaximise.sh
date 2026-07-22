@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 
 # If current=selected AND in minimised workspace, send to non-minimised
