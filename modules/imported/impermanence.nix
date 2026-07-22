@@ -229,4 +229,17 @@
 
   };
 
+
+  # Flip this switch, don't change the default down below. It makes no sense for default to be flippable
+  config.custom.impermanence.entireHomeDirImpermanence = false;
+
+
+  # Persist the entire /home. Disables home manager's home persistence stuff.
+  options.custom.impermanence.entireHomeDirImpermanence = lib.mkOption {
+    type = lib.types.bool;
+    default = false;
+    description = "Persist entire home dir. False = selective persistence.";
+  };
+
+
 }
