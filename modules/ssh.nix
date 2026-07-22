@@ -1,14 +1,14 @@
-{lib, ...}:
+{ lib, ... }:
 
 {
 
   services.openssh = {
 
-  settings = {
-    enable = true;
-    PasswordAuthentication = false;
-    PermitRootLogin = "no";
-  };
+    settings = {
+      enable = true;
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+    };
     # no server shall run on baremetal
     openFirewall = false;
 

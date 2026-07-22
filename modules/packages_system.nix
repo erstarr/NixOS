@@ -17,6 +17,9 @@
   # Nix is not FHS-compliant so this is to compensate
   programs.nix-ld.enable = true;
 
+  # Don't want nix to intall 'default' packages
+  environment.defaultPackages = [];
+
   # TODO - check if and system-user packages now have a module every now and then - not always desirable to use module mind! ==> implicitly use systemd start and shit
   # System Packages
   environment.systemPackages = with pkgs; [

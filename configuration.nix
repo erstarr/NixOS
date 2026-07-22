@@ -75,6 +75,10 @@
   # Config values live in /username/NixOS_Config!
   environment.etc."nixos".source = "/home/redstar/NixOS_Config";
 
+
+  # Using flakes so this is dead weight
+  nix.channel.enable = false;
+
   nix.settings.experimental-features = [
     # Enable Flakes
     "nix-command"

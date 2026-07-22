@@ -1,11 +1,8 @@
-
-
 {
   lib,
   pkgs,
   ...
 }:
-
 
 {
   # THIS IS VM SPECIFIC
@@ -37,10 +34,9 @@
   boot.kernelModules = [ "virtiofs" ];
 
   fileSystems."/mnt/shared" = {
-    device  = "fileShare";
-    fsType  = "virtiofs";
+    device = "fileShare";
+    fsType = "virtiofs";
     options = [ "_netdev" ];
   };
-
 
 }
