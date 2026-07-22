@@ -38,7 +38,7 @@
     # Flake - Also has a nixpkgs version
     hyprland = {
 
-      url = "github:hyprwm/Hyprland/commit/36b2e0cfe0c6094dbc47bd42a437431315bb3087"; # Pinned to 0.56.0 release commit
+      url = "github:hyprwm/Hyprland/36b2e0cfe0c6094dbc47bd42a437431315bb3087"; # Pinned to 0.56.0 release commit
       # Not following nixpkgs as mesa will be pinned according to the hyprland commit
     };
 
@@ -80,7 +80,8 @@
               impermanence
               home-manager
               nix-flatpak
-              hyprland;
+              hyprland
+              ;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };
