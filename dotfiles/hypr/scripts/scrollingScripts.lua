@@ -37,10 +37,10 @@ local function scroll_windowTakeUpWholeColumn(window)
     if window.group ~= nil then
         -- Window is grouped. we need to account for the size of the groupbar when judging if the window takes up the whole screen or not
         -- Groupbar Compensation: Groupbar '20' tall
-        return return window.size.y > (targetSize_y - 20)
+        return window.size.y > (targetSize_y - 20)
 
     else
-        return return window.size.y > targetSize_y
+        return window.size.y > targetSize_y
     end
 
 end
