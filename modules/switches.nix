@@ -1,6 +1,17 @@
 { lib, ... }:
 {
 
+
+  config.custom.virtualMachines.vmMode = true;
+
+  config.custom.impermanence.entireHomeDirImpermanence = false;
+
+  config.custom.hyprland.useFlake = true;
+
+
+
+
+
   # Persist the entire /home. Disables home manager's home persistence stuff.
   options.custom.impermanence.entireHomeDirImpermanence = lib.mkOption {
     type = lib.types.bool;

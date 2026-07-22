@@ -63,8 +63,8 @@ in
   # For file pickermodules
   xdg.portal.extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
 
-  # Cache so you don't rebuild all hyprland deps every time you update (inc mesa. etc...)
-  nix.settings = {
+  # Cache so you don't rebuild all hyprland deps every time you update (inc mesa. etc...) -- only relevant if using flakes
+  nix.settings = lib.mkIf useFlake {
     substituters = ["https://hyprland.cachix.org"];
     trusted-substituters = ["https://hyprland.cachix.org"];
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
