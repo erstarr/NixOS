@@ -396,17 +396,11 @@ end
 
 
 
+-- -- Use this to see if more than one prop refresh is being enacted when it shouldn't
+-- hl.on("config.props_refreshed", function(int)
+--         hl.notification.create({ text = "Prop Refreshed! \nAs Scheduled: " .. tostring(int), timeout = 1500, icon = "error" })
 
-
-
-
-
-
-
-
-
-
-
+-- end)
 
 
 
