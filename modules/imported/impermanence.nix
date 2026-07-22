@@ -229,9 +229,4 @@
 
   };
 
-  # If networkmanager suff is persisted. TODO I don't know if this is done implicitly?
-  # fileSystems."/var/lib" = {
-  #   neededForBoot = true;
-  # };
-
 }

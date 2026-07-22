@@ -20,19 +20,8 @@
       };
     };
 
-    overrides = {
-      writeMode = "replace";
-      pruneUnmanagedOverrides = true; # Remove overrides of deleted applications from the actualy overrides directory (not from my dotfiles dir)
-      files = [
-        ../../dotfiles/flatpak/overrides/com.obsproject.Studio
-        ../../dotfiles/flatpak/overrides/com.visualstudio.code
-        ../../dotfiles/flatpak/overrides/md.obsidian.Obsidian
-        ../../dotfiles/flatpak/overrides/net.ankiweb.Anki
-        ../../dotfiles/flatpak/overrides/org.kde.dolphin
-        ../../dotfiles/flatpak/overrides/org.kde.kate
-        ../../dotfiles/flatpak/overrides/org.mozilla.firefox
-      ];
-    };
+    # Overrides are linked to place with home manager so i can edit perms with flatseal
+
     # remotes = []; # By default  flathub is already added
     packages = [
 

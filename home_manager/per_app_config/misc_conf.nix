@@ -34,6 +34,13 @@ in
   xdg.configFile."wireplumber".source =
     config.lib.file.mkOutOfStoreSymlink "${dotDir}/wireplumber";
 
+
+  # Flatpak Override Dir
+  home.file.".local/share/flatpak/overrides".source =
+    config.lib.file.mkOutOfStoreSymlink
+      "${dotDir}/flatpak/overrides";
+
+
   # home.file.".somerc".source =
   #   config.lib.file.mkOutOfStoreSymlink
   #     "${config.home.homeDirectory}/NixOS_Config/dotfiles/somerc";

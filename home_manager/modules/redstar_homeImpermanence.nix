@@ -11,6 +11,12 @@
       directories = [
         ".local" # covers quite a bit of apps config stuff like pavucontrol, ... TODO - fragment this! TODO make a script that scans the last X home impermbackups and detecs if there's a dir/file that was in one and not the others
         ".cache" # To avoid the overhead of some long term cached stuff from being recreated every time. The can just be nuked manually
+        
+        # Flatpak app files
+        ".var/app"        
+        # SSH - mainly for known hosts --> for github ssh auth
+        ".ssh"
+
         "Desktop"
         "Documents"
         "Downloads"
@@ -20,22 +26,14 @@
         "Public"
         "Templates"
         "Videos"
-
-        # SSH - mainly for known hosts --> for github ssh auth
-        ".ssh"
-
-        # My Nix and Dotfiles
+        
+        # My Nix config and Dotfiles - must use home-relative path!
         "NixOS_Config"
 
-        # Flatpak files
-        ".var/app"
       ];
       files = [
         # IMPORTANT note about file persistance in imperm (creation of dangling symlink if file not already in /persist) - read the system level imperm nix file
         ".bash_history"
-        # ".bash_logout"
-        # ".bash_profile"
-        # ".bashrc"
         ".lesshst"
       ];
     };
