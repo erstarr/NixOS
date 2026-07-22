@@ -22,7 +22,7 @@ button=$2
 # hyprctl notify 0 4000 "rgb(ff0000)" "windowWorkspace: $windowAddress"
 # hyprctl notify 0 4000 "rgb(ff0000)" "$button"
 
-hyprctl eval "hl.notification.create({ text = 'WindowAddress: $windowAddress\nbutton: $button', timeout = 1500, icon = "error" })"
+hyprctl eval "hl.notification.create({ text = 'WindowAddress: $windowAddress\nbutton: $button', timeout = 1500, icon = 'error' })"
 
 
 
@@ -32,9 +32,9 @@ if (( button == 1 )); then
     # hyprctl notify 0 4000 "rgb(ff0000)" "Switching Focus to Window $windowAddress"
 
     # Since i run with follow_focus off, i need to turn that on for this to really "focus" on the selected window (so it actually comes into the visible display)
-    hyprctl --batch "eval 'hl.config({scrolling = {follow_focus true,}})'; \
+    hyprctl --batch "eval 'hl.config({scrolling = {follow_focus = true,}})'; \
                      dispatch 'hl.dsp.window.focus({window = $windowAddress})'; \
-                     eval 'hl.config({scrolling = {follow_focus false,}})'"
+                     eval 'hl.config({scrolling = {follow_focus = false,}})'"
 
     exit 0
 fi
@@ -109,13 +109,13 @@ if  [[ "$currentWorkspace" == "$selectedWindow_workspace" ]]; then
         if [[ "${currentWorkspace_numeric%%_S}" =~ ^[0-9]+$ ]]; then
             # hyprctl notify 0 4000 "rgb(ff0000)" "Selected Workspace is the same as Current Workspace AND currentWorkspace is a normal-Workspace-Minimse Pair - Sending window to its non-minimised pair-workspace: ${currentWorkspace%%_S}"
 
-            hyprctl dispatch 'hl.dsp.window.move({workspace = '${currentWorkspace_numeric%%_S}', follow = false, window = 'address:$windowAddress'})' #Sends it to the workspace of the current window without the _S part
+            hyprctl dispatch "hl.dsp.window.move({workspace = '${currentWorkspace_numeric%%_S}', follow = false, window = 'address:$windowAddress'})" #Sends it to the workspace of the current window without the _S part
 
         # If currentWorkspace_numeric without the trailing _S is NOT numeric (=alpha) -> Current Workspace is non-minimise-special workspace's minimise pair
         else
             # hyprctl notify 0 4000 "rgb(ff0000)" "Selected Workspace is the same as Current Workspace AND currentWorkspace is a Special-Workspace-Minimse Pair - Sending window to its non-minimised pair-workspace: ${currentWorkspace%%_S}"
 
-            hyprctl dispatch 'hl.dsp.window.move({workspace = 'special:${currentWorkspace_numeric%%_S}', follow = false, window = 'address:$windowAddress'})' #Sends it to the workspace of the current window without the _S part
+            hyprctl dispatch "hl.dsp.window.move({workspace = 'special:${currentWorkspace_numeric%%_S}', follow = false, window = 'address:$windowAddress'})" #Sends it to the workspace of the current window without the _S part
         fi
 
     # Current workspace is a non-minimise-workspace
@@ -124,7 +124,7 @@ if  [[ "$currentWorkspace" == "$selectedWindow_workspace" ]]; then
 
         # hyprctl notify 0 4000 "rgb(ff0000)" "Selected Workspace is the same as Current Workspace - Sending window to its minimised pair-workspace: special:${currentWorkspace_numeric}_S"
 
-        hyprctl dispatch 'hl.dsp.window.move({workspace = 'special:${currentWorkspace_numeric}_S', follow = false, window = 'address:$windowAddress'})'
+        hyprctl dispatch "hl.dsp.window.move({workspace = 'special:${currentWorkspace_numeric}_S', follow = false, window = 'address:$windowAddress'})"
 
     fi
 
@@ -136,7 +136,7 @@ else
     # hyprctl notify 0 4000 "rgb(ff0000)" "Selected workspace is NOT the same as the current workspace - pulling window to $currentWorkspace"
 
     # This pulls the window to the current workspace be it special or not
-    hyprctl dispatch 'hl.dsp.window.move({workspace = '$currentWorkspace', follow = true, window = 'address:$windowAddress'})' # movetoworkspace instead of movetoworkspacesilent because when in a special workspace, when you pull a window in, it switch to the underlying non-special workspace
+    hyprctl dispatch "hl.dsp.window.move({workspace = '$currentWorkspace', follow = true, window = 'address:$windowAddress'})" # movetoworkspace instead of movetoworkspacesilent because when in a special workspace, when you pull a window in, it switch to the underlying non-special workspace
 
 
     # Can add the logic to "If btw 1-10, 1_S-10_S; move it to its pair instead of the current"

@@ -24,18 +24,24 @@ local scroll_wholeScreenTag = "scroll_MaximiseCandidate"
 
 local function scroll_windowTakeUpWholeColumn(window)
 
--- TODO - these are for VM debugging. This is the size of the VM window.
--- local screenSize_y = 720
+    -- TODO - these are for VM debugging. This is the size of the VM window.
+    -- local screenSize_y = 720
 
-local screenSize_y = hl.get_active_monitor().height
+    local screenSize_y = hl.get_active_monitor().height
 
-local targetSize_y = screenSize_y - 18 - 30
+    local targetSize_y = screenSize_y - 18 - 30
 
 
--- the values are synced with sharedScripts.windowTakesUpWholeScreen() --- Must update these if those change
+    -- the values are synced with sharedScripts.windowTakesUpWholeScreen() --- Must update these if those change
 
-return window.size.y > targetSize_y
+    if window.group ~= nil then
+        -- Window is grouped. we need to account for the size of the groupbar when judging if the window takes up the whole screen or not
+        -- Groupbar Compensation: Groupbar '20' tall
+        return return window.size.y > (targetSize_y - 20)
 
+    else
+        return return window.size.y > targetSize_y
+    end
 
 end
 

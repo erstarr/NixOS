@@ -1192,7 +1192,7 @@ hl.bind(mainMod .. " + CTRL + F11", hl.dsp.layout("orientationcycle left right")
 -- change the layout of the currently active workspace to Monocle
 hl.bind(mainMod .. " + F12", function()
 
-    local activeWorkspace = hl.get_active_workspace()
+    local activeWorkspace = sharedScripts.getActiveWorkspace()
     
     hl.workspace_rule({
         workspace = activeWorkspace.name,
