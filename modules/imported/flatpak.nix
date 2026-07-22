@@ -8,7 +8,7 @@
 
     enable = true;
 
-    uninstallUnmanaged = true; # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories
+    uninstallUnmanaged = true; # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories (i.e. --delete-data)
 
     # Expicitly disable auto update
     update = {
