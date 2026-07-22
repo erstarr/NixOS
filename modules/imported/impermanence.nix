@@ -120,7 +120,7 @@
 
     # For diffing old and new-old home in the script
     boot.initrd.systemd.extraBin.comm = "${pkgs.coreutils}/bin/comm";
-
+    boot.initrd.systemd.extraBin.sed  = "${pkgs.gnused}/bin/sed";
 
     boot.initrd.systemd.services.impermanence = {
 
