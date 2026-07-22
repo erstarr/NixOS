@@ -6,6 +6,7 @@
     alsa.enable = true;
     alsa.support32Bit = true; # just in case
     pulse.enable = true;
+    jack.enable = true;
   };
 
 
@@ -13,7 +14,6 @@
   security.rtkit.enable = true;
 
   # To achieve parity with arch
-  services.pipewire.jack.enable = true;
 
 
 
