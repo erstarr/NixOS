@@ -44,7 +44,6 @@ end
 
 local function scroll_execPropRefreshImmediately()
 
-
     -- on 0.56 when the workspace changes apply changed. It schedules a prop refresh event and execs it at the end of the current event.
     -- This helper function executes it immediately instead (removes the queued event too)
     hl.dispatch(hl.dsp.layout("inhibit_scroll true"))
@@ -101,6 +100,12 @@ end
 ---------------------------------------------------- Scripts --------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
+
+
+
+-- Track if a prop refresh was executed already as a result of switching to the window on the left/right col. This is to prevent redundantly setting the window's properties again in window.active
+local propRefreshAppliedDueToWindowSwitch = false
+
 
 
 
@@ -175,8 +180,21 @@ local function scroll_focusRight()
         return
     end
 
-    -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
-    scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
+
+    local windowOnTheRight = sharedScripts.getWindowOnTheRight(currentWindow, currentWorkspace)
+
+    if windowOnTheRight == nil then
+        return
+    end
+
+    local currentWindowMaximise_Sized = sharedScripts.windowTakesUpWholeScreen(currentWindow) and sharedScripts.windowCurrentlyComplatelyInView(currentWindow)
+    local rightWindowMaximised = sharedScripts.windowTakesUpWholeScreen(windowOnTheRight)
+
+    if (currentWindowMaximise_Sized ~= rightWindowMaximised) then
+        -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
+        scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
+    end
+
 
     -- move to the window on the right
     hl.dispatch(hl.dsp.layout("focus right"))
@@ -192,7 +210,7 @@ local function scroll_focusRight()
         -- give the workspace back its gaps
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
     end
-
+    propRefreshAppliedDueToWindowSwitch = true
 end
 
 
@@ -275,8 +293,21 @@ local function scroll_focusLeft()
         return
     end
 
-    -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
-    scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
+
+    local windowOnTheLeft = sharedScripts.getWindowOnTheLeft(currentWindow, currentWorkspace)
+
+    if windowOnTheLeft == nil then
+        return
+    end
+
+    local currentWindowMaximise_Sized = sharedScripts.windowTakesUpWholeScreen(currentWindow) and sharedScripts.windowCurrentlyComplatelyInView(currentWindow)
+    local rightWindowMaximised = sharedScripts.windowTakesUpWholeScreen(windowOnTheLeft)
+
+    if (currentWindowMaximise_Sized ~= rightWindowMaximised) then
+        -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
+        scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
+    end
+
 
     -- move to the window on the right
     hl.dispatch(hl.dsp.layout("focus left"))
@@ -292,7 +323,7 @@ local function scroll_focusLeft()
         -- give the workspace back its gaps
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
     end
-
+    propRefreshAppliedDueToWindowSwitch = true
 end
 
 
@@ -380,7 +411,7 @@ end
 
 
 hl.on("window.active", function(window, int)
-    
+
     
     local workspace = sharedScripts.getActiveWorkspace()
     
@@ -450,19 +481,23 @@ hl.on("window.active", function(window, int)
         if sharedScripts.windowTakesUpWholeScreen(window) and sharedScripts.windowCurrentlyComplatelyInView(window) then
         
             -- reenact modifs on it, even if the tag is already there (just in case)
-
-            scroll_enactWindowWorkspaceModifications(window,workspace,true)
-            -- fit it fully to view - just in case in case
-            -- this should only happen to the window that's currently fully in view anyway so it shouldn't cause weird behaviour
-            hl.dispatch(hl.dsp.layout("fit active"))
-        
+            
+            -- If we moved to right/left col in this event, doing this again is pointless
+            if not propRefreshAppliedDueToWindowSwitch then
+                scroll_enactWindowWorkspaceModifications(window,workspace,true)
+                -- fit it fully to view - just in case in case
+                -- this should only happen to the window that's currently fully in view anyway so it shouldn't cause weird behaviour
+                hl.dispatch(hl.dsp.layout("fit active"))
+            end
 
             -- Save the fact that this window rightfully has the tag.
             -- If the var is nil, this means that there is no scroll_maximised window in view right now and the current workspace must not have any windows that has the tag
             currentlyInViewWindow_thatIsScrollMaximised = window
         else
-
-            scroll_enactWindowWorkspaceModifications(window,workspace,false)
+            -- If we moved to right/left col in this event, doing this again is pointless
+            if not propRefreshAppliedDueToWindowSwitch then
+                scroll_enactWindowWorkspaceModifications(window,workspace,false)
+            end
         end
         
     end
@@ -502,8 +537,8 @@ hl.on("window.active", function(window, int)
         end
     end
     
-
-
+    -- After the current event (assuming window.active can only fire once per event here!), reset the flag
+    propRefreshAppliedDueToWindowSwitch = false
 end)
 
 

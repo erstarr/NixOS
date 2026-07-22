@@ -175,6 +175,72 @@ end
 
 
 
+
+
+
+
+local function getWindowOnTheRight(window, workspace)
+
+    if window == nil or workspace == nil then
+        hl.notification.create({ text = "Window or Workspace is nil! This is an error!", timeout = 1500, icon = "error" })
+        return
+    end
+    
+
+    -- Get the window on the right 
+    local currentWindows_x = window.at.x
+    local windowList = hl.get_workspace_windows(workspace)
+    local candidateWindow = nil
+    local smallestFoundBiggerThanCurrentWindows_x = 99999
+    -- check all windows for if they could be the underlying "fully in view and takes up the entire monitor" tiled window behind the floating one
+    for _, windowElement_FindingTiled in ipairs(windowList) do
+        if windowElement_FindingTiled ~= nil and not windowElement_FindingTiled.floating then
+            local windowElement_x = windowElement_FindingTiled.at.x
+            if windowElement_x > currentWindows_x and windowElement_x < smallestFoundBiggerThanCurrentWindows_x  then
+                candidateWindow = windowElement_FindingTiled
+                smallestFoundBiggerThanCurrentWindows_x = windowElement_x
+            end
+        end
+    end
+
+    return candidateWindow
+
+end
+
+
+local function getWindowOnTheLeft(window, workspace)
+
+    if window == nil or workspace == nil then
+        hl.notification.create({ text = "Window or Workspace is nil! This is an error!", timeout = 1500, icon = "error" })
+        return
+    end
+    
+
+    -- Get the window on the right 
+    local currentWindows_x = window.at.x
+    local windowList = hl.get_workspace_windows(workspace)
+    local candidateWindow = nil
+    local smallestFoundBiggerThanCurrentWindows_x = -99999
+    -- check all windows for if they could be the underlying "fully in view and takes up the entire monitor" tiled window behind the floating one
+    for _, windowElement_FindingTiled in ipairs(windowList) do
+        if windowElement_FindingTiled ~= nil and not windowElement_FindingTiled.floating then
+            local windowElement_x = windowElement_FindingTiled.at.x
+            if windowElement_x < currentWindows_x and windowElement_x > smallestFoundBiggerThanCurrentWindows_x  then
+                candidateWindow = windowElement_FindingTiled
+                smallestFoundBiggerThanCurrentWindows_x = windowElement_x
+            end
+        end
+    end
+
+    return candidateWindow
+
+end
+
+
+
+
+
+
 return {
     -- Which files to export using which names
     getActiveWorkspace                         = getActiveWorkspace,
@@ -182,5 +248,8 @@ return {
     windowCurrentlyComplatelyInView            = windowCurrentlyComplatelyInView,
     workspaceRule_RemoveGaps                   = workspaceRule_RemoveGaps,
     getLastTiledOrFloatingWindowInWorkspace    = getLastTiledOrFloatingWindowInWorkspace,
+    getWindowOnTheRight                        = getWindowOnTheRight,
+    getWindowOnTheLeft                         = getWindowOnTheLeft,
+
 }
 
