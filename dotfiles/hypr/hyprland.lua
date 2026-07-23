@@ -937,7 +937,11 @@ local function toggleFs(fullscreenMode, layoutAware)
 
     -- If we are unFullscreening the window, give the workspace back its gaps (read below comments for why we can't leave this to f[1])
     if window.fullscreen == fullscreenMode then
-        sharedScripts.workspaceRule_RemoveGaps(workspace, false)
+        -- Scroll specific - don't do that if it's supposed to be max-size -- assumes that the window has no other tag. Turn this into "iterate over all tags" if windows may have more than one tag
+        if (isWorkspaceLayoutScrolling) and (window.tags[1] == "scroll_MaximiseCandidate") then
+        else    
+            sharedScripts.workspaceRule_RemoveGaps(workspace, false)
+        end
     end
 
     -- If there's already a covering FS window in the current workspace, we must have had the gaps modifications done, so skip (also bugs shit out if you do it again)
