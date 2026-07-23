@@ -903,37 +903,91 @@ hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 
+
+local function toggleFs(fullscreenMode, layoutAware)
+
+
+    local mode_string = nil
+
+    if fullscreenMode == 1 then
+        mode_string = "maximized"
+    elseif fullscreenMode == 2 then
+        mode_string = "fullscreen"
+    else
+        hl.notification.create({ text = "Invalid fullscreenMode passed - This is a bug", timeout = 5000, icon = "error" })
+        return
+
+    end
+
+
+    local window = hl.get_active_window()
+    local workspace = sharedScripts.getActiveWorkspace()
+
+    if window == nil or workspace == nil then
+        return
+    end
+
+    local isWorkspaceLayoutScrolling = workspace.tiled_layout == "scrolling"
+
+    -- Avoid viewport move
+    if isWorkspaceLayoutScrolling then
+        hl.dispatch(hl.dsp.layout("inhibit_scroll true"))
+    end
+
+
+    -- If we are unFullscreening the window, give the workspace back its gaps (read below comments for why we can't leave this to f[1])
+    if window.fullscreen == fullscreenMode then
+        sharedScripts.workspaceRule_RemoveGaps(workspace, false)
+    end
+
+    -- If there's already a covering FS window in the current workspace, we must have had the gaps modifications done, so skip (also bugs shit out if you do it again)
+    if (not workspace.has_fullscreen) then  
+        -- If there are other workspace rules in workspace that give gaps, they might take precedence over f[1] so we need to overwrite those rules first.
+        -- This is the rule that is used to remove gaps from workspaces in scrolling related (and possibly more in the fuuture) scripts
+        sharedScripts.workspaceRule_RemoveGaps(workspace, true)
+    end
+    
+    -- Make workspace rule apply immediately
+    hl.exec_scheduled_prop_refresh_immediately()
+
+        -- Avoid viewport move
+    if isWorkspaceLayoutScrolling then
+        hl.dispatch(hl.dsp.layout("inhibit_scroll false"))
+    end
+
+    
+    hl.dispatch(hl.dsp.window.fullscreen({
+                    mode = mode_string,
+                    action = "toggle",
+                    window = "activewindow",
+                    layout_aware = layoutAware,
+                })
+    )
+
+
+end
+
+
+
 -- Maximised - Default Handled
-hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({
-    mode = "maximized",
-    action = "toggle",
-    window = "activewindow",
-    layout_aware = false,
-}))
+hl.bind(mainMod .. " + F", function ()
+    toggleFs(1, false)
+end)
 
 -- Fullscreen - Default Handled
-hl.bind(mainMod .. " + SHIFT + F", hl.dsp.window.fullscreen({
-    mode = "fullscreen",
-    action = "toggle",
-    window = "activewindow",
-    layout_aware = false,
-}))
+hl.bind(mainMod .. " + SHIFT + F", function ()
+    toggleFs(2, false)
+end)
 
 -- Maximised - Layout Handled
-hl.bind(mainMod .. " + CTRL + F", hl.dsp.window.fullscreen({
-    mode = "maximized",
-    action = "toggle",
-    window = "activewindow",
-    layout_aware = true,
-}))
+hl.bind(mainMod .. " + CTRL + F", function ()
+    toggleFs(1, true)
+end)
 
 -- Fullscreen - Layout Handled
-hl.bind(mainMod .. " + CTRL + SHIFT + F", hl.dsp.window.fullscreen({
-    mode = "fullscreen",
-    action = "toggle",
-    window = "activewindow",
-    layout_aware = true,
-}))
+hl.bind(mainMod .. " + CTRL + SHIFT + F", function ()
+    toggleFs(2, true)
+end)
 
 
 

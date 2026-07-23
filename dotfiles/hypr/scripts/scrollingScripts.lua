@@ -149,19 +149,12 @@ local function scroll_focusRight()
         if currentWindow.fullscreen_handler == "default" then
             hl.dispatch(hl.dsp.window.fullscreen({mode = "maximized", action = "unset", window = currentWindow }))
             currentWindow = hl.get_active_window() -- just in case
-        else
-            hl.dispatch(hl.dsp.layout("focus r"))
-            return
         end
-    else if currentWindow.fullscreen == 2 then
+    elseif currentWindow.fullscreen == 2 then
         if currentWindow.fullscreen_handler == "default" then
             hl.dispatch(hl.dsp.window.fullscreen({mode = "fullscreen", action = "unset", window = currentWindow }))
             currentWindow = hl.get_active_window() -- just in case
-        else
-            hl.dispatch(hl.dsp.layout("focus r"))
-            return    
         end
-    end
     end
 
 
@@ -261,20 +254,13 @@ local function scroll_focusLeft()
         if currentWindow.fullscreen_handler == "default" then
             hl.dispatch(hl.dsp.window.fullscreen({mode = "maximized", action = "unset", window = currentWindow }))
             currentWindow = hl.get_active_window() -- just in case
-        else
-            hl.dispatch(hl.dsp.layout("focus l"))
-            return
         end
 
-    else if currentWindow.fullscreen == 2 then
+    elseif currentWindow.fullscreen == 2 then
         if currentWindow.fullscreen_handler == "default" then
             hl.dispatch(hl.dsp.window.fullscreen({mode = "fullscreen", action = "unset", window = currentWindow }))
             currentWindow = hl.get_active_window() -- just in case
-        else
-            hl.dispatch(hl.dsp.layout("focus l"))
-            return
         end
-    end
     end
 
 
@@ -365,10 +351,9 @@ local function scroll_scrollSpecificMaximse()
     if currentWindow.fullscreen == 1 then
         hl.dispatch(hl.dsp.window.fullscreen({mode = "maximized", action = "unset", window = currentWindow }))
         return
-    else if currentWindow.fullscreen == 2 then
+    elseif currentWindow.fullscreen == 2 then
         hl.dispatch(hl.dsp.window.fullscreen({mode = "fullscreen", action = "unset", window = currentWindow }))
         return
-    end
     end
 
 
@@ -442,8 +427,8 @@ hl.on("window.active", function(window, int)
     end
     
 
-    -- if current window is fullscreen, don't consider it.
-    if (window.fullscreen ~= 0) then
+    -- if current window is fullscreen or current workspace has a covering fullscreen window, don't consider it.
+    if (window.fullscreen ~= 0) or (workspace.has_fullscreen)then
         return
     end
     
