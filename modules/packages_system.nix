@@ -42,6 +42,8 @@
     alsa-utils
     pavucontrol
 
+    playerctl # Explicitly installed here - was pulled as waybar dep on arch
+
     awww # Wallpaper
     swaynotificationcenter # swaync
     waybar
