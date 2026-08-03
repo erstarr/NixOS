@@ -14,8 +14,8 @@
         
         # Flatpak app files
         ".var/app"        
-        # SSH - mainly for known hosts --> for github ssh auth
-        ".ssh"
+        # SSH - mainly for known hosts || 700 is recommended perms --> for github ssh auth
+        { directory = ".ssh"; mode = "0700"; }
 
         "Desktop"
         "Documents"

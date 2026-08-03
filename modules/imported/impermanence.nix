@@ -25,12 +25,13 @@
   #        Home is always wiped. If entireHomeDirImpermanence = true, the entire home dir is persisted (it's in separate subvol so its imperm is done explicitly in script).
   #                              If entireHomeDirImpermanence = false, only some dirs/files are persisted in home.
 
+  ####
+  ###==> When something is unpersisted, it doesn't get autowipsed from /persist! DIY
+  ####
   # Using systemd for rollback
 
   imports = [ impermanence.nixosModules.impermanence ];
 
-
-  # to override (change val) use config. prefix instead of option.: config.custom.impermanence.entireHomeDirImpermanence = false;
 
   #MARK: Impermemence Filesystem Options
   config = {
@@ -39,33 +40,26 @@
     # Is not strictly necessary for all the stuff in here to be mounted at initrd but won't hurt - If a subvol isn't wiped (wiping / doesn't wipe /boot if /boot is its own subvol!)
 
 
-    # Redundant really since it't a subvol that's not wiped
+    # Has dirs that are presisted therefore they must be mounted before imperm bind mounts
     fileSystems."/var/log" = {
       neededForBoot = true;
     };
 
-    # Redundant really since it't a subvol that's not wiped
     fileSystems."/nix" = {
       neededForBoot = true;
     };
 
 
-    # Redundant really since it't a subvol that's not wiped
     fileSystems."/boot" = {
       neededForBoot = true;
     };
 
     # Swap need not be early mounted
 
-
-
-    # Must be early mounted so bind mounts can be set up
     fileSystems."/persist" = {
       neededForBoot = true;
     };
 
-
-    # Needs to always early mount since it's always ephemeral now (always wiped, the only diff is what comes back)
     fileSystems."/home" = {
       neededForBoot = true;
     };
@@ -73,9 +67,9 @@
 
     environment.persistence."/persist" = {
       enable = true;
-      hideMounts = true; # Bind mount instead of symlink
 
-      allowTrash = true; # When smt in unpersisted, it goes here. Comment out after persistence works well.
+      hideMounts = true; # Hide the bind mounts from showing up as mounted drives in the file manager
+      allowTrash = true; # Allows trashing files/dirs to work across mounts
 
       # ONLY include stuff that Impermanence actually effects. Otherwise you'll shadow it!
       directories = [
@@ -103,7 +97,7 @@
         ######################
 
         
-        "/etc/machine-id" # In first boot after install, this needs to be moved into /persist which is done by the install script
+        "/etc/machine-id" # Persistent machine ID
 
         # systemd credentials storage - libvirt uses this
         "/var/lib/systemd/credential.secret"
@@ -229,6 +223,11 @@
 
   };
 
+
+
+
+
+  # to override (change val) use `config.` prefix instead of `option.`: config.custom.impermanence.entireHomeDirImpermanence = false;
 
   # Flip this switch, don't change the default down below. It makes no sense for default to be flippable
   config.custom.impermanence.entireHomeDirImpermanence = false;
