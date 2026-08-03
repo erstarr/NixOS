@@ -32,8 +32,9 @@ echo "Host Name:  $HOSTNAME"
 confirm "STEP 1: Wipe, partition, format and mount disk. THIS IS DESTRUCTIVE. Continue?"
 
 # To avoid surprises, use the disko version from flake.lock to partition disks
+# Because nix-command is still experimental, i need the --extra-experimental-features "nix-command" line
 echo "extracting disko version from flake.lock..."
-DISKO_REV=$(nix eval --impure --raw --expr \
+DISKO_REV=$(nix --extra-experimental-features "nix-command" eval --impure --raw --expr \
   "(builtins.fromJSON (builtins.readFile \"${FLAKE_DIR}/flake.lock\")).nodes.disko.locked.rev")
 
 # Stright from https://github.com/nix-community/disko/blob/master/docs/quickstart.md - with modifs
