@@ -37,24 +37,28 @@
   config = {
     # required when mixing options + config in same file
     # Directories that need to be mounted before init system starts writing to them - i.e. if the init system is to write to these directories, they must be mounted early
-    # Is not strictly necessary for all the stuff in here to be mounted at initrd but won't hurt - If a subvol isn't wiped (wiping / doesn't wipe /boot if /boot is its own subvol!)
 
 
-    # Has dirs that are presisted therefore they must be mounted before imperm bind mounts
-    fileSystems."/var/log" = {
+    # Straight from the wiki:
+    # Make sure all your persistent and ephemeral storage volumes are marked with neededForBoot, otherwise you will run into problems. 
+
+    fileSystems."/" = {
       neededForBoot = true;
     };
+
+    fileSystems."/boot" = {
+      neededForBoot = true;
+    };
+
 
     fileSystems."/nix" = {
       neededForBoot = true;
     };
 
 
-    fileSystems."/boot" = {
+    fileSystems."/var/log" = {
       neededForBoot = true;
     };
-
-    # Swap need not be early mounted
 
     fileSystems."/persist" = {
       neededForBoot = true;
@@ -64,6 +68,7 @@
       neededForBoot = true;
     };
 
+    # Swap need not be early mounted
 
     environment.persistence."/persist" = {
       enable = true;
@@ -83,6 +88,9 @@
         # Libvirt stuff. Virtual Disks are in their own partition so they will mount over the imperm mount and shadow it; which is ok.
         "/var/lib/libvirt"
 
+        # Systemd stuff - timers, cryptographic stuff, etc...
+        "/var/lib/systemd"
+
         # { directory = "/var/lib/colord"; user = "colord"; group = "colord"; mode = "u=rwx,g=rx,o="; }
       ]
       # If persisting the entire home dir,
@@ -96,11 +104,7 @@
         # manually
         ######################
 
-        
         "/etc/machine-id" # Persistent machine ID
-
-        # systemd credentials storage - libvirt uses this
-        "/var/lib/systemd/credential.secret"
 
         # { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       ];
