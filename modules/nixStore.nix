@@ -7,9 +7,13 @@
     automatic = true;
     dates = "weekly";
     options = "--delete-older-than 30d";
+    persistent = true;
   };
 
   # Hard-links identical files in the store - saves space
-  nix.optimise.automatic = true;
+  nix.optimise = {
+    automatic = true;
+    persistent = true;
+  };
 
 }
