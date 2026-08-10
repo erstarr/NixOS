@@ -9,10 +9,6 @@
     # if not persisting entire home dir
     lib.mkIf (!osConfig.custom.impermanence.entireHomeDirImpermanence) {
       directories = [
-        #.local persists
-        .local/share/hyprland/lastVersion # Hyprland last version tracking so i don't get welcome notif every time
-        .local/state/wireplumber/stream-properties # per stream volume persistance across reboots
-
         ".cache" # To avoid the overhead of some long term cached stuff from being recreated every time. The can just be nuked manually
 
         # Flatpak app files
@@ -35,6 +31,10 @@
 
       ];
       files = [
+        # .local persists
+        ".local/share/hyprland/lastVersion" # Hyprland last version tracking so i don't get welcome notif every time
+        ".local/state/wireplumber/stream-properties" # per stream volume persistance across reboots
+
         # IMPORTANT note about file persistance in imperm (creation of dangling symlink if file not already in /persist) - read the system level imperm nix file
         ".bash_history"
       ];
