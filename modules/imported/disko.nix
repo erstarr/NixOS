@@ -1,6 +1,7 @@
 
 {
   disko,
+  vmMode,
   ... 
 }:
 
@@ -13,7 +14,7 @@
   disko.devices = {
     disk = {
       main = {
-        device = "/dev/vda"; # TODO --> /dev/nvme0n1
+        device = if vmMode then "/dev/vda" else "/dev/nvme0n1";
         type = "disk";
         content = {
           type = "gpt";
@@ -36,10 +37,10 @@
                 ];
               };
             };
-            # Virtual Disk Storage - EXT4
+            # Virtual Disk Storage - EXT4 --- TODO when you get another SSD for just virt disks, extract this block from here
             virtdsk = {
               priority = 2;
-              size = "1G";
+              size = if vmMode then "1G" else "500G";
               content = {
                 type = "filesystem";
                 format = "ext4";
@@ -92,7 +93,7 @@
                   # lsattr /.swapvol/swapfile to check
                   "swap" = {
                     mountpoint = "/.swapvol";
-                    swap.swapfile.size = "8G"; # TODO --> VM; adjust to 32G on bare metal
+                    swap.swapfile.size = if vmMode then "8G" else "32G";
                   };
                 };
               };
