@@ -38,7 +38,7 @@
     # Flake - Also has a nixpkgs version
     hyprland = {
 
-      url = "github:hyprwm/Hyprland/36b2e0cfe0c6094dbc47bd42a437431315bb3087"; # Pinned to 0.56.0 release commit
+      url = "github:hyprwm/Hyprland/efb50993780079460b0cbed1363e2166a2de1d9f"; # Pinned to 0.56.2 release commit
       # Not following nixpkgs as mesa will be pinned according to the hyprland commit
     };
 
