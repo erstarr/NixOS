@@ -1,0 +1,29 @@
+{
+  "nix.enableLanguageServer": true,
+  "nix.serverPath": "nixd",
+  "nix.serverSettings": {
+    "nixd": {
+      "formatting": {
+        "command": ["nixfmt"]
+      },
+      "options": {
+        "nixos": {
+          "expr": "(builtins.getFlake \"/home/redstar/NixOS_Config\").nixosConfigurations.nixos.options"
+        },
+
+        // If you use standalone home-manager flake:
+        // "home-manager": {
+        //   "expr": "(builtins.getFlake \"/home/redstar/NixOS_Config\").homeConfigurations.\"redstar\".options"
+        // },
+
+        // If home-manager is a NixOS module (embedded in nixosConfigurations):
+        "home-manager": {
+          "expr": "(builtins.getFlake \"/home/redstar/NixOS_Config\").nixosConfigurations.nixos.options.home-manager.users.type.getSubOptions []"
+        }
+      }
+    }
+  },
+
+  "files.autoSave": "afterDelay",
+  "files.autoSaveWorkspaceFilesOnly": true
+}
