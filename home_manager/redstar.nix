@@ -3,21 +3,21 @@
 {
 
   imports = [
+    # Modules
     ./modules/redstar_homeImpermanence.nix
     ./modules/themes.nix
+    ./modules/mime_types.nix
 
+    # Per App
     ./per_app_config/bash.nix
-
-    ./per_app_config/misc_conf.nix
-
     ./per_app_config/clipse.nix
     ./per_app_config/yazi.nix
+    ./per_app_config/misc_conf.nix
 
-    ];
+  ];
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-
 
   home = {
     username = "redstar";
@@ -36,7 +36,6 @@
       setSessionVariables = true; # In case applications need xdg dirs set as env vars
     };
   };
-
 
   # FRESH INSTALL TODO - Change on fresh install
   # Don't touch this - Stays at the version originally installed

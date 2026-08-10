@@ -1,5 +1,5 @@
 # If you want plugins and stuff, configure yazi through the module [system module] (would need to set settings, etc... in nix and not in .toml file)
-{config, ...}:
+{ config, ... }:
 
 let
   dotDir = "${config.home.homeDirectory}/NixOS_Config/dotfiles";
@@ -26,18 +26,7 @@ in
     };
   };
 
-  # This makes xdg-open calls on directories open yazi.
-  xdg.mimeApps = {
-    enable = true;
-    defaultApplications."inode/directory" = "yazi.desktop";
-  };
-
-
-
   # Yazi
-  xdg.configFile."yazi".source =
-    config.lib.file.mkOutOfStoreSymlink "${dotDir}/yazi";
-
-
+  xdg.configFile."yazi".source = config.lib.file.mkOutOfStoreSymlink "${dotDir}/yazi";
 
 }
