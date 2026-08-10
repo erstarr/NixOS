@@ -22,12 +22,12 @@
             # EFI Boot Part
             ESP = {
               priority = 1;
-              name = "ESP";
+              name = "ESP"; # Efi System Partition
               size = "1G";
-              type = "EF00";
+              type = "EF00"; # Filesystem type -> EFI Boot Part
               content = {
                 type = "filesystem";
-                format = "vfat";
+                format = "vfat"; # EFI boot part wants FAT (using vFAT here. works.)
                 mountpoint = "/boot/efi";
                 mountOptions = [
                   "umask=0077" # Emulate perm for FAT -- only root can read/write
@@ -58,7 +58,6 @@
                   "-f" # Override existing partition
                   "-L" "root_subvol" # Label subvol as root-subvol
                 ];
-                mountpoint = "/partition-root";
                 subvolumes = {
                   # For impermanence, Most of the subvols here are not explicitly persisted in imperm since they're already excluded from being wiped since they're their own subvolume.
                   "root" = {

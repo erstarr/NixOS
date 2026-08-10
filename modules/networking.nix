@@ -7,8 +7,7 @@
 
     hostName = "nixos";
 
-    # Necessary for manual DNS management
-    networkmanager.dns = lib.mkForce "none";
+    networkmanager.dns = "systemd-resolved"; # TODO -- PAST CLAIM - NEED TO TEST NOW Necessary for manual DNS management --> lib.mkForce "none";
     useDHCP = false;
     dhcpcd.enable = false;
 

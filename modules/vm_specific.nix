@@ -12,7 +12,7 @@
     settings.PasswordAuthentication = true;
 
   };
-  # THIS IS VM SPECIFIC - Allow SSHD through
+  # THIS IS VM SPECIFIC - Allow SSHD through --- Note: multiple mkForces concatonate instead of competing
   networking.firewall.allowedTCPPorts = lib.mkForce [ 22 ];
 
   # Persist host keys -- SSHD

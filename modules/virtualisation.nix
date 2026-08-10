@@ -9,7 +9,7 @@
   virtualisation.libvirtd = {
     enable = true;
     qemu = {
-      package = pkgs.qemu; # TODO:  CHANGE TO qemu_full AFTER CEPH DEP IS FIXED!    # equivalent of qemu-full on Arch
+      package = pkgs.qemu; # TODO:  CHANGE TO qemu_full AFTER CEPH DEP IS FIXED! ==> qemu is almost everything while wemu_full IS everything (if you need the extras is questionable)
       runAsRoot = true;
       swtpm.enable = true;         # swtpm
     };
