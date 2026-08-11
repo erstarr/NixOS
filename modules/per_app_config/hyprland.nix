@@ -7,7 +7,7 @@ hyprland,
 ...}:
 
 let
-  useFlake = true;
+  useFlake = false;
   sys      = pkgs.stdenv.hostPlatform.system;
 in
 {
