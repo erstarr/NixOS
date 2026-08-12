@@ -148,7 +148,7 @@
         fi
 
         # Remove old roots periodically.
-        max_age=30  # days until removed
+        max_age=15  # days until removed
         # Make sure dir exists guard
         if [[ -d /btrfs_tmp/persist/old_roots ]]; then
           for i in $(find /btrfs_tmp/persist/old_roots/ -mindepth 1 -maxdepth 1 -type d -mtime +$max_age); do
@@ -175,7 +175,6 @@
 
               only_in_old=$(comm -23 /tmp/hl_old.txt /tmp/hl_new.txt)
               only_in_new=$(comm -13 /tmp/hl_old.txt /tmp/hl_new.txt)
-              rm -f /tmp/hl_old.txt /tmp/hl_new.txt
 
               if [[ -n "$only_in_old" ]] || [[ -n "$only_in_new" ]]; then
                 {
@@ -208,7 +207,7 @@
 
 
         # Remove old homes and their associated diff files periodically.
-        max_age=30
+        max_age=15
         if [[ -d /btrfs_tmp/persist/old_homes ]]; then
           for i in $(find /btrfs_tmp/persist/old_homes/ -mindepth 1 -maxdepth 1 -type d -mtime +$max_age); do
             ts=$(basename "$i")

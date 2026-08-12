@@ -25,6 +25,21 @@
     ];
   };
 
+  # Persist .vscode-server
+  home-manager.users.redstar = { osConfig, ... }: {
+    home.persistence."/persist" =
+      # if not persisting entire home dir
+      lib.mkIf (!osConfig.custom.impermanence.entireHomeDirImpermanence) {
+
+        directories = [
+          ".vscode-server"
+        ];
+        files = [
+          
+        ];
+      };
+  };
+
   environment.systemPackages = with pkgs; [
     nixd # Language Server
     nixfmt # Formatter
