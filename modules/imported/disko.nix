@@ -40,7 +40,7 @@
             # Virtual Disk Storage - EXT4 --- TODO when you get another SSD for just virt disks, extract this block from here
             virtdsk = {
               priority = 2;
-              size = if vmMode then "1G" else "500G";
+              size = if vmMode then "1G" else "400G";
               content = {
                 type = "filesystem";
                 format = "ext4";
