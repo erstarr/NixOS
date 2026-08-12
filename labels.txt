@@ -1,0 +1,5 @@
+TODO -> self explanatory
+
+TODO MAINTENANCE -> To be done periodically or after some event
+
+TODO TEMPORARY -> stuff to be reverted after some condition is met

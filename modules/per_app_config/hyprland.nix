@@ -23,9 +23,28 @@ in
 
   programs.hyprland = {
 
+    # package = if useFlake
+    #   then hyprland.packages.${sys}.hyprland
+    #   else pkgs.hyprland;
+
+
+
+
+    # TODO TEMPORARY - Hyprland 0.56.2 has no cachix precompiled binary and building it hits glaze dep conflict (nixpkgs unstable has v8.0.0) so i pass it explicitly myself
+    # uncomment the package block above when this is fixed
     package = if useFlake
-      then hyprland.packages.${sys}.hyprland
+      then (hyprland.packages.${sys}.hyprland.overrideAttrs (prev: {
+        buildInputs = (prev.buildInputs or []) ++ [
+          (import (builtins.fetchTarball {
+            url    = "https://github.com/NixOS/nixpkgs/archive/106eb93cbb9d4e4726bf6bc367a3114f7ed6b32f.tar.gz";
+            sha256 = "sha256:0wyyhddz2mqhmq938d337223675jpd83dd5lsks2nhz0hs4r3jha";
+          }) { system = sys; }).glaze
+        ];
+      }))
       else pkgs.hyprland;
+
+
+
 
     # keeps the portal in sync with whichever source chosen
     portalPackage = if useFlake

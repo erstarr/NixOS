@@ -32,14 +32,14 @@
 
     nix-flatpak = {
       url = "github:gmodena/nix-flatpak/?ref=latest";
-      # inputs.nixpkgs.follows = "nixpkgs"; # Silence the errro
+      # inputs.nixpkgs.follows = "nixpkgs"; # Doesn't require it and complains if present
     };
 
     # Flake - Also has a nixpkgs version
     hyprland = {
 
       url = "github:hyprwm/Hyprland/efb50993780079460b0cbed1363e2166a2de1d9f"; # Pinned to 0.56.2 release commit
-      # Not following nixpkgs as mesa will be pinned according to the hyprland commit
+      # Not following nixpkgs as hyprland has its own and mesa will be pinned according to the hyprland commit (using hyprland's own nixpkgs)
     };
 
     # Hyprland here - file already made
