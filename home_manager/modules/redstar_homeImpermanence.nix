@@ -3,6 +3,7 @@
   ######################
   # IMPORTANT: ADDING STUFF TO PERSISTANCE PAST FIRST INSTALL REQUIRES THE MANUAL COPYING OF THE FILES PRESENT THERE IF THE CURRENT STATE MUST BE SAVED!
   ####> sudo cp -a to preserve owner,group,perms
+  ####> then rm -r the file in the non-/persist location
   ####> Then do a rebuild switch to bind/symlink into place
   ######################
 
