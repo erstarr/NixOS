@@ -184,7 +184,7 @@
     "interval": 3,
     "return-type": "json",
     "format": "{text}",
-    "exec": "bash -lc 'status=$(playerctl status 2>/dev/null || true); case \"$status\" in Playing) icon=\"\";; Paused) icon=\"\";; *) icon=\"󱖏\";; esac; python3 -c \"import json,sys; icon=sys.argv[1]; print(json.dumps({\\\"text\\\": icon}))\" \"$icon\"'",
+    "exec": "bash -c 'status=$(playerctl status 2>/dev/null || true); case \"$status\" in Playing) icon=\"\";; Paused) icon=\"\";; *) icon=\"󱖏\";; esac; python3 -c \"import json,sys; icon=sys.argv[1]; print(json.dumps({\\\"text\\\": icon}))\" \"$icon\"'",
 
     "tooltip": true,
     "tooltip-format": "Media controls",
@@ -244,7 +244,7 @@
    // Hover tooltip: show the title / "No media"
    "tooltip-format": "{alt}",
  
-   "exec": "bash -lc 'status=$(playerctl status 2>/dev/null || true); case \"$status\" in Playing) icon=\"⏸\";; Paused) icon=\"▶\";; *) icon=\"⏯\";; esac; title=$(playerctl metadata --format \"{{xesam:title}}\" 2>/dev/null || true); [ -n \"$title\" ] || title=\"No media\"; python3 -c \"import json,sys; icon=sys.argv[1]; title=sys.argv[2].replace(\\\"\\\\n\\\", \\\" \\\").strip(); print(json.dumps({\\\"text\\\": icon, \\\"alt\\\": title}))\" \"$icon\" \"$title\"'",
+   "exec": "bash -c 'status=$(playerctl status 2>/dev/null || true); case \"$status\" in Playing) icon=\"⏸\";; Paused) icon=\"▶\";; *) icon=\"⏯\";; esac; title=$(playerctl metadata --format \"{{xesam:title}}\" 2>/dev/null || true); [ -n \"$title\" ] || title=\"No media\"; python3 -c \"import json,sys; icon=sys.argv[1]; title=sys.argv[2].replace(\\\"\\\\n\\\", \\\" \\\").strip(); print(json.dumps({\\\"text\\\": icon, \\\"alt\\\": title}))\" \"$icon\" \"$title\"'",
  
    "on-click": "playerctl play-pause",
    "on-scroll-up": "playerctl position 10+",

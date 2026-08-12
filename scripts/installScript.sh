@@ -45,6 +45,11 @@ sudo nix --experimental-features "nix-command flakes" run github:nix-community/d
 
 # 2 Create hardwareConfigurations file and copy it over
 confirm "STEP 2: Generate hardware configuration. Continue?"
+
+confirm "STEP 2.1: Generate hardware configuration. Deleting Preexisting hardware configuration's innards" # to make sure stale info is firmly sweeped away
+echo "" > "$FLAKE_DIR/hardware-configuration.nix"
+
+confirm "STEP 2.2: Generate hardware configuration. Deleting Preexisting hardware configuration's innards"
 # --no-filesystems because disko owns that
 # gen the hardware config, write it to current config dir
 sudo nixos-generate-config --root /mnt --no-filesystems --show-hardware-config > "$FLAKE_DIR/hardware-configuration.nix"
