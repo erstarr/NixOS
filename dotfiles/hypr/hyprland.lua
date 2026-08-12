@@ -204,7 +204,7 @@ hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
 -- For qt6ct
-hl.env("QT_QPA_PLATFORMTHEME","qt6ct")
+-- hl.env("QT_QPA_PLATFORMTHEME","qt6ct") # Not insalled on nix
 
 -- for grimblast - manually passing arguments to slurp
 hl.env("SLURP_ARGS", "-c '##ff0000ff'")
