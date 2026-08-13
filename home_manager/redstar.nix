@@ -7,6 +7,7 @@
     ./modules/redstar_homeImpermanence.nix
     ./modules/themes.nix
     ./modules/mime_types.nix
+    ./modules/home_maintenence.nix
 
     # Per App
     ./per_app_config/bash.nix
