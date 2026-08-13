@@ -12,7 +12,7 @@
     dhcpcd.enable = false;
 
 
-    # Desktop - wifi driver disabled
+    # Desktop - wifi disabled
     wireless = {
       enable = lib.mkForce false; # nixos networkmanager module forces this on
     };
