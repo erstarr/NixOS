@@ -85,4 +85,43 @@
     "flakes"
   ];
 
+
+
+
+  # vmMode insurance - detect if it's incorrectly set
+
+  assertions =
+  let
+    virtioModules = [ "virtio_pci" "virtio_blk" "virtio_scsi" "virtio_mmio" ];
+    hasVirtio    = builtins.any
+      (m: builtins.elem m config.boot.initrd.availableKernelModules)
+      virtioModules;
+    foundModules = builtins.concatStringsSep " " config.boot.initrd.availableKernelModules;
+  in
+  [
+    {
+      # vmMode true but no virtio → bare-metal hardware config was used
+      assertion = vmMode -> hasVirtio;
+      message = ''
+        vmMode = true but no virtio modules in boot.initrd.availableKernelModules.
+        Found: [ ${foundModules} ]
+        Hardware config looks like bare metal. Either set vmMode = false in flake.nix,
+        or regenerate hardware-configuration.nix from inside the VM.
+      '';
+    }
+    {
+      # vmMode false but virtio present → VM hardware config was used on bare metal
+      assertion = !vmMode -> !hasVirtio;
+      message = ''
+        vmMode = false but virtio modules found in boot.initrd.availableKernelModules.
+        Found: [ ${foundModules} ]
+        Hardware config looks like a VM. Either set vmMode = true in flake.nix,
+        or regenerate hardware-configuration.nix on bare metal.
+      '';
+    }
+  ];
+
+
+
+
 }

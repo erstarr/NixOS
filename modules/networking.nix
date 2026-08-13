@@ -11,6 +11,12 @@
     useDHCP = false;
     dhcpcd.enable = false;
 
+
+    # Desktop - wifi driver disabled
+    wireless = {
+      enable = false;
+    };
+
     # NetworkManager config
     networkmanager = {
       enable = true;
