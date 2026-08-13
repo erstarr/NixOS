@@ -1,7 +1,7 @@
 # Can use the nix pkgs package or can use a flake. Flip the switch to switch between them
 
 
-{pkgs, config, lib,
+{pkgs, lib,
 # Hyprland flake
 hyprland,
 ...}:

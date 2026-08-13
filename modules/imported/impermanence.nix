@@ -107,7 +107,7 @@
 
         "/etc/machine-id" # Persistent machine ID
 
-        /var/lib/power-profiles-daemon/state.ini # powerprofilesctl present power state information
+        "/var/lib/power-profiles-daemon/state.ini" # powerprofilesctl present power state information
 
         # { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       ];

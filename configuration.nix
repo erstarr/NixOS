@@ -5,7 +5,6 @@
 {
   config,
   lib,
-  pkgs,
   vmMode,
   ...
 }:
@@ -88,7 +87,12 @@
 
 
 
-  # vmMode insurance - detect if it's incorrectly set
+
+
+
+
+
+  #MARK: vmMode insurance - detect if it's incorrectly set
 
   assertions =
   let

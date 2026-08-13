@@ -60,7 +60,7 @@
       ...
     }@inputs:
     let
-      lib = nixpkgs.lib;
+      inherit (nixpkgs) lib; # same as `lib = nixpkgs.lib;`
     in
     {
 

@@ -1,5 +1,5 @@
 
-{...}:
+{lib, ...}:
 
 {
 
@@ -14,7 +14,7 @@
 
     # Desktop - wifi driver disabled
     wireless = {
-      enable = false;
+      enable = lib.mkForce false; # nixos networkmanager module forces this on
     };
 
     # NetworkManager config
