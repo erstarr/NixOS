@@ -4,11 +4,23 @@
 
   imports = [ nix-flatpak.nixosModules.nix-flatpak ];
 
+
+
+  ######################
+  # IMPORTANT: It does add the --unused flag during an uninstall, but doesn't add --delete-data!
+  ####> Practical: Run the flatpak uninstall command YOURSELF before removing the package from the config!
+  ####> Theoretical: You need to either run the full uninstall command yourself before removing the package from the config, or delete the data from ~/.var/app/ yourself!
+  ######################
+
+
   services.flatpak = {
 
     enable = true;
 
-    uninstallUnmanaged = true; # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories (i.e. --delete-data)
+    # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories (i.e. if you installed the flatpak using flatpak's own commands, setting this to true will allow nix-flatpak to uninstall/update them)
+    uninstallUnmanaged = true;
+
+    uninstallUnused = true;
 
     # Expicitly disable auto update
     update = {
