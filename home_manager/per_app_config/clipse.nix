@@ -1,7 +1,7 @@
 { config, ... }:
 
 let
-  dotDir = "NixOS_Config/dotfiles";
+  dotDir = ".config/NixOS_Config/dotfiles";
 in {
 
   # history and copied images/files are wiped per boot due to impermanence

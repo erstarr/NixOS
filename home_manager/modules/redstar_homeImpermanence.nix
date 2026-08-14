@@ -33,7 +33,7 @@
         "Videos"
 
         # My Nix config and Dotfiles - must use home-relative path!
-        "NixOS_Config"
+        ".config/NixOS_Config"
 
       ];
       files = [

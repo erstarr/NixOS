@@ -76,14 +76,14 @@ sudo chmod 600 /mnt/persist/passwords/redstar
 
 
 confirm "STEP 5: Copy NixOS config to persistent home. Continue?"
-sudo mkdir -p /mnt/persist/home/redstar/NixOS_Config
-sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/NixOS_Config/
+sudo mkdir -p /mnt/persist/home/redstar/.config/NixOS_Config
+sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/.config/NixOS_Config/
 
 
 confirm "STEP 6: Fix ownership. Continue?"
 # In home so user must own it -- single user system so just redstar
 sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
-sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/NixOS_Config'
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/.config/NixOS_Config'
 
 # Needed as systemd will first craete it in ephemeral filesystem otherwise. --> there's an exception for this already and it's auto handled
 # confirm "STEP 7: Persisting machine-id early. Continue?"

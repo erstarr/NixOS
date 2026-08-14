@@ -2,7 +2,7 @@
 { config, ... }:
 
 let
-  dotDir = "${config.home.homeDirectory}/NixOS_Config/dotfiles";
+  dotDir = "${config.home.homeDirectory}/.config/NixOS_Config/dotfiles";
 in
 {
 
@@ -43,5 +43,5 @@ in
 
   # home.file.".somerc".source =
   #   config.lib.file.mkOutOfStoreSymlink
-  #     "${config.home.homeDirectory}/NixOS_Config/dotfiles/somerc";
+  #     "${config.home.homeDirectory}/.config/NixOS_Config/dotfiles/somerc";
 }

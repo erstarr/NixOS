@@ -2,7 +2,7 @@
 { config, ... }:
 
 let
-  dotDir = "${config.home.homeDirectory}/NixOS_Config/dotfiles";
+  dotDir = "${config.home.homeDirectory}/.config/NixOS_Config/dotfiles";
 in
 {
   # TODO MAINTENANCE: keep in sync with yazi.desktop

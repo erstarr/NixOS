@@ -71,8 +71,8 @@
   ]
   ;
 
-  # Config values live in /username/NixOS_Config!
-  environment.etc."nixos".source = "/home/redstar/NixOS_Config";
+  # Config values live in /username/.config/NixOS_Config!
+  environment.etc."nixos".source = "/home/redstar/.config/NixOS_Config";
 
 
   # Using flakes so this is dead weight
