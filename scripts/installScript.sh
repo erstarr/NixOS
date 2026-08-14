@@ -80,17 +80,7 @@ sudo mkdir -p /mnt/persist/home/redstar/.config/NixOS_Config
 sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/.config/NixOS_Config/
 
 
-confirm "STEP 6: Fix ownership. Continue?"
-# In home so user must own it -- single user system so just redstar
-sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
-sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/.config/NixOS_Config'
-
-# Needed as systemd will first craete it in ephemeral filesystem otherwise. --> there's an exception for this already and it's auto handled
-# confirm "STEP 7: Persisting machine-id early. Continue?"
-# # Imperm during nixos-install must have creted this by now
-# sudo nixos-enter --root /mnt -c 'sudo cp -a /etc/machine-id /persist/etc/machine-id'
-
-confirm "STEP 7 Mounting USB and moving user dirst into placem then unmounting the USB"
+confirm "STEP 6 Mounting USB and moving user dirst into placem then unmounting the USB"
 
 
 HOME_DST="/mnt/persist/home/redstar"
@@ -106,18 +96,18 @@ read -rp "Enter USB data partition (e.g. /dev/sdb1), or 'skip' to skip: " USB_PA
 if [[ "$USB_PART" == "skip" ]]; then
     echo "Skipping USB data transfer."
 else
-    confirm "STEP 7.1 Clean up /persist/redstar/.var/app/* of any residue"
+    confirm "STEP 6.1 Clean up /persist/redstar/.var/app/* of any residue"
     sudo rm -rf "${HOME_DST}/.var/app/"*
 
 
-    confirm "STEP 7.2 Mount USB"
+    confirm "STEP 6.2 Mount USB"
     # Mount the USb insto place - lsblk and let the user enter the usb's name. use that in the following transaction
     sudo mkdir -p "$USB_MNT"
     sudo mount "$USB_PART" "$USB_MNT"
 
     # Don't forget to dfix ownership and any other metadata that might differ between previous machine and this machine
 
-    confirm "STEP 7.3 Copy over flatpak app data to /persist/home/redstar/.var/app and fix ownership (for .var/app too)"
+    confirm "STEP 6.3 Copy over flatpak app data to /persist/home/redstar/.var/app and fix ownership (for .var/app too)"
 
     if [[ ! -d "${HOME_DST}/.var/app" ]]; then
         echo ".var/app does not exist on target — creating with correct ownership..."
@@ -134,7 +124,7 @@ else
 
 
     
-    confirm "STEP 7.4 Copy over User Data to /persist/home/redstar/ and fix ownership"
+    confirm "STEP 6.4 Copy over User Data to /persist/home/redstar/ and fix ownership"
     # Desktop
     # Documents
     # Downloads
@@ -156,7 +146,7 @@ else
 
 
 
-    confirm "STEP 7.6 UNmount USB from /mnt"
+    confirm "STEP 6.5 UNmount USB from /mnt"
     sudo umount "$USB_MNT"
     sudo rmdir "$USB_MNT"
 fi
@@ -165,6 +155,16 @@ fi
 echo "ATTENTION: Now, or on first(or second, since first boot should be rebooted so imperm properly binds stuff) boot, delete the caches of flatpak apps BEFORE starting any of them!"
 
 
+
+confirm "STEP 7: Fix ownership. Continue?"
+# In home so user must own it -- single user system so just redstar
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar'
+sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/.config/NixOS_Config'
+
+# Needed as systemd will first craete it in ephemeral filesystem otherwise. --> there's an exception for this already and it's auto handled
+# confirm "STEP 7: Persisting machine-id early. Continue?"
+# # Imperm during nixos-install must have creted this by now
+# sudo nixos-enter --root /mnt -c 'sudo cp -a /etc/machine-id /persist/etc/machine-id'
 
 
 confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
