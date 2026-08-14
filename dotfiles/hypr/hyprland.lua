@@ -45,7 +45,7 @@ local fileManager_dolphin = "flatpak run org.kde.dolphin"
 local fileManager_yazi = terminal.." yazi"
 
 -- Rofi Rounded Corners with proper blurring, use this: -transient-window
-local menu = "pkill rofi || rofi -show drun -replace -i" -- Rofi isn't wrapped in nix but do -r just in case
+local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrapped in nix but do -r just in case
 
 
 -- Screenshot - Grimblast (Uses grim, slurp, hyprpicker), satty (to edit/annotate the screenshots)
@@ -59,7 +59,7 @@ local screenShot = "grimblast -f -t png save area - | satty --filename - --outpu
 
 
 -- Commands as variables
-local waybar_toggle = "pkill waybar || waybar" -- in nix waybar is wrapped. I want to make it work in both nix and arch so just kill by pattern
+local waybar_toggle = "pkill waybar || waybar" -- NIX: in nix waybar is wrapped. I want to make it work in both nix and arch so just kill by pattern
 
 
 local swaync_toggle = "swaync-client -t -sw"
@@ -124,7 +124,7 @@ hl.on("hyprland.start", function ()
 
 
     -- Hypridle -- Idle manager
---     hl.exec_cmd("hypridle") ===> THIS IS ENABLED AS A SERVICE IN NIX! In normal linux distros, this should still be started by hyprland
+--     hl.exec_cmd("hypridle") ===> NIX: THIS IS ENABLED AS A SERVICE IN NIX! In normal linux distros, this should still be started by hyprland
 
 
     -- Hyprsunset - Scheduled -- Blue Light / Gamma Filter
@@ -163,16 +163,16 @@ hl.on("hyprland.shutdown", function ()
 
 
     -- Clean-up awww during shutdown
-    hl.exec_cmd("awww clear-cache && pkill awww") -- in nix awww is wrapped. I want to make it work in both nix and arch so just kill by pattern
+    hl.exec_cmd("awww clear-cache && pkill awww") -- NIX: in nix awww is wrapped. I want to make it work in both nix and arch so just kill by pattern
 
     -- Clean-up hypridle during shutdown
-    hl.exec_cmd("pkill hypridle") -- Not wrapped in nix - kill by pattern just in case
+    hl.exec_cmd("pkill hypridle") -- NIX: Not wrapped in nix - kill by pattern just in case
 
     -- Clean-up hyprsunset during shutdown
-    hl.exec_cmd("pkill hyprsunset") -- Not wrapped in nix - kill by pattern just in case
+    hl.exec_cmd("pkill hyprsunset") -- NIX: Not wrapped in nix - kill by pattern just in case
 
     -- Clean-up waybar during shutdown
-    hl.exec_cmd("pkill waybar") -- in nix waybar is wrapped. I want to make it work in both nix and arch so just kill by pattern
+    hl.exec_cmd("pkill waybar") -- NIX: in nix waybar is wrapped. I want to make it work in both nix and arch so just kill by pattern
 
     -- clear unpinned clipse clipboard items on shutdown
     hl.exec_cmd("clipse -clear && clipse -clean")
@@ -204,7 +204,7 @@ hl.env("XDG_SESSION_TYPE", "wayland")
 hl.env("XDG_SESSION_DESKTOP", "Hyprland")
 
 -- For qt6ct
--- hl.env("QT_QPA_PLATFORMTHEME","qt6ct") # Not insalled on nix
+-- hl.env("QT_QPA_PLATFORMTHEME","qt6ct") # NIX: Not insalled on nix
 
 -- for grimblast - manually passing arguments to slurp
 hl.env("SLURP_ARGS", "-c '##ff0000ff'")
