@@ -90,8 +90,79 @@ sudo nixos-enter --root /mnt -c 'chown -R redstar:redstar /persist/home/redstar/
 # # Imperm during nixos-install must have creted this by now
 # sudo nixos-enter --root /mnt -c 'sudo cp -a /etc/machine-id /persist/etc/machine-id'
 
+confirm "STEP 7 Mounting USB and moving user dirst into placem then unmounting the USB"
 
-confirm "STEP 7 Moving the install log into /var/log (persistent target)..."
+
+HOME_DST="/mnt/persist/home/redstar"
+HOME_DST_WO_MNT=${HOME_DST#/mnt}
+
+USB_MNT="/tmp/usb_data"
+echo ""
+echo "Current block devices:"
+lsblk -o NAME,SIZE,TYPE,FSTYPE,MOUNTPOINT,LABEL
+echo ""
+read -rp "Enter USB data partition (e.g. /dev/sdb1), or 'skip' to skip: " USB_PART
+
+if [[ "$USB_PART" == "skip" ]]; then
+    echo "Skipping USB data transfer."
+else
+    confirm "STEP 7.1 Clean up /persist/redstar/.var/app/* of any residue"
+    sudo rm -rf "${HOME_DST}/.var/app/"*
+
+
+    confirm "STEP 7.2 Mount USB"
+    # Mount the USb insto place - lsblk and let the user enter the usb's name. use that in the following transaction
+    sudo mkdir -p "$USB_MNT"
+    sudo mount "$USB_PART" "$USB_MNT"
+
+    # Don't forget to dfix ownership and any other metadata that might differ between previous machine and this machine
+
+
+    confirm "STEP 7.3 Copy over flatpak app data to /persist/home/redstar/.var/app and fix ownership"
+    if [[ -d "${USB_MNT}/.var/app" ]]; then
+        sudo cp -a "${USB_MNT}/.var/app/." "${HOME_DST}/.var/app/."
+        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar /persist/home/redstar/.var/app/*"
+
+    else
+        echo "WARNING: .var/app not found on USB. Skipping."
+    fi
+
+
+    
+    confirm "STEP 7.4 Copy over User Data to /persist/home/redstar/ and fix ownership"
+    # Desktop
+    # Documents
+    # Downloads
+    # Music
+    # Pictures
+    # Projects
+    # Public
+    # Template
+    # Videos
+    for dir in Desktop Documents Downloads Music Pictures Projects Public Templates Videos; do
+        if [[ -d "${USB_MNT}/${dir}" ]]; then
+            echo "Copying ${dir}..."
+            sudo cp -a "${USB_MNT}/${dir}/." "${HOME_DST}/${dir}/."
+            sudo nixos-enter --root /mnt -c "chown -R redstar:redstar ${HOME_DST_WO_MNT}/${dir}"
+        else
+            echo "WARNING: ${dir} not found on USB. Skipping."
+        fi
+    done
+
+
+
+    confirm "STEP 7.6 UNmount USB from /mnt"
+    sudo umount "$USB_MNT"
+    sudo rmdir "$USB_MNT"
+fi
+
+# To be done manually
+echo "ATTENTION: on first(or second, since first boot should be rebooted so imperm properly binds stuff), delete the caches of flatpak apps BEFORE starting any of them!"
+
+
+
+
+confirm "STEP 8 Moving the install log into /var/log (persistent target)..."
 sudo mv /tmp/install.log /mnt/var/log
 
 echo "install script complete. Reboot to continue to NixOS!"
