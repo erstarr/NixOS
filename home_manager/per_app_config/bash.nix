@@ -22,7 +22,7 @@
       reset
     '';
 
-    # PS1 customisation - goes in initExtra since HM has no promptInit -- This is customised for nix!
+    # PS1 customisation - goes in initExtra since HM has no promptInit -- This is customised for nix ==> (adds nix specific stuff + duration block)
     initExtra = ''
       _cmd_timer_active=0
       _cmd_start=$EPOCHREALTIME
