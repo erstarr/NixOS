@@ -126,7 +126,7 @@ else
 
     if [[ -d "${USB_MNT}/.var/app" ]]; then
         sudo cp -a "${USB_MNT}/.var/app/." "${HOME_DST}/.var/app/."
-        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar ${HOME_DST_WO_MNT}/.var/app/*"
+        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar ${HOME_DST_WO_MNT}/.var/app"
 
     else
         echo "WARNING: .var/app not found on USB. Skipping."
