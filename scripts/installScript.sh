@@ -117,7 +117,7 @@ else
 
     # Don't forget to dfix ownership and any other metadata that might differ between previous machine and this machine
 
-    confirm "STEP 7.3 Copy over flatpak app data to /persist/home/redstar/.var/app and fix ownership"
+    confirm "STEP 7.3 Copy over flatpak app data to /persist/home/redstar/.var/app and fix ownership (for .var/app too)"
 
     if [[ ! -d "${HOME_DST}/.var/app" ]]; then
         echo ".var/app does not exist on target — creating with correct ownership..."
@@ -126,7 +126,7 @@ else
 
     if [[ -d "${USB_MNT}/.var/app" ]]; then
         sudo cp -a "${USB_MNT}/.var/app/." "${HOME_DST}/.var/app/."
-        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar ${HOME_DST_WO_MNT}/.var/app/*"
+        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar ${HOME_DST_WO_MNT}/.var/app"
 
     else
         echo "WARNING: .var/app not found on USB. Skipping."
