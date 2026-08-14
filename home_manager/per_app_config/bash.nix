@@ -115,11 +115,22 @@
         done
 
         local ssh_indicator=""
-        if [[ -n "$SSH_CLIENT" || -n "$SSH_CONNECTION" ]]; then
-          ssh_indicator=" \[\e[93m\][ssh]\[\e[0m\]"
+        if [[ -n "$SSH_CONNECTION" || -n "$SSH_CLIENT" ]]; then
+          local _cip _cport _sport
+          if [[ -n "$SSH_CONNECTION" ]]; then
+            local _sip
+            read -r _cip _cport _sip _sport <<< "$SSH_CONNECTION"
+          else
+            read -r _cip _cport _sport <<< "$SSH_CLIENT"
+          fi
+          local _ssh_left="$_cip"
+          [[ -n "$_cport" && "$_cport" != "22" ]] && _ssh_left+=":$_cport"
+          local _ssh_right=""
+          [[ -n "$_sport" && "$_sport" != "22" ]] && _ssh_right=" → $_sport"
+          ssh_indicator=" \[\e[93m\][ssh ← ''${_ssh_left}''${_ssh_right}]\[\e[0m\]"
         fi
 
-        PS1="┌──(\[\e[94;1m\]\u@\h\[\e[0m\]$ssh_indicator)-[\w] {\j} [''${status}]''${nix_shell}''${direnv_indicator}''${flake_indicator}''${git_branch}''${duration}\n╰─\[\e[94;1m\]>>\[\e[0m\] "
+        PS1="┌──(\[\e[94;1m\]\u@\h\[\e[0m\])-[\w]$ssh_indicator {\j} [''${status}]''${nix_shell}''${direnv_indicator}''${flake_indicator}''${git_branch}''${duration}\n╰─\[\e[94;1m\]>>\[\e[0m\] "
 
         _cmd_timer_active=0
       }
