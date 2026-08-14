@@ -14,11 +14,15 @@ let
 in
 {
 
-  # After https://github.com/NixOS/nixpkgs/pull/368449 is merged, this is redundant
+  # TODO TEMPORARY After https://github.com/NixOS/nixpkgs/pull/368449 is merged, this is redundant
   systemd.tmpfiles.rules = [
     "v /persist/.snapshots  0750 root root -" # v type creates a btrfs subvolume only when the root directory / is itself a btrfs subvolume
-    # "v /var/log/.snapshots  0750 root root -"
 
+    "a+ /persist/.snapshots - - - - u:redstar:r-x,d:u:redstar:r-x" # Give user redstar the ability to view and read the snapshots dir
+
+    # If you wanna snapshots new dirs
+    # "v /persist/var/log/.snapshots  0750 root root -"
+    # "a+ /persist/var/log/.snapshots - - - - u:redstar:r-x,d:u:redstar:r-x" # Give user redstar the ability to view and read the snapshots dir
   ];
 
 
@@ -63,12 +67,14 @@ in
 
     services.snapper = {
     persistentTimer = true; # Create snapshot asap if the last interval was missed (i.e. it will snapshot once on every boot at least)
+    snapshotRootOnBoot = false;
 
     configs = {
       persist = {
         SUBVOLUME = "/persist";
         FSTYPE = "btrfs";
         ALLOW_USERS = [ "redstar" ];
+        ALLOW_GROUPS = [ "redstar" ];
         TIMELINE_CREATE  = true;
         TIMELINE_CLEANUP = true;
         TIMELINE_LIMIT_HOURLY    = 12;
