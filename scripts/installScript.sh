@@ -117,11 +117,16 @@ else
 
     # Don't forget to dfix ownership and any other metadata that might differ between previous machine and this machine
 
-
     confirm "STEP 7.3 Copy over flatpak app data to /persist/home/redstar/.var/app and fix ownership"
+
+    if [[ ! -d "${HOME_DST}/.var/app" ]]; then
+        echo ".var/app does not exist on target — creating with correct ownership..."
+        sudo nixos-enter --root /mnt -c "mkdir -p ${HOME_DST_WO_MNT}/.var/app && chown redstar:redstar ${HOME_DST_WO_MNT}/.var/app"
+    fi
+
     if [[ -d "${USB_MNT}/.var/app" ]]; then
         sudo cp -a "${USB_MNT}/.var/app/." "${HOME_DST}/.var/app/."
-        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar /persist/home/redstar/.var/app/*"
+        sudo nixos-enter --root /mnt -c "chown -R redstar:redstar ${HOME_DST_WO_MNT}/.var/app/*"
 
     else
         echo "WARNING: .var/app not found on USB. Skipping."
@@ -157,7 +162,7 @@ else
 fi
 
 # To be done manually
-echo "ATTENTION: on first(or second, since first boot should be rebooted so imperm properly binds stuff), delete the caches of flatpak apps BEFORE starting any of them!"
+echo "ATTENTION: Now, or on first(or second, since first boot should be rebooted so imperm properly binds stuff) boot, delete the caches of flatpak apps BEFORE starting any of them!"
 
 
 
