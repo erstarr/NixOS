@@ -24,7 +24,7 @@ users = {
         "libvirtd"       # For libvirt
       ];
 
-    # User packages - shouldn't need this
+    # User packages - shouldn't need this, don't have/want user packages
     #   packages = with pkgs; [
     #     tree
     #   ];
