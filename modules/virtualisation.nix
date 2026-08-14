@@ -28,7 +28,7 @@
 
   security.polkit.enable = true;
 
-  # Virtual Machine Manager
+  # Virtual Machine Manager - configuration done in home manager
   programs.virt-manager.enable = true;
 
 

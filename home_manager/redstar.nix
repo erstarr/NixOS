@@ -10,10 +10,11 @@
     ./modules/home_maintenence.nix
 
     # Per App
-    ./per_app_config/bash.nix
-    ./per_app_config/clipse.nix
-    ./per_app_config/yazi.nix
-    ./per_app_config/misc_conf.nix
+    ./per_app/bash.nix
+    ./per_app/clipse.nix
+    ./per_app/yazi.nix
+    ./per_app/misc_conf.nix
+    ./per_app/virt_manager.nix
 
   ];
 
