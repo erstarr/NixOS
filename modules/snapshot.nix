@@ -14,10 +14,10 @@ let
 in
 {
 
-  # TODO TEMPORARY After https://github.com/NixOS/nixpkgs/pull/368449 is merged, this is redundant
+  # TODO TEMPORARY After https://github.com/NixOS/nixpkgs/pull/368449 is merged, this is redundant (the permission thing might not be redudant if that's not fixed too so test separately)
   systemd.tmpfiles.rules = [
     "v /persist/.snapshots  0750 root root -" # v type creates a btrfs subvolume only when the root directory / is itself a btrfs subvolume
-    # "a+ /persist/.snapshots - - - - u:redstar:r-x,d:u:redstar:r-x" # Give user redstar the ability to view and read the snapshots dir
+    "a+ /persist/.snapshots - - - - u:redstar:r-x,d:u:redstar:r-x" # Give user redstar the ability to view and read the snapshots dir
 
     # If you wanna snapshots new dirs
     # "v /persist/var/log/.snapshots  0750 root root -"
