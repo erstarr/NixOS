@@ -126,8 +126,8 @@
           local _ssh_left="$_cip"
           [[ -n "$_cport" && "$_cport" != "22" ]] && _ssh_left+=":$_cport"
           local _ssh_right=""
-          [[ -n "$_sport" && "$_sport" != "22" ]] && _ssh_right=" → $_sport"
-          ssh_indicator=" \[\e[93m\][ssh ← ''${_ssh_left}''${_ssh_right}]\[\e[0m\]"
+          [[ -n "$_sport" && "$_sport" != "22" ]] && _ssh_right=" {$_sport}"
+          ssh_indicator=" \[\e[93m\][ssh (''${_ssh_left})''${_ssh_right}]\[\e[0m\]"
         fi
 
         PS1="┌──(\[\e[94;1m\]\u@\h\[\e[0m\])-[\w]$ssh_indicator {\j} [''${status}]''${nix_shell}''${direnv_indicator}''${flake_indicator}''${git_branch}''${duration}\n╰─\[\e[94;1m\]>>\[\e[0m\] "
