@@ -1,10 +1,10 @@
 {
   "nix.enableLanguageServer": true,
-  "nix.serverPath": "/run/current-system/sw/bin/nixd",
+  "nix.serverPath": "nixd",
   "nix.serverSettings": {
     "nixd": {
       "formatting": {
-          "command": ["/run/current-system/sw/bin/nixfmt"]
+        "command": ["nixfmt"]
       },
       "options": {
         "nixos": {
