@@ -2,8 +2,8 @@
 sockets=!ssh-auth;!fallback-x11;!x11
 devices=!all;shm;kvm;input;dri
 features=!devel
-filesystems=!host
-persistent=/run/current-system/sw/bin:ro;/nix:ro;/.ssh
+filesystems=/nix:ro;/run/current-system/sw/bin:ro;!host
+persistent=~/.ssh
 
 [Environment]
 FREETYPE_PROPERTIES="autofitter:no-stem-darkening=0 autofitter:darkening-parameters=500,500,1000,500,2500,500,4000,0 cff:no-stem-darkening=0 type1:no-stem-darkening=0 t1cid:no-stem-darkening=0"
