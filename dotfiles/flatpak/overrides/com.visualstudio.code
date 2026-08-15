@@ -2,7 +2,7 @@
 sockets=!ssh-auth;!fallback-x11;!x11
 devices=!all;shm;kvm;input;dri
 features=!devel
-filesystems=!host
+filesystems=~/.config/NixOS_Config;!host
 persistent=/.ssh
 
 [Environment]

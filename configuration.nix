@@ -45,6 +45,8 @@
 
     ./modules/defaultPrograms.nix
 
+    ./modules/font_config.nix
+
     ./modules/packages_system.nix # common packages
 
     ./modules/changeOnlyOnFreshInstall.nix # first insall version

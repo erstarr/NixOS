@@ -474,7 +474,7 @@
     "interval": 10, /*Interval in seconds*/
 
     // Shows the temp used by fan curves --- Use sensors -u to see temp sensors. Ususally "k10temp" is the cpu temps. In the hwmon dir, check the name file to see the name, and point to the sensor output fle you wanna read
-    "hwmon-path": "/sys/class/hwmon/hwmon4/temp1_input",
+    "hwmon-path": "/sys/class/hwmon/hwmon1/temp1_input", // NIX: temp sensor selected with nix logic
     "format": " {temperatureC}°C",
     "format-alt-click": "click-right",
     "format-alt": " {temperatureK}°K",
