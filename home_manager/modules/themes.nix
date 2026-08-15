@@ -4,7 +4,7 @@
 let
   qt6ctPkg = pkgs.qt6Packages.qt6ct;
 
-  # TODO TEMPORARY: so pavucontrol's set as default check icon works -- upstream stripped that for some reason
+  # TODO TEMPORARY: so pavucontrol's set as default check icon works -- upstream stripped that for some reason - https://github.com/NixOS/nixpkgs/issues/338008
   adwaitaIconTheme_Patched = pkgs.adwaita-icon-theme.overrideAttrs (finalAttrs: prevAttrs: {
                                 propagatedBuildInputs = (prevAttrs.propagatedBuildInputs or []) ++ [ pkgs.adwaita-icon-theme-legacy ];
                                 postPatch = ''
