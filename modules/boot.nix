@@ -34,7 +34,7 @@
 
       efi = {
         efiSysMountPoint = "/boot/efi"; # So that only efi files are exposed as a fat filesystem
-        canTouchEfiVariables = true;
+        canTouchEfiVariables = true; # Necessary for EFI boot entry to be registered
       };
 
     };
