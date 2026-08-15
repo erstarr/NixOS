@@ -87,7 +87,7 @@
               # Toggleable option!
               # Switch this when on VM/BareMetal
               # Enable VM only config options. DO NOT ENABLE IF NOT IN A VM!
-              vmMode = true;
+              vmMode = false;
           };
           # Alternatively:
           # _module.args = { inherit inputs; };
