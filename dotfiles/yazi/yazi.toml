@@ -49,6 +49,10 @@ satty = [
 [open]
 prepend_rules = [
     { mime = "text/plain", use = [ "vscode", "kate", "edit", "open", "reveal" ] }, # All plaintext mimes -- This will appear ontop of the open with menu. To move it down, move this entry down
+
+    { url = "*/", use = [ "vscode", "edit", "open", "reveal" ] },
+
+
     { url = "*.txt", use = [ "vscode", "kate", "edit", "open", "reveal" ] }, # Explicit since it seems that files with spaces in names don't get picked up by mime = "text/plain"
     { url = "*.md", use = [ "vscode", "kate", "edit", "open", "reveal" ] },
     { url = "*.lua", use = [ "vscode", "kate", "edit", "open", "reveal" ] },

@@ -34,6 +34,7 @@
 
       efi = {
         efiSysMountPoint = "/boot/efi"; # So that only efi files are exposed as a fat filesystem
+        canTouchEfiVariables = true;
       };
 
     };
