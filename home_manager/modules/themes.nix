@@ -1,5 +1,9 @@
 {pkgs, config, ...}:
 
+
+let
+  qt6ctPkg = pkgs.qt6Packages.qt6ct;
+in
 {
 
   # GTK Themes - To change them effectively: nix shell nwg-look and pick your settigs, click apply and copy the stuff from its config file to here
@@ -45,13 +49,16 @@
   # QT Themes
   qt = {
     enable = true;
-    platformTheme.name = "qt6ct"; # sets QT_QPA_PLATFORMTHEME=qt6ct; HM adds qt6ct pkg
+    platformTheme = {
+      name = "qt6ct"; # sets QT_QPA_PLATFORMTHEME=qt6ct;
+      package = qt6ctPkg; # TODO TEMPORARY: Explicitly giving name as auto look up is broken rn
+    };
     # Style intentionally absent — qt6ct.conf controls style
     # Fusion is Qt-builtin so no package is needed alongside it
   };
  
   # qt6ct config - To change them effectively: nix shell qt6ct and pick your settigs, click apply and copy the stuff from its config file to here
-  xdg.configFile."qt6ct/colors/darker.conf".source = "${pkgs.qt6ct}/share/qt6ct/colors/darker.conf";
+  xdg.configFile."qt6ct/colors/darker.conf".source = "${qt6ctPkg}/share/qt6ct/colors/darker.conf";
   xdg.configFile."qt6ct/qt6ct.conf".text = ''
     [Appearance]
     color_scheme_path=${config.xdg.configHome}/qt6ct/colors/darker.conf
