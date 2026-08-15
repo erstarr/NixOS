@@ -5,8 +5,16 @@
 
   fonts = {
     enableDefaultPackages = false;
+
+
+    defaultFonts = {
+      serif      = [ "Noto Serif" ];
+      sansSerif = [ "Noto Sans" ];
+      monospace = [ "JetBrainsMono Nerd Font Mono" ];
+      emoji = [ "Noto Color Emoji" ];
+    };
       
-      
+
     packages = with pkgs; [
     noto-fonts
 
