@@ -6,6 +6,9 @@
   fonts.packages = with pkgs; [
     noto-fonts
 
+    # This was implicitly installed on arch but isn't on nix - Used on themes.nix
+    adwaita-fonts
+
     # Arch Package Name: ttf-jetbrains-mono-nerd
     nerd-fonts.jetbrains-mono
     
