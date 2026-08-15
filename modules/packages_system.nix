@@ -50,6 +50,12 @@
     rofi
 
 
+    # Nix language server and formatter
+    nixd # Language Server
+    nixfmt # Formatter
+
+
+
     yazi
     # For yazi
     fd
