@@ -50,7 +50,7 @@ satty = [
 prepend_rules = [
     { mime = "text/plain", use = [ "vscode", "kate", "edit", "open", "reveal" ] }, # All plaintext mimes -- This will appear ontop of the open with menu. To move it down, move this entry down
 
-    { url = "*/", use = [ "vscode", "edit", "open", "reveal" ] },
+    { url = "*/", use = [ "vscode", "edit", "open", "reveal" ] }, # Directories and Mount Points (btrfs makes it neccessary) since i have nix imperm
 
 
     { url = "*.txt", use = [ "vscode", "kate", "edit", "open", "reveal" ] }, # Explicit since it seems that files with spaces in names don't get picked up by mime = "text/plain"
