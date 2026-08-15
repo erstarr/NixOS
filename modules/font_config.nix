@@ -3,7 +3,11 @@
 {
 
 
-  fonts.packages = with pkgs; [
+  fonts = {
+    enableDefaultPackages = false;
+      
+      
+    packages = with pkgs; [
     noto-fonts
 
     # This was implicitly installed on arch but isn't on nix
@@ -29,5 +33,5 @@
     noto-fonts-cjk-serif
 
   ];
-
+  };
 }

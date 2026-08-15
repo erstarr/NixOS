@@ -3,6 +3,15 @@
 
 let
   qt6ctPkg = pkgs.qt6Packages.qt6ct;
+
+  # TODO TEMPORARY: so pavucontrol's set as default check icon works -- upstream stripped that for some reason
+  adwaitaIconTheme_Patched = pkgs.adwaita-icon-theme.overrideAttrs (finalAttrs: prevAttrs: {
+                                propagatedBuildInputs = (prevAttrs.propagatedBuildInputs or []) ++ [ pkgs.adwaita-icon-theme-legacy ];
+                                postPatch = ''
+                                  substituteInPlace index.theme --replace-fail "Hidden=true" ""
+                                '';
+                              });
+
 in
 {
 
@@ -17,8 +26,10 @@ in
     enable = true;
 
     iconTheme = {
-        name = "Adwaita";
-        package = pkgs.adwaita-icon-theme;
+      name = "Adwaita";
+      # package = pkgs.adwaita-icon-theme;
+      
+      package = adwaitaIconTheme_Patched;
     };
 
     font = {
@@ -98,7 +109,7 @@ in
     enable = true;
     name = "Adwaita";
     size = 24;
-    package = pkgs.adwaita-icon-theme;
+    package = adwaitaIconTheme_Patched;
     gtk.enable = true;  # propagates cursor-theme-name and cursor-theme-size to both settings.ini files
   };
 
