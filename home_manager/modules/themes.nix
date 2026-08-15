@@ -8,7 +8,7 @@
       color-scheme = "prefer-dark";
     };
   };
-
+  
   gtk = {
     enable = true;
     gtk3.extraConfig.gtk-application-prefer-dark-theme = true;
@@ -17,7 +17,6 @@
   };
 
   # QT Themes
-
   qt = {
     enable = true;
     platformTheme.name = "gtk3"; # follows GTK
