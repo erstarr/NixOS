@@ -111,7 +111,7 @@ else
 
     if [[ ! -d "${HOME_DST}/.var/app" ]]; then
         echo ".var/app does not exist on target — creating with correct ownership..."
-        sudo nixos-enter --root /mnt -c "mkdir -p ${HOME_DST_WO_MNT}/.var/app && chown redstar:redstar ${HOME_DST_WO_MNT}/.var/app"
+        sudo nixos-enter --root /mnt -c "mkdir -p ${HOME_DST_WO_MNT}/.var/app && chown -R redstar:redstar ${HOME_DST_WO_MNT}/.var/app"
     fi
 
     if [[ -d "${USB_MNT}/.var/app" ]]; then
