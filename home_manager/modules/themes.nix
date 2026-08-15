@@ -57,8 +57,6 @@
     force_raster_widgets=1
     ignored_applications=@Invalid()
   '';
-}
- 
 
   # Cursor
   home.pointerCursor = {
