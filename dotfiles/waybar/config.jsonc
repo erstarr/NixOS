@@ -41,6 +41,7 @@
     "cpu",                        // CPU usage.
     "memory",                     // RAM usage.
     "disk",                       // Disk usage for /.
+    "disk#2",                      // Disk usage for /var/lib/libvirt/images. NIX: separating virt images disk!
     "temperature",                // Temperature from thermal zone.
     "network",                    // Network status (wifi/ethernet/disconnected).
     "custom/bluelight",           // Blue Light Filter Toggle (Uses hyprsunset)
@@ -466,6 +467,28 @@
     "on-scroll-down": ""
 
   },
+
+
+    "disk#2": {  // NIX: separating virt images disk!
+    "interval": 900,              // Update interval (seconds).
+    "path": "/var/lib/libvirt/images", // Filesystem path to monitor.
+    "format": " {percentage_used}%",
+    "format-alt-click": "click-right", // Right click toggles alt format.
+    "format-alt": "",            // optional
+    "tooltip": true,
+    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
+    "states": {
+      "warning": 85,              // Adds .warning CSS class when >= 85%.
+      "critical": 90              // Adds .critical CSS class when >= 90%.
+    },
+    "on-click": "",
+    "on-click-middle": "",
+    "on-click-right": "",
+    "on-scroll-up": "",
+    "on-scroll-down": ""
+
+    },
+
 
   // ------------------------------------------------------------------------
   // TEMPERATURE (right)

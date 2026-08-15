@@ -2,7 +2,7 @@
 
 {
 
-  # GTK Themes - Don't need to mimick nwg-look's outputs since the configurations is simple
+  # GTK Themes - To change them effectively: nix shell nwg-look and pick your settigs, click apply and copy the stuff from its config file to here
     dconf.settings = {
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
@@ -50,7 +50,7 @@
     # Fusion is Qt-builtin so no package is needed alongside it
   };
  
-  # qt6ct config - nix shell qt6ct and pick your settigs. click apply and copy the stuff from its config file to here to change
+  # qt6ct config - To change them effectively: nix shell qt6ct and pick your settigs, click apply and copy the stuff from its config file to here
   xdg.configFile."qt6ct/colors/darker.conf".source = "${pkgs.qt6ct}/share/qt6ct/colors/darker.conf";
   xdg.configFile."qt6ct/qt6ct.conf".text = ''
     [Appearance]

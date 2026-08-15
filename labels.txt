@@ -1,3 +1,7 @@
+WARNING -> Self Explanatory
+
+NIX: In non-nix specific files, this is used to indicate that a certain change has been made because I'm on NixOS
+
 TODO -> action asap
 
 TODO MAINTENANCE -> To be done periodically or after some event

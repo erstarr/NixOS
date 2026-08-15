@@ -17,14 +17,14 @@
 
     enable = true;
 
-    # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories (i.e. if you installed the flatpak using flatpak's own commands, setting this to true will allow nix-flatpak to uninstall/update them)
+    # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories (i.e. if you installed the flatpak using flatpak's own commands, setting this to true will uninstall it on next nixos-rebuild switch)
     uninstallUnmanaged = true;
 
     uninstallUnused = true;
 
     # Expicitly disable auto update
     update = {
-      onActivation = false; # so that repeated invocations of nixos-rebuild switch are idempotent
+      onActivation = false; # so that repeated invocations of nixos-rebuild switch are idempotent - WARNING: you have to update flatpaks yourself!
 
       auto = {
         enable = false;

@@ -119,7 +119,7 @@
     '';
 
 
-    # For diffing old and new-old home in the script
+    # For diffing old and new-old home in the script - need these embedded into the initramfs cpio archive early in the boot - before nix store might exist yet
     boot.initrd.systemd.extraBin.comm = "${pkgs.coreutils}/bin/comm";
     boot.initrd.systemd.extraBin.sed  = "${pkgs.gnused}/bin/sed";
 
