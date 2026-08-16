@@ -7,11 +7,14 @@
     enableDefaultPackages = false;
 
 
-    defaultFonts = {
-      serif      = [ "Noto Serif" ];
-      sansSerif = [ "Noto Sans" ];
-      monospace = [ "JetBrainsMono Nerd Font Mono" ];
-      emoji = [ "Noto Color Emoji" ];
+
+    fontconfig = {
+      defaultFonts = {
+        serif      = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+        monospace = [ "JetBrainsMono Nerd Font" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
     };
       
 
