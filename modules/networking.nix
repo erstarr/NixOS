@@ -15,6 +15,7 @@
     wireless = {
       enable = lib.mkForce false; # nixos networkmanager module forces this on
     };
+    networkmanager.unmanaged = [ "interface-name:wlp9s0" ]; # Make network manager stop spamming log by trying to manage the interface
 
     # NetworkManager config
     networkmanager = {
