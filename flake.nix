@@ -37,9 +37,15 @@
 
     # Flake - Also has a nixpkgs version
     hyprland = {
-
-      url = "github:hyprwm/Hyprland/efb50993780079460b0cbed1363e2166a2de1d9f"; # Pinned to 0.56.2 release commit
+      url = "github:hyprwm/Hyprland/v0.56.2"; # Pinned to 0.56.2 release commit
       # Not following nixpkgs as hyprland has its own and mesa will be pinned according to the hyprland commit (using hyprland's own nixpkgs)
+    };
+
+
+    # TODO TEMPORARY - yazi: once yazi's nixpkgs updates, delete this block!
+    yazi = {
+      url = "github:sxyazi/yazi/?ref=v26.8.15";
+      inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
     };
 
     # Hyprland here - file already made
@@ -48,7 +54,6 @@
 
   outputs =
     {
-      self,
       nixpkgs, # Nix Packages
 
       # Flakes
@@ -57,6 +62,7 @@
       home-manager, # Home Management
       nix-flatpak, # nix-flatpak - Decleratively manager flatpaks
       hyprland, # Hyprland - flake
+      yazi, # TODO TEMPORARY - yazi: remove line after yazi's nixpkgs updates 
       ...
     }@inputs:
     let
@@ -73,24 +79,18 @@
           # system = "x86_64-linux";
 
           # Passing dependencies to submodules - only those that are defined in outputs are visible
-          specialArgs = {
-
-            inherit
-              disko
-              impermanence
-              home-manager
-              nix-flatpak
-              hyprland
-              ;
-
-
+          # inputs // basically substitutes each of its elements into specialArgs so you can do myFlake. instead of inputs.myFlake.nix
+          specialArgs = inputs // {
+            
               # Toggleable option!
               # Switch this when on VM/BareMetal
               # Enable VM only config options. DO NOT ENABLE IF NOT IN A VM!
               vmMode = false;
           };
-          # Alternatively:
-          # _module.args = { inherit inputs; };
+          # Or alternatively:
+          # _module.args = {
+          #   inherit inputs;
+          # };
 
           # submodules - not strictly hierarchical, but is passed to the same system.
           modules = [
@@ -107,7 +107,8 @@
 
             # nix-flatpak - Decleratively manager flatpaks
             ./modules/imported/flatpak.nix
-          
+
+            # hyprland.nix not imported here cuz it has a flake and a non-flake mode
           
           ];
         };

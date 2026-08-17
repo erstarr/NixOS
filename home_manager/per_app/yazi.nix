@@ -5,13 +5,13 @@ let
   dotDir = "${config.home.homeDirectory}/.config/NixOS_Config/dotfiles";
 in
 {
-  # TODO MAINTENANCE: keep in sync with yazi.desktop
+  # TODO TEMPORARY - yazi: keep in sync with yazi.desktop
   xdg.desktopEntries.yazi = {
     name = "Yazi File Manager";
     icon = "yazi";
     comment = "Blazing fast terminal file manager written in Rust, based on async I/O";
     terminal = false; # Edited
-    exec = "kitty --detach yazi %u"; # Edited
+    exec = "kitty --detach yazi %f"; # Edited
     type = "Application";
     mimeType = [ "inode/directory" ];
     categories = [
