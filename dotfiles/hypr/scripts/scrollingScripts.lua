@@ -180,7 +180,7 @@ local function scroll_focusRight()
     end
 
 
-    local windowOnTheRight = sharedScripts.getWindowOnTheRight(currentWindow, currentWorkspace)
+    local windowOnTheRight = sharedScripts.getTiledWindowOnTheRight(currentWindow, currentWorkspace)
 
     if windowOnTheRight == nil then
         return
@@ -189,7 +189,7 @@ local function scroll_focusRight()
     local currentWindowMaximise_Sized = sharedScripts.windowTakesUpWholeScreen(currentWindow) and sharedScripts.windowCurrentlyComplatelyInView(currentWindow)
     local rightWindowMaximised = sharedScripts.windowTakesUpWholeScreen(windowOnTheRight)
 
-    if (currentWindowMaximise_Sized ~= rightWindowMaximised) then
+    if (currentWindowMaximise_Sized and (not rightWindowMaximised)) then
         -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
     end
@@ -206,8 +206,7 @@ local function scroll_focusRight()
         -- fit it fully to view - just in case in case
         hl.dispatch(hl.dsp.layout("fit active"))
     else
-        -- give the workspace back its gaps
-        scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
+        -- Workspace was already given its gaps back before switching so no need to do it again here
     end
     propRefreshAppliedDueToWindowSwitch = true
 end
@@ -286,7 +285,7 @@ local function scroll_focusLeft()
     end
 
 
-    local windowOnTheLeft = sharedScripts.getWindowOnTheLeft(currentWindow, currentWorkspace)
+    local windowOnTheLeft = sharedScripts.getTiledWindowOnTheLeft(currentWindow, currentWorkspace)
 
     if windowOnTheLeft == nil then
         return
@@ -295,7 +294,7 @@ local function scroll_focusLeft()
     local currentWindowMaximise_Sized = sharedScripts.windowTakesUpWholeScreen(currentWindow) and sharedScripts.windowCurrentlyComplatelyInView(currentWindow)
     local rightWindowMaximised = sharedScripts.windowTakesUpWholeScreen(windowOnTheLeft)
 
-    if (currentWindowMaximise_Sized ~= rightWindowMaximised) then
+    if (currentWindowMaximise_Sized and (not rightWindowMaximised)) then
         -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
     end
@@ -312,8 +311,7 @@ local function scroll_focusLeft()
         -- fit it fully to view - just in case in case
         hl.dispatch(hl.dsp.layout("fit active"))
     else
-        -- give the workspace back its gaps
-        scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
+        -- Workspace was already given its gaps back before switching so no need to do it again here
     end
     propRefreshAppliedDueToWindowSwitch = true
 end

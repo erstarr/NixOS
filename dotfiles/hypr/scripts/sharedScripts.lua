@@ -109,6 +109,33 @@ end
 
 
 
+local function anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView(workspace)
+
+    if not workspace then
+        return false
+    end
+
+    local windowList = hl.get_workspace_windows(workspace)
+
+    -- check all windows
+    for _, windowElement in ipairs(windowList) do
+        if windowElement ~= nil and not windowElement.floating then
+            if windowTakesUpWholeScreen(windowElement) and windowCurrentlyComplatelyInView(windowElement) then
+                return true
+            end
+
+        end
+    end
+
+
+    return false
+
+
+end
+
+
+
+
 
 
 --- @param apply boolean : true -> @param workspace's gaps_in and gaps_out are set to 0
@@ -179,7 +206,7 @@ end
 
 
 
-local function getWindowOnTheRight(window, workspace)
+local function getTiledWindowOnTheRight(window, workspace)
 
     if window == nil or workspace == nil then
         hl.notification.create({ text = "Window or Workspace is nil! This is an error!", timeout = 1500, icon = "error" })
@@ -192,7 +219,7 @@ local function getWindowOnTheRight(window, workspace)
     local windowList = hl.get_workspace_windows(workspace)
     local candidateWindow = nil
     local smallestFoundBiggerThanCurrentWindows_x = 99999
-    -- check all windows for if they could be the underlying "fully in view and takes up the entire monitor" tiled window behind the floating one
+    -- check all windows to see if there is a fullsy covering window in the desired direction
     for _, windowElement_FindingTiled in ipairs(windowList) do
         if windowElement_FindingTiled ~= nil and not windowElement_FindingTiled.floating then
             local windowElement_x = windowElement_FindingTiled.at.x
@@ -208,7 +235,7 @@ local function getWindowOnTheRight(window, workspace)
 end
 
 
-local function getWindowOnTheLeft(window, workspace)
+local function getTiledWindowOnTheLeft(window, workspace)
 
     if window == nil or workspace == nil then
         hl.notification.create({ text = "Window or Workspace is nil! This is an error!", timeout = 1500, icon = "error" })
@@ -221,7 +248,7 @@ local function getWindowOnTheLeft(window, workspace)
     local windowList = hl.get_workspace_windows(workspace)
     local candidateWindow = nil
     local smallestFoundBiggerThanCurrentWindows_x = -99999
-    -- check all windows for if they could be the underlying "fully in view and takes up the entire monitor" tiled window behind the floating one
+    -- check all windows to see if there is a fullsy covering window in the desired direction
     for _, windowElement_FindingTiled in ipairs(windowList) do
         if windowElement_FindingTiled ~= nil and not windowElement_FindingTiled.floating then
             local windowElement_x = windowElement_FindingTiled.at.x
@@ -246,10 +273,11 @@ return {
     getActiveWorkspace                         = getActiveWorkspace,
     windowTakesUpWholeScreen                   = windowTakesUpWholeScreen,
     windowCurrentlyComplatelyInView            = windowCurrentlyComplatelyInView,
+    anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView = anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView,
     workspaceRule_RemoveGaps                   = workspaceRule_RemoveGaps,
     getLastTiledOrFloatingWindowInWorkspace    = getLastTiledOrFloatingWindowInWorkspace,
-    getWindowOnTheRight                        = getWindowOnTheRight,
-    getWindowOnTheLeft                         = getWindowOnTheLeft,
+    getTiledWindowOnTheRight                        = getTiledWindowOnTheRight,
+    getTiledWindowOnTheLeft                         = getTiledWindowOnTheLeft,
 
 }
 

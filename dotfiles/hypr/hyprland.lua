@@ -937,18 +937,22 @@ local function toggleFs(fullscreenMode, layoutAware)
         hl.dispatch(hl.dsp.layout("inhibit_scroll true"))
     end
 
+    -- also accounts for the FSing of a floating window: may have an underlying covering MaxLike tiled window
+    local scrollSpecific_haveMaxLikeScreenFullyInview = ((isWorkspaceLayoutScrolling) and (window.tags[1] == "scroll_MaximiseCandidate")) or (sharedScripts.anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView(workspace))
 
     -- If we are unFullscreening the window, give the workspace back its gaps (read below comments for why we can't leave this to f[1])
     if window.fullscreen == fullscreenMode then
         -- Scroll specific - don't do that if it's supposed to be max-size -- assumes that the window has no other tag. Turn this into "iterate over all tags" if windows may have more than one tag
-        if (isWorkspaceLayoutScrolling) and (window.tags[1] == "scroll_MaximiseCandidate") then
+        if (scrollSpecific_haveMaxLikeScreenFullyInview) then
         else    
             sharedScripts.workspaceRule_RemoveGaps(workspace, false)
         end
     end
 
     -- If there's already a covering FS window in the current workspace, we must have had the gaps modifications done, so skip (also bugs shit out if you do it again)
-    if (not workspace.has_fullscreen) then  
+    -- Scroll specific - don't do that if it's supposed to be max-size -- assumes that the window has no other tag. Turn this into "iterate over all tags" if windows may have more than one tag
+    if (workspace.has_fullscreen) or (scrollSpecific_haveMaxLikeScreenFullyInview) then
+    else
         -- If there are other workspace rules in workspace that give gaps, they might take precedence over f[1] so we need to overwrite those rules first.
         -- This is the rule that is used to remove gaps from workspaces in scrolling related (and possibly more in the fuuture) scripts
         sharedScripts.workspaceRule_RemoveGaps(workspace, true)
