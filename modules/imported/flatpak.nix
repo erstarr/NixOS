@@ -20,7 +20,7 @@
     # have nix-flatpak manage the lifecycle of all flatpaks packages and repositories (i.e. if you installed the flatpak using flatpak's own commands, setting this to true will uninstall it on next nixos-rebuild switch)
     uninstallUnmanaged = true;
 
-    uninstallUnused = true;
+    uninstallUnused = true; # TODO TEMPORARY: this isn't documented in the wiki but is still a config option. check wiki later
 
     # Expicitly disable auto update
     update = {
@@ -32,7 +32,7 @@
       };
     };
 
-    # Overrides are linked to place with home manager so i can edit perms with flatseal
+    # Overrides are linked into place with home manager so i can edit overrides with flatseal
 
     # remotes = []; # By default  flathub is already added
     packages = [

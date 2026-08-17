@@ -4,6 +4,7 @@
 
   dconf.settings = {
 
+    # Virt-Manager settings
     "org/virt-manager/virt-manager" = {
       xmleditor-enabled = true;
     };

@@ -3,13 +3,13 @@
 {
 
   ############################################################################################################
-  #################    firewall rules are enabled/disabled elsewhere in the config too        ################ 
+  #################    firewall rules are enabled/disabled elsewhere in the config too!     ################## 
   ############################################################################################################
 
 
   networking = {
 
-    # use nftables not legacy iptables
+    # use nftables, not legacy iptables
     nftables.enable = true;
 
   firewall = {

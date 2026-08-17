@@ -26,9 +26,8 @@
     homeDirectory = "/home/redstar";
   };
 
-  # TODO: is it an enable home manager at all switch or?
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  # Let Home Manager install and manage itself -- It's integrated into the system so this is a no-op even if enabled
+  programs.home-manager.enable = false;
 
   xdg = {
     enable = true;

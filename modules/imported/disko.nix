@@ -1,11 +1,14 @@
 
 {
   disko,
+  lib,
   vmMode,
   ... 
 }:
 
-
+let
+  dontPartitionRoot = vmMode && false; # vmMode is baremetal guard. flip false -> true for dev VM (single large root) --- redundant after i get a Virt Disk SSD
+in
 {
   imports = [ disko.nixosModules.disko ];
 
@@ -33,10 +36,11 @@
                   "umask=0077" # Emulate perm for FAT -- only root can read/write
                 ];
                 extraArgs = [
-                   "-n" "BOOT" # Label the boot part
+                  "-n" "BOOT" # Label the boot part
                 ];
               };
             };
+          } // lib.optionalAttrs (!dontPartitionRoot) {
             # Virtual Disk Storage - EXT4 --- TODO when you get another SSD for just virt disks, extract this block from here
             virtdsk = {
               priority = 2;
@@ -45,9 +49,10 @@
                 type = "filesystem";
                 format = "ext4";
                 mountpoint = "/var/lib/libvirt/images";
-                extraArgs = [ "-L" "virt_disk" ];  # -L sets the label for ext4/btrfs
+                extraArgs = [ "-L" "virt_disk" ]; # -L sets the label for ext4/btrfs
               };
             };
+          } // {
             # Root - BTRFS
             root = {
               priority = 3;
@@ -66,7 +71,7 @@
                   };
                   "boot" = {
                     mountpoint = "/boot";
-                    mountOptions = ["compress=zstd"];
+                    mountOptions = [ "compress=zstd" ];
                   };
                   "nix" = {
                     mountpoint = "/nix";

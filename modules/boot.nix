@@ -1,6 +1,3 @@
-
-
-
 {
   pkgs,
   ...
@@ -19,7 +16,7 @@
 
       grub = {
 
-        # Use the GRUB 2 boot loader.
+        # Use the GRUB boot loader.
         enable = true;
 
         efiSupport = true;

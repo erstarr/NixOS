@@ -26,7 +26,7 @@ in
     };
   };
 
-  # Yazi
+  # Yazi config
   xdg.configFile."yazi".source = config.lib.file.mkOutOfStoreSymlink "${dotDir}/yazi";
 
 }
