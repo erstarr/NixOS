@@ -6,7 +6,7 @@
 
     hostName = "nixos";
 
-    networkmanager.dns = "none"; # TODO TEMPORARY: This prevents NetworkManger from pushing DNS Queries to resolved -- cuz NetworkManager keeps overriding resolved's configuration and routing queries through my router
+    networkmanager.dns = lib.mkForce "none"; # TODO TEMPORARY: This prevents NetworkManger from pushing DNS Queries to resolved -- cuz NetworkManager keeps overriding resolved's configuration and routing queries through my router
     useDHCP = false;
     dhcpcd.enable = false;
 
