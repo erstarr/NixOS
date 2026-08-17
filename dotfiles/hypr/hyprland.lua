@@ -42,7 +42,10 @@ local terminal    = "kitty"
 
 
 local fileManager_dolphin = "flatpak run org.kde.dolphin"
-local fileManager_yazi = terminal.." yazi"
+
+-- local fileManager_yazi = terminal.." yazi" # For normal linux distros
+local fileManager_yazi = "FZF_DEFAULT_OPTS='--walker-skip=.nix-defexpr' " .. terminal .. " yazi" -- NIX: Becaue nix has a bunch of nix store stuff in home
+
 
 -- Rofi Rounded Corners with proper blurring, use this: -transient-window
 local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrapped in nix but do -r just in case
