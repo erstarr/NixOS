@@ -45,7 +45,7 @@
 
   outputs =
     {
-      # self, --> implicitly catched by `...`
+      # self, --> implicitly caught by `...`
       nixpkgs, # Nix Packages
 
       # Flakes
