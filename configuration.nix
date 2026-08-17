@@ -60,7 +60,6 @@
 
     # Per app files
     ./modules/per_app/man.nix
-
     ./modules/per_app/hyprland.nix
 
   ]

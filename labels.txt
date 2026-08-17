@@ -1,9 +1,9 @@
-WARNING -> Self Explanatory
+WARNING --> Self Explanatory
 
 NIX: In non-nix specific files, this is used to indicate that a certain change has been made because I'm on NixOS
 
-TODO -> action asap
+TODO - packageOrCategoryName(general,flatpak,etc...) --> action asap
 
-TODO MAINTENANCE -> To be done periodically or after some event
+TODO MAINTENANCE - packageOrCategoryName(general,flatpak,etc...) --> To be done periodically or after some event
 
-TODO TEMPORARY -> stuff to be reverted after some condition is met
+TODO TEMPORARY - packageOrCategoryName(general,flatpak,etc...) --> stuff to be reverted after some condition is met
