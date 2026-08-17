@@ -28,8 +28,6 @@
     adwaita-fonts
 
 
-    # SwayNC
-    nerd-fonts.iosevka
 
     # Arch Package Name: ttf-jetbrains-mono-nerd
     nerd-fonts.jetbrains-mono

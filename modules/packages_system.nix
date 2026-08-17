@@ -41,6 +41,8 @@
     pavucontrol
 
     playerctl # Explicitly installed here - was pulled as waybar dep on arch
+    python3 # For waybar - Explicitly installed here - was pulled as waybar dep on arch
+
 
     awww # Wallpaper
     swaynotificationcenter # swaync

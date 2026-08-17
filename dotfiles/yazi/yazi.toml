@@ -21,25 +21,25 @@ wrap = "yes"
 
 [opener]
 play = [
-    { run = 'xdg-open "$1"', block = false, orphan = true, desc = "Play - xdg-open", for = "unix" },
+    { run = "xdg-open %s1", block = false, orphan = true, desc = "Play - xdg-open", for = "unix" },
 ]
 edit = [
-	{ run = 'nano "$1"', block = true, orphan = false, desc = "Edit - nano", for = "unix" },
+    { run = "nano %s1", block = true, orphan = false, desc = "Edit - nano", for = "unix" },
 ]
 open = [
-	{ run = 'xdg-open "$1"', block = false, orphan = true, desc = "Open - xdg-open", for = "unix" },
+    { run = "xdg-open %s1", block = false, orphan = true, desc = "Open - xdg-open", for = "unix" },
 ]
 reveal = [
-    { run = 'kitty --detach yazi "$1"', block = false, orphan = true, desc = "Reveal - Yazi", for = "unix" },
+    { run = "kitty --detach yazi %s1", block = false, orphan = true, desc = "Reveal - Yazi", for = "unix" },
 ]
 vscode = [
-    { run = 'flatpak run --file-forwarding com.visualstudio.code @@ "$1" @@', block = false, orphan = true, desc = "VSCode", for = "unix" },
+    { run = "flatpak run --file-forwarding com.visualstudio.code @@ %s @@", block = false, orphan = true, desc = "VSCode", for = "unix" },
 ]
 kate = [
-    { run = 'flatpak run --file-forwarding org.kde.kate -n @@ "$1" @@', block = false, orphan = true, desc = "Kate", for = "unix" }, # -n is so kate opens files in a new window instead of in a new tab
+    { run = "flatpak run --file-forwarding org.kde.kate -n @@ %s1 @@", block = false, orphan = true, desc = "Kate", for = "unix" },
 ]
 satty = [
-    { run = 'satty --filename "$1"', block = true, orphan = true, desc = "Satty", for = "unix" },
+    { run = "satty --filename %s1", block = true, orphan = true, desc = "Satty", for = "unix" },
 ]
 
 
