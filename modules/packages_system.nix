@@ -47,10 +47,6 @@
     waybar
     rofi
 
-
-
-
-
     yazi
     # For yazi
     fd
