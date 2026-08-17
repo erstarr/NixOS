@@ -15,6 +15,10 @@
     };
   };
 
+  # Nested Virtualisation - Enabled by default
+  # boot.extraModprobeConfig = "options kvm_amd nested=1";
+
+
 
 
   # TODO - not sure if the libvirt nix package correctly manages radvd path being different, so i do this to be certain. If it does, remove this! 

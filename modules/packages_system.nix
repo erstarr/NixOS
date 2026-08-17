@@ -16,7 +16,7 @@
   programs.nix-ld.enable = true;
 
   # Don't want nix to intall 'default' packages
-  environment.defaultPackages = [];
+  environment.defaultPackages = [ ];
 
   # TODO MAINTENANCE - check if and system-user packages now have a module every now and then - not always desirable to use module mind! ==> implicitly use systemd start and shit
   # System Packages

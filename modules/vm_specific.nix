@@ -46,12 +46,12 @@
   ];
 
   # File Share from Host (virtiofs) - comment out when not in use
-  boot.kernelModules = [ "virtiofs" ];
+  # boot.kernelModules = [ "virtiofs" ];
 
-  fileSystems."/mnt/shared" = {
-    device = "fileShare";
-    fsType = "virtiofs";
-    options = [ "_netdev" ];
-  };
+  # fileSystems."/mnt/shared" = {
+  #   device = "fileShare";
+  #   fsType = "virtiofs";
+  #   options = [ "_netdev" ];
+  # };
 
 }

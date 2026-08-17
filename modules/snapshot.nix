@@ -65,7 +65,7 @@ in
 
 
     services.snapper = {
-    persistentTimer = true; # Create snapshot asap if the last interval was missed (i.e. it will snapshot once on every boot at least)
+    persistentTimer = true; # Create snapshot asap if the last interval was missed (i.e. it will snapshot once on every boot at least if > 1 passed between last snapshot time and current time)
     snapshotRootOnBoot = false;
 
     configs = {
@@ -78,7 +78,7 @@ in
         TIMELINE_CLEANUP = true;
         TIMELINE_LIMIT_HOURLY    = 12;
         TIMELINE_LIMIT_DAILY     = 7;
-        TIMELINE_LIMIT_WEEKLY    = 4;
+        TIMELINE_LIMIT_WEEKLY    = 3;
         TIMELINE_LIMIT_MONTHLY   = 3;
         TIMELINE_LIMIT_QUARTERLY = 0;
         TIMELINE_LIMIT_YEARLY    = 0;
