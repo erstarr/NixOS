@@ -1,29 +1,9 @@
 
 
-{
-  pkgs,
-  yazi, # TODO TEMPORARY - yazi: remove line after yazi's nixpkgs updates 
-  ...
-}:
+{ pkgs, ... }:
 
 
 
-
-let
-
-
-  # TODO TEMPORARY - yazi: remove block after yazi's nixpkgs updates 
-  sys = pkgs.stdenv.hostPlatform.system;
-  yaziFlakePatched = yazi.packages.${sys}.yazi.override {
-    yazi-unwrapped = yazi.packages.${sys}.yazi-unwrapped.overrideAttrs (prev: {
-      postPatch = (prev.postPatch or "") + ''
-        sed -i 's/:arg("-m")/:arg("-m")\n    :arg("--walker-skip=.git,node_modules,target,dist,.cache")/' \
-          yazi-plugin/preset/plugins/fzf.lua
-      '';
-    });
-  };
-
-in
 {
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -70,11 +50,8 @@ in
 
 
 
-    yaziFlakePatched  # TODO TEMPORARY - yazi: remove line after yazi's nixpkgs updates 
 
-
-
-    # yazi  # TODO TEMPORARY - yazi: uncomment this line after i remove the yazi flake
+    yazi
     # For yazi
     fd
     fzf

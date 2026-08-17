@@ -5,7 +5,7 @@ let
   dotDir = "${config.home.homeDirectory}/.config/NixOS_Config/dotfiles";
 in
 {
-  # TODO TEMPORARY - yazi: keep in sync with yazi.desktop
+  # TODO MAINTENANCE - yazi: keep in sync with yazi.desktop
   xdg.desktopEntries.yazi = {
     name = "Yazi File Manager";
     icon = "yazi";

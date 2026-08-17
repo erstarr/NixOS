@@ -41,19 +41,11 @@
       # Not following nixpkgs as hyprland has its own and mesa will be pinned according to the hyprland commit (using hyprland's own nixpkgs)
     };
 
-
-    # TODO TEMPORARY - yazi: once yazi's nixpkgs updates, delete this block!
-    yazi = {
-      url = "github:sxyazi/yazi/?ref=v26.8.15";
-      inputs.nixpkgs.follows = "nixpkgs"; # don't pull a second nixpkgs
-    };
-
-    # Hyprland here - file already made
-
   };
 
   outputs =
     {
+      # self, --> implicitly catched by `...`
       nixpkgs, # Nix Packages
 
       # Flakes
@@ -62,7 +54,6 @@
       home-manager, # Home Management
       nix-flatpak, # nix-flatpak - Decleratively manager flatpaks
       hyprland, # Hyprland - flake
-      yazi, # TODO TEMPORARY - yazi: remove line after yazi's nixpkgs updates 
       ...
     }@inputs:
     let
@@ -80,7 +71,7 @@
 
           # Passing dependencies to submodules - only those that are defined in outputs are visible
           # inputs // basically substitutes each of its elements into specialArgs so you can do myFlake. instead of inputs.myFlake.nix
-          specialArgs = inputs // {
+          specialArgs = (builtins.removeAttrs inputs [ "self" ]) // {
             
               # Toggleable option!
               # Switch this when on VM/BareMetal
