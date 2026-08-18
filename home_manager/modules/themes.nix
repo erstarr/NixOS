@@ -25,6 +25,13 @@ in
   gtk = {
     enable = true;
 
+    theme = {
+      name = "Adwaita";
+      
+      # TODO TEMPORARY: have to adjust prio because both this and adwaita-icon-theme ships a share/icons/Adwaita/index.theme stub and they conflict. let adwaita win since it's more comprehensive
+      package = pkgs.lib.lowPrio pkgs.gnome-themes-extra;
+    };
+
     iconTheme = {
       name = "Adwaita";
       # package = pkgs.adwaita-icon-theme;

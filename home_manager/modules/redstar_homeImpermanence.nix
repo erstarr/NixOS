@@ -38,7 +38,9 @@
       ];
       files = [
         # IMPORTANT note about file persistance in imperm (creation of dangling symlink if file not already in /persist) - read the system level imperm nix file
-        
+
+        ".local/share/systemd/timers/stamp-nix-gc.timer" # Home Manager GC timer when persistent = true; (to see if last fire was missed)
+
         ".local/share/hyprland/lastVersion" # Hyprland last version tracking so i don't get welcome notif every time
 
         ".bash_history"
