@@ -22,19 +22,16 @@ button=$2
 # hyprctl notify 0 4000 "rgb(ff0000)" "windowWorkspace: $windowAddress"
 # hyprctl notify 0 4000 "rgb(ff0000)" "$button"
 
-hyprctl eval "hl.notification.create({ text = 'WindowAddress: $windowAddress\nbutton: $button', timeout = 1500, icon = 'error' })"
-
-
 
 # If left click on the window
 if (( button == 1 )); then
 
-    # hyprctl notify 0 4000 "rgb(ff0000)" "Switching Focus to Window $windowAddress"
+    hyprctl --batch "dispatch hl.dsp.focus({window = 'address:${windowAddress}'}); \
+                     dispatch hl.dsp.layout('fit_into_view'); \
+                     dispatch hl.dsp.focus({window = 'address:${windowAddress}'})"
 
-    # Since i run with follow_focus off, i need to turn that on for this to really "focus" on the selected window (so it actually comes into the visible display)
-    hyprctl --batch "eval 'hl.config({scrolling = {follow_focus = true,}})'; \
-                     dispatch 'hl.dsp.window.focus({window = $windowAddress})'; \
-                     eval 'hl.config({scrolling = {follow_focus = false,}})'"
+
+
 
     exit 0
 fi
@@ -45,7 +42,7 @@ if (( button == 2 )); then
 
     # hyprctl notify 0 4000 "rgb(ff0000)" "Closing Window $windowAddress"
 
-    hyprctl dispatch "hl.dsp.window.close({window = $windowAddress})"
+    hyprctl dispatch "hl.dsp.window.close({window = 'address:$windowAddress'})"
 
     exit 0
 fi
