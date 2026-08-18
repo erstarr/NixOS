@@ -40,4 +40,17 @@
   # IOMMU is set in boot.nix
   # boot.kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
 
+
+  # Networking
+
+
+  # Default Switch - Allow Internet Access
+  networking.firewall.extraInputRules = ''
+  iifname "virbr0" udp dport { 53, 67 } accept
+  iifname "virbr0" tcp dport 53 accept
+  '';
+
+
+
+
 }

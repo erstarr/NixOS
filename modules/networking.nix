@@ -6,7 +6,6 @@
 
     hostName = "nixos";
 
-    networkmanager.dns = lib.mkForce "none"; # TODO TEMPORARY: This prevents NetworkManger from pushing DNS Queries to resolved -- cuz NetworkManager keeps overriding resolved's configuration and routing queries through my router
     useDHCP = false;
     dhcpcd.enable = false;
 
@@ -15,12 +14,14 @@
     wireless = {
       enable = lib.mkForce false; # nixos networkmanager module forces this on
     };
-    networkmanager.unmanaged = [ "interface-name:wlp9s0" ]; # Make network manager stop spamming log by trying to manage the interface
 
     # NetworkManager config
     networkmanager = {
       enable = true;
+      dns = "systemd-resolved";
 
+      unmanaged = [ "interface-name:wlp9s0" ]; # Make network manager stop spamming log by trying to manage the interface
+      
       settings = {
 
         connection = {
@@ -31,9 +32,15 @@
         connectivity = {
           enabled = true;
         };
-        
-      };
 
+        connection = {
+          # Prevent Home Manager from injecting my router's DNS addresses ontained via DHCP into systemd-resolved
+          "ipv4.ignore-auto-dns" = true;
+          "ipv6.ignore-auto-dns" = true;
+        };
+        
+
+      };
     };
 
     # Configure network proxy if necessary
