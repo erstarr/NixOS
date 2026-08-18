@@ -45,6 +45,8 @@
 
 
   # Default Switch - Allow Internet Access
+  # 53 -> libvirt's dnsmasq
+  # 67 -> DHCP
   networking.firewall.extraInputRules = ''
   iifname "virbr0" udp dport { 53, 67 } accept
   iifname "virbr0" tcp dport 53 accept
