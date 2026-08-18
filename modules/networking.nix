@@ -18,28 +18,27 @@
     # NetworkManager config
     networkmanager = {
       enable = true;
-      dns = "systemd-resolved";
+      dns = lib.mkForce "none";
 
       unmanaged = [ "interface-name:wlp9s0" ]; # Make network manager stop spamming log by trying to manage the interface
       
       settings = {
 
-        connection = {
-          # IPv6 Privacy
-          "ipv6.ip6-privacy" = "2";
-        };
-
         connectivity = {
           enabled = true;
         };
 
+
         connection = {
-          # Prevent Home Manager from injecting my router's DNS addresses ontained via DHCP into systemd-resolved
+          # IPv6 Privacy
+          "ipv6.ip6-privacy" = "2";
+
+
+          # Prevent Home Manager from injecting my router's DNS addresses ontained via DHCP into systemd-resolved (redundant if dns = "none") -- TODO TEMPORARY: You prob need to also do this per interface as autogen config per
+          # interface has them explicitly set to false which takes precedent over the global value
           "ipv4.ignore-auto-dns" = true;
           "ipv6.ignore-auto-dns" = true;
         };
-        
-
       };
     };
 
