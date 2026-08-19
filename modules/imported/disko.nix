@@ -41,7 +41,7 @@ in
               };
             };
           } // lib.optionalAttrs (!dontPartitionRoot) {
-            # Virtual Disk Storage - EXT4 --- TODO when you get another SSD for just virt disks, extract this block from here
+            # Virtual Disk Storage - xfs --- TODO when you get another SSD for just virt disks, extract this block from here and adjust for formatting that ssd
             virtdsk = {
               priority = 2;
               size = if vmMode then "1G" else "400G";
@@ -49,7 +49,7 @@ in
                 type = "filesystem";
                 format = "xfs";
                 mountpoint = "/var/lib/libvirt/images";
-                extraArgs = [ "-L" "virt_disk" ]; # -L sets the label for ext4/btrfs
+                extraArgs = [ "-L" "virt_disk" ]; # -L sets the label for xfs/ext4/btrfs
               };
             };
           } // {
