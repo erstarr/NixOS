@@ -39,32 +39,38 @@
     # required when mixing options + config in same file
     # Directories that need to be mounted before init system starts writing to them - i.e. if the init system is to write to these directories, they must be mounted early
 
-
     # Straight from the wiki:
     # Make sure all your persistent and ephemeral storage volumes are marked with neededForBoot, otherwise you will run into problems. 
+    # i.e. the rollback targets and bind mount source has to be here. Other subvols, vols, or mounts that don't get rolled back by imperm might also need to be early mounted but not because of impermanance; like
+    # bootloader early mount because it's the bootloader, or /var/log early mount to catch early logs.
+    #     e.g. if you mount a volume that's not subject to imperm and suppose to shadow a directory early, that might cause problems! that should be mounted later to properly shadow what the dir it needs to
 
+    # rollback target
     fileSystems."/" = {
       neededForBoot = true;
     };
 
+    # bootloader
     fileSystems."/boot" = {
       neededForBoot = true;
     };
 
-
+    # nix store, needed by initrd systemd units
     fileSystems."/nix" = {
       neededForBoot = true;
     };
 
-
+    # needed early for journal
     fileSystems."/var/log" = {
       neededForBoot = true;
     };
 
+    # rollback reads from here, bind mount source
     fileSystems."/persist" = {
       neededForBoot = true;
     };
 
+    # rollback target
     fileSystems."/home" = {
       neededForBoot = true;
     };
