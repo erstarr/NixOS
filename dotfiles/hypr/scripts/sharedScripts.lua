@@ -109,29 +109,29 @@ end
 
 
 
-local function anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView(workspace)
+-- local function anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView(workspace)
 
-    if not workspace then
-        return false
-    end
+--     if not workspace then
+--         return false
+--     end
 
-    local windowList = hl.get_workspace_windows(workspace)
+--     local windowList = hl.get_workspace_windows(workspace)
 
-    -- check all windows
-    for _, windowElement in ipairs(windowList) do
-        if windowElement ~= nil and not windowElement.floating then
-            if windowTakesUpWholeScreen(windowElement) and windowCurrentlyComplatelyInView(windowElement) then
-                return true
-            end
+--     -- check all windows
+--     for _, windowElement in ipairs(windowList) do
+--         if windowElement ~= nil and not windowElement.floating then
+--             if windowTakesUpWholeScreen(windowElement) and windowCurrentlyComplatelyInView(windowElement) then
+--                 return true
+--             end
 
-        end
-    end
-
-
-    return false
+--         end
+--     end
 
 
-end
+--     return false
+
+
+-- end
 
 
 
@@ -273,7 +273,7 @@ return {
     getActiveWorkspace                         = getActiveWorkspace,
     windowTakesUpWholeScreen                   = windowTakesUpWholeScreen,
     windowCurrentlyComplatelyInView            = windowCurrentlyComplatelyInView,
-    anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView = anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView,
+    -- anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView = anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView,
     workspaceRule_RemoveGaps                   = workspaceRule_RemoveGaps,
     getLastTiledOrFloatingWindowInWorkspace    = getLastTiledOrFloatingWindowInWorkspace,
     getTiledWindowOnTheRight                        = getTiledWindowOnTheRight,

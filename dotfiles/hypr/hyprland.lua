@@ -938,7 +938,7 @@ local function toggleFs(fullscreenMode, layoutAware)
     end
 
     -- also accounts for the FSing of a floating window: may have an underlying covering MaxLike tiled window
-    local scrollSpecific_haveMaxLikeScreenFullyInview = ((isWorkspaceLayoutScrolling) and (window.tags[1] == "scroll_MaximiseCandidate")) or (sharedScripts.anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView(workspace))
+    local scrollSpecific_haveMaxLikeScreenFullyInview = ((isWorkspaceLayoutScrolling) and (window.tags[1] == "scroll_MaximiseCandidate"))
 
     -- If we are unFullscreening the window, give the workspace back its gaps (read below comments for why we can't leave this to f[1])
     if window.fullscreen == fullscreenMode then
