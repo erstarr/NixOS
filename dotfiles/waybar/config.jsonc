@@ -312,7 +312,7 @@
   "interval": 2,
   "return-type": "json",
   "exec": "sh -c 'pgrep -x hyprsunset >/dev/null && echo \"{\\\"text\\\":\\\"󰖔\\\",\\\"class\\\":\\\"on\\\"}\" || echo \"{\\\"text\\\":\\\"󰖕\\\",\\\"class\\\":\\\"off\\\"}\"'",
-  "on-click": "sh -c 'pgrep -x hyprsunset >/dev/null && pkill -x hyprsunset || (nohup hyprsunset >/dev/null 2>&1 &)'",
+  "on-click": "sh -c 'pgrep -x hyprsunset >/dev/null && pkill hyprsunset || (nohup hyprsunset >/dev/null 2>&1 &)'",
   "on-click-middle": "",
   "on-click-right": "",
   "on-scroll-up": "",
