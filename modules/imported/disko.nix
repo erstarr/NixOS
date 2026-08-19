@@ -47,7 +47,7 @@ in
               size = if vmMode then "1G" else "400G";
               content = {
                 type = "filesystem";
-                format = "ext4";
+                format = "xfs";
                 mountpoint = "/var/lib/libvirt/images";
                 extraArgs = [ "-L" "virt_disk" ]; # -L sets the label for ext4/btrfs
               };
