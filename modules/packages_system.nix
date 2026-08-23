@@ -42,7 +42,7 @@
 
     playerctl # Explicitly installed here - was pulled as waybar dep on arch
     python3 # For waybar - Explicitly installed here - was pulled as waybar dep on arch
-
+    jq # for clipse-output->rofi clipboard paste command
 
     awww # Wallpaper
     swaynotificationcenter # swaync
