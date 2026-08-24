@@ -277,7 +277,7 @@
   // APP LAUNCHER (left)
   // ------------------------------------------------------------------------
   "custom/rofi": {
-    "format": "",                // Arch icon glyph.
+    "format": "",                // Nix icon glyph.
     "on-click": "kitty",               // Empty = no action (placeholder for rofi command).
     "tooltip": false
   },
