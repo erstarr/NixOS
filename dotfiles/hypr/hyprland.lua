@@ -202,10 +202,6 @@ hl.env("SDL_VIDEODRIVER", "wayland")
 hl.env("CLUTTER_BACKEND", "wayland")
 
 
-hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
-hl.env("XDG_SESSION_TYPE", "wayland")
-hl.env("XDG_SESSION_DESKTOP", "Hyprland")
-
 -- For qt6ct
 -- hl.env("QT_QPA_PLATFORMTHEME","qt6ct") # NIX: Done in nix files
 
