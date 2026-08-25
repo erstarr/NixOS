@@ -78,39 +78,61 @@
 
 /* ---- Configuration ---- */                /* General configuration block */
 configuration {
-    modi:                       "drun,filebrowser,window,run";   /* Modes available: app launcher, file browser, window switcher, run command */
+    modi:                       "drun,window";   /* Modes available: app launcher, file browser, window switcher, run command */
+
     font:                       "Fira Sans 11";                  /* Font used in Rofi */
     show-icons:                 true;                            /* Show icons next to entries */
     icon-theme:                 "Tela-circle-dracula";           /* Icon theme */
+    
     display-drun:                " ";                          /* Label/icon for drun mode */
-    display-run:                 " ";                          /* Label/icon for run mode */
-    display-filebrowser:         " ";                          /* Label/icon for file browser mode */
+    // display-run:                 " ";                          /* Label/icon for run mode */
+    // display-filebrowser:         " ";                          /* Label/icon for file browser mode */
     display-window:              " ";                          /* Label/icon for window mode */
+    
     drun-display-format:        "{name}";                        /* Format for displaying drun entries */
+    disable-history:            false;
+
+    matching:                   "fuzzy";
+    sort:                       true;
+    sorting-method:             "fzf"; // fzf-v2 when it pudates past v2.0.0
+    case-sensitive:             false;
+    case-smart:                 false;
+
+    // normalize-match:             true;
+
+    tokenize:                   false;
+
+
+    window-format:              "{w} · {c} · {t}";               /* Format for window entries */
+    // window-command:          "";
+
+    
     hover-select:               false;                           /* Disable hover selection */
+    
     scroll-method:              1;                               /* Scroll method */
+
     me-select-entry:            "";                              /* Mouse entry selection binding */
     me-accept-entry:            "MousePrimary";                  /* Mouse accept entry binding */
-    window-format:              "{w} · {c} · {t}";               /* Format for window entries */
     
+    click-to-exit:              true;
 }
 
 
 
 /* Specific Module Configuration*/
-configuration {
-    filebrowser {
-                    /** Directory the file browser starts in. */
-                    directory: "/home/redstar";
-                    /** Group directories before files. */
-                    directories-first: true;
-                    /** Show hidden files. */
-                    show-hidden: true;
-                    /** command */
-                    command: "xdg-open";
-                 }
+// configuration {
+//     filebrowser {
+//                     /** Directory the file browser starts in. */
+//                     directory: "/home/redstar";
+//                     /** Group directories before files. */
+//                     directories-first: true;
+//                     /** Show hidden files. */
+//                     show-hidden: true;
+//                     /** command */
+//                     command: "xdg-open";
+//                  }
 
-}
+// }
 
 
 

@@ -55,7 +55,7 @@ local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrap
 local screenShot = "grimblast -f -t png save area - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot-$(date '+%Y%m%d-%H:%M:%S').png"
 
 
-
+local rofi_dmenu_clipboard_command = [[clipse -output-all raw | sed 's/^"//; s/"$//' | rofi -dmenu -i -lines 8 -theme-str 'window { width:45em; }' -theme-str 'listview { columns: 2; lines: 8; cycle: false; } element-icon { size: 0em; margin: 0; }' | sed 's/^/"/; s/$/"/' | jq -r . | wl-copy --trim-newline && sleep 0.7 && wtype -M ctrl v -m ctrl]]
 
 
 
@@ -809,7 +809,7 @@ hl.bind(mainMod .. " + SHIFT + V", hl.dsp.exec_cmd("~/.config/clipse/scripts/cli
 -- wtype to simulate Ctrl + V keystroke 
 -- STRING FORMAT: [[ ]] is the lua long string literal syntax; since "" in the command caused problems with the fact that the whole command also has to be a string
 -- IMPORTANT: THE COMMAND ITSELF DOESN'T HAVE THE [[ ]] PART! THAT IS LUA SYNTAX!
-hl.bind(mainMod .. " + CTRL + SHIFT + V", hl.dsp.exec_cmd([[clipse -output-all raw | sed 's/^"//; s/"$//' | rofi -dmenu -i -lines 8 -theme-str 'window { width:45em; }' -theme-str 'listview { columns: 2; lines: 8; cycle: false; } element-icon { size: 0em; margin: 0; }' | sed 's/^/"/; s/$/"/' | jq -r . | wl-copy --trim-newline && sleep 0.7 && wtype -M ctrl v -m ctrl]]))
+hl.bind(mainMod .. " + CTRL + SHIFT + V", hl.dsp.exec_cmd(rofi_dmenu_clipboard_command))
 
 
 
