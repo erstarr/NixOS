@@ -104,9 +104,9 @@
 ======================================================================== */
 .control-center {
     background-color: @cc_bg; /* was alpha(@bg-primary, 0.70) */
-    box-shadow: 0 0 10px 0 @cc_shadow_color;
-    border: 2px solid @cc_border_color;
-    padding: 5px;
+    box-shadow: 0 0 10px 0 @cc_shadow_color, inset 0 0 0 2px @cc_border_color; /* Fake border here */
+    border: 0px solid @cc_border_color; /* border 0 to avoid the scrollbar from being always visible*/
+    padding: 0px; /* padding 0 to a void the scollbar always being visible. This is compensated for by adding padding to indiv modules */
     border-radius: 4px;
 }
 
@@ -245,7 +245,7 @@ tooltip {
 ======================================================================== */
 .widget-buttons-grid {
     font-size: 1rem;
-    padding: 20px 20px;
+    padding: 25px 20px 20px 20px;    /* was 20px 20px, added 5px top to compensate for controll center not having the padding there*/
     margin: unset;
 }
 
@@ -427,4 +427,13 @@ tooltip {
 .widget-title > button:hover {
     background: @title_clear_button_hover_bg;
     box-shadow: 0 0 10px 0 @title_clear_button_hover_shadow_color;
+}
+
+
+/* ========================================================================
+   Notifications - all the notifs 
+======================================================================== */
+
+.widget-notifications {
+    padding-bottom: 5px; /* compensatory for notif center block not having padding */
 }
