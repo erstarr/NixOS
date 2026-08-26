@@ -76,6 +76,7 @@ in
 
 
 
+  # TODO TEMPORARY - Hyprland -- In the next major version (or maybe .3?) this will be made redundant. Remove this and the lines in hyprland config
   # Graphical Session for Hyprland (since it's def at system level, it's defined for all users) - Need to do this manually at least for now ---- Started by hyprland
   systemd.user.targets.hyprland-session = {
     unitConfig = {
