@@ -5,7 +5,7 @@
     "cssPriority": "user",
 
     "layer": "overlay",
-    "control-center-layer": "top",
+    "control-center-layer": "overlay",
     "layer-shell": true,
 
     "control-center-width": 400,
