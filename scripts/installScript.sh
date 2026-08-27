@@ -85,9 +85,11 @@ confirm "Step 6: Remove Channels since i'm using flake for nixpkgs -- DO NOT DO 
 confirm "Step 6.1: See if the directory has anything more than 2 symlinks named channel* :"
 sudo ls -la /mnt/nix/var/nix/profiles/per-user/root/
 confirm "Step 6.2: Removing with -f /mnt/nix/var/nix/profiles/per-user/root/channels*"
-sudo rm -r /mnt/nix/var/nix/profiles/per-user/root/channels*
+sudo rm -f /mnt/nix/var/nix/profiles/per-user/root/channels*
 confirm "Step 6.3: See if the operation was a success:"
 sudo ls -la /mnt/nix/var/nix/profiles/per-user/root/
+confirm "Step 6.4: nix garbage collect?"
+sudo nixos-enter --root /mnt -c 'nix-collect-garbage'
 
 
 confirm "STEP 7 Mounting USB and moving user dirst into placem then unmounting the USB"
