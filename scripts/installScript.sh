@@ -85,7 +85,7 @@ confirm "Step 6: Remove Channels since i'm using flake for nixpkgs -- DO NOT DO 
 confirm "Step 6.1: See if the directory has anything more than 2 symlinks named channel* :"
 sudo ls -la /mnt/nix/var/nix/profiles/per-user/root/
 confirm "Step 6.2: Removing with -rf /mnt/nix/var/nix/profiles/per-user/root/channels*"
-sudo rm -rf /mnt/nix/var/nix/profiles/per-user/root/channels*
+sudo rm -r /mnt/nix/var/nix/profiles/per-user/root/channels*
 confirm "Step 6.3: See if the operation was a success:"
 sudo ls -la /mnt/nix/var/nix/profiles/per-user/root/
 
