@@ -1,7 +1,7 @@
 [Context]
 sockets=!fallback-x11;!x11
 devices=shm;kvm;input
-filesystems=!~/.var/app;/mnt;/home/redstar/Desktop;/home/redstar/Documents;/home/redstar/Downloads;/home/redstar/Pictures;/home/redstar/Videos;/home/redstar/Music;!home
+filesystems=!~/.var/app;/home/redstar/Music:ro;/home/redstar/Videos:ro;/home/redstar/Pictures:ro;/home/redstar/Downloads:ro;/home/redstar/Documents:ro;/home/redstar/Desktop:ro;/mnt:ro;/run/media:ro;/media:ro;!home
 
 [System Bus Policy]
 org.freedesktop.UDisks2=none
