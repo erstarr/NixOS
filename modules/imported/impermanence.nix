@@ -17,7 +17,8 @@
 
   ######################
   # IMPORTANT: ADDING STUFF TO PERSISTANCE PAST FIRST INSTALL REQUIRES THE MANUAL COPYING OF THE FILES PRESENT THERE IF THE CURRENT STATE MUST BE SAVED!
-  ####> sudo cp -a to preserve owner,group,perms
+  ####> sudo cp -a to preserve owner,group,perms -- need to create the directories if necessary manually (Mind the permissions, etc!)
+  ####> Then remove the files from their original places so the next step can complete properly
   ####> Then do a rebuild switch to bind/symlink into place
   ######################
 
@@ -114,6 +115,13 @@
         "/etc/machine-id" # Persistent machine ID
 
         "/var/lib/power-profiles-daemon/state.ini" # powerprofilesctl present power state information
+
+
+        # SSH Host Identity - Persisting them is more secure
+        "/etc/ssh/ssh_host_rsa_key"
+        "/etc/ssh/ssh_host_rsa_key.pub"
+        "/etc/ssh/ssh_host_ed25519_key"
+        "/etc/ssh/ssh_host_ed25519_key.pub"
 
         # { file = "/var/keys/secret_file"; parentDirectory = { mode = "u=rwx,g=,o="; }; }
       ];

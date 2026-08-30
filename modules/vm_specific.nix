@@ -15,15 +15,6 @@
   # THIS IS VM SPECIFIC - Allow SSHD through --- Note: multiple mkForces concatonate instead of competing
   networking.firewall.allowedTCPPorts = lib.mkForce [ 22 ];
 
-  # Persist host keys -- SSHD
-  environment.persistence."/persist" = {
-    files = [
-      "/etc/ssh/ssh_host_ed25519_key"
-      "/etc/ssh/ssh_host_ed25519_key.pub"
-      "/etc/ssh/ssh_host_rsa_key"
-      "/etc/ssh/ssh_host_rsa_key.pub"
-    ];
-  };
 
   # Persist .vscode-server
   home-manager.users.redstar = { osConfig, ... }: {
