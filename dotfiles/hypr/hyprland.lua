@@ -208,7 +208,7 @@ hl.env("CLUTTER_BACKEND", "wayland")
 -- hl.env("QT_QPA_PLATFORMTHEME","qt6ct") # NIX: Done in nix files
 
 -- for grimblast - manually passing arguments to slurp
-hl.env("SLURP_ARGS", "-c '##ff0000ff'")
+hl.env("SLURP_ARGS", "-c #ff0000ff")
 
 
 
