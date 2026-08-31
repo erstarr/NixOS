@@ -799,6 +799,11 @@ hl.bind(mainMod .. " + F5", hl.dsp.exec_cmd(screenShot))
 
 -- OCR
 hl.bind(mainMod .. " + F6", hl.dsp.exec_cmd(ocrCommand))
+-- OCR - Delayed activation
+hl.bind(mainMod .. " + SHIFT + F6", hl.dsp.exec_cmd([[sleep 2 && ]] .. ocrCommand))
+-- OCR - Very Delayed activation
+hl.bind(mainMod .. " + CTRL + F6", hl.dsp.exec_cmd([[sleep 4 && ]] .. ocrCommand))
+
 
 -- Clipboard - Clipse
 -- Standard clipse command from its git page + paste the currently copied element into stdout, wait 0.7 seconds, then simulate Ctrl + v with wtype: functionally auto-paste without messing with what clipse git page says to do to get its own auto-paste working
