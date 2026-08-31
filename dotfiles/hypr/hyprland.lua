@@ -54,6 +54,8 @@ local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrap
 -- Screenshot - Grimblast (Uses grim, slurp, hyprpicker), satty (to edit/annotate the screenshots)
 local screenShot = "grimblast -f -t png save area - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot-$(date '+%Y%m%d-%H:%M:%S').png"
 
+-- OCR - Tesseract using grimblast to take the image
+local ocrCommand = [[grimblast -f -t png save area - | tesseract stdin stdout -l eng | wl-copy]]
 
 local rofi_dmenu_clipboard_command = [[clipse -output-all raw | sed 's/^"//; s/"$//' | rofi -dmenu -i -lines 8 -theme-str 'window { width:45em; }' -theme-str 'listview { columns: 2; lines: 8; cycle: false; } element-icon { size: 0em; margin: 0; }' | sed 's/^/"/; s/$/"/' | jq -r . | wl-copy --trim-newline && sleep 0.7 && wtype -M ctrl v -m ctrl]]
 
@@ -794,6 +796,9 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(swaync_toggle))
 
 -- Screenshot
 hl.bind(mainMod .. " + F5", hl.dsp.exec_cmd(screenShot))
+
+-- OCR
+hl.bind(mainMod .. " + F6", hl.dsp.exec_cmd(ocrCommand))
 
 -- Clipboard - Clipse
 -- Standard clipse command from its git page + paste the currently copied element into stdout, wait 0.7 seconds, then simulate Ctrl + v with wtype: functionally auto-paste without messing with what clipse git page says to do to get its own auto-paste working

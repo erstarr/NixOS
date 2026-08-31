@@ -57,6 +57,9 @@
     _7zz # 7zip
     poppler-utils # for pdftoppm
 
+    # Tesseract - OCR
+    tesseract
+
     # Clipboard
     clipse
     wl-clipboard # Need to explicitly pull it in cuz clipse does not
