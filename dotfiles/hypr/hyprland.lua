@@ -594,10 +594,16 @@ hl.config({
 
         sensitivity = 0, -- -1.0 - 1.0, 0 means no modification.
 
-        -- scroll_method = "2fg", -- touchpad scrolling related
-        
+        scroll_method = "2fg", -- touchpad scrolling related
+
         touchpad = {
-            natural_scroll = false,
+            natural_scroll = true,
+            disable_while_typing = true,
+            clickfinger_behavior = true, -- All the touchpad is one button
+            -- drag_3fg = 1, -- enable 3 finger drag -- 2 = 4 finger drag
+            tap_and_drag = true,
+            tap_button_map = "lrm",
+            tap_to_click = true,
         },
 
         touchdevice = {
@@ -629,18 +635,34 @@ hl.config({
 })
 
 
--- hl.config({
---     gestures = {
---     }
--- })
+hl.config({
+    gestures = {
+
+        workspace_swipe_create_new = true,
+        workspace_swipe_direction_lock = false,
+        -- workspace_swipe_direction_lock_threshold = 10,
+        -- workspace_swipe_distance = 300,
+        workspace_swipe_forever = true,
+        workspace_swipe_invert = true,
+        -- workspace_swipe_min_speed_to_force = 30,
+        -- workspace_swipe_touch = false,
+        -- workspace_swipe_touch_invert = false,
+        workspace_swipe_use_r = true,
+
+
+        scrolling = {
+            move_snap_to_grid = true,
+            move_snap_cursor = true,
+        },
+
+    }
+})
 
 
 
--- hl.gesture({
---     fingers = 3,
---     direction = "horizontal",
---     action = "workspace"
--- })
+---------------------------------
+------- Per-Device Config -------
+---------------------------------
 
 -- Example per-device config
 -- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
@@ -648,6 +670,49 @@ hl.config({
 --     name        = "epic-mouse-v1",
 --     sensitivity = -0.5,
 -- })
+
+
+-- TODO: WHEN DEVICE CONFIG OPT READINT IS A THING, GET THE VARS WITH THAT
+local amazonBasicsTouchpad_enabled = true
+local amazonBasicsTouchpad_rotation = 0
+
+hl.device({
+    name = [[telink-amazonbasics_touchpad-touchpad]],
+    enabled = amazonBasicsTouchpad_enabled,
+    sensitivity = amazonBasicsTouchpad_rotation,
+
+    -- Decent values for accel_profile (slow to fast) -- for the specific size of this touchpad and size of the monitor (27'')
+    -- custom 0.0708106472 0.000 0.035 0.070 0.122 0.175 0.227 0.285 0.364 0.444 0.524 0.604 0.684 0.763 0.843 0.923 1.003 1.083 1.162 1.242 1.407 <<<---- sensitivity_factor = 0.681633
+    -- custom 0.0708106472 0.000 0.043 0.086 0.150 0.215 0.279 0.349 0.447 0.545 0.643 0.741 0.839 0.937 1.035 1.133 1.231 1.329 1.427 1.525 1.727
+    -- custom 0.0708106472 0.000 0.045 0.090 0.157 0.225 0.292 0.366 0.468 0.571 0.673 0.776 0.878 0.981 1.083 1.186 1.288 1.391 1.493 1.596 1.807
+    -- custom 0.0708106472 0.000 0.047 0.094 0.164 0.235 0.305 0.382 0.489 0.596 0.703 0.810 0.917 1.024 1.131 1.238 1.345 1.452 1.559 1.666 1.888
+    -- custom 0.0708106472 0.000 0.051 0.102 0.179 0.257 0.334 0.418 0.535 0.652 0.769 0.886 1.003 1.120 1.237 1.354 1.471 1.588 1.705 1.823 2.064 <<<---- sensitivity_factor = 1.0
+    -- custom 0.0708106472 0.000 0.049 0.098 0.171 0.244 0.318 0.398 0.510 0.621 0.733 0.844 0.956 1.067 1.179 1.291 1.402 1.514 1.625 1.737 1.968
+    -- custom 0.0708106472 0.000 0.051 0.102 0.178 0.254 0.331 0.414 0.530 0.646 0.763 0.879 0.995 1.111 1.227 1.343 1.459 1.575 1.692 1.808 2.048
+    -- custom 0.0708106472 0.000 0.053 0.106 0.185 0.264 0.344 0.430 0.551 0.672 0.792 0.913 1.034 1.154 1.275 1.396 1.516 1.637 1.758 1.878 2.128
+    -- custom 0.0708106472 0.000 0.055 0.110 0.192 0.274 0.357 0.446 0.572 0.697 0.822 0.947 1.073 1.198 1.323 1.448 1.573 1.699 1.824 1.949 2.208
+    -- custom 0.0708106472 0.000 0.057 0.114 0.199 0.284 0.370 0.463 0.592 0.722 0.852 0.982 1.111 1.241 1.371 1.501 1.630 1.760 1.890 2.020 2.288
+    -- custom 0.0708106472 0.000 0.059 0.118 0.206 0.294 0.383 0.479 0.613 0.747 0.882 1.016 1.150 1.285 1.419 1.553 1.687 1.822 1.956 2.090 2.368
+    -- custom 0.0708106472 0.000 0.061 0.122 0.213 0.304 0.396 0.495 0.634 0.773 0.912 1.050 1.189 1.328 1.467 1.606 1.745 1.883 2.022 2.161 2.448
+    -- custom 0.0708106472 0.000 0.063 0.125 0.220 0.314 0.408 0.511 0.655 0.798 0.941 1.085 1.228 1.371 1.515 1.658 1.802 1.945 2.088 2.232 2.528
+    -- custom 0.0708106472 0.000 0.065 0.129 0.227 0.324 0.421 0.527 0.675 0.823 0.971 1.119 1.267 1.415 1.563 1.711 1.859 2.007 2.154 2.302 2.608
+    -- custom 0.0708106472 0.000 0.067 0.133 0.234 0.334 0.434 0.544 0.696 0.849 1.001 1.153 1.306 1.458 1.611 1.763 1.916 2.068 2.221 2.373 2.688
+    -- custom 0.0708106472 0.000 0.069 0.137 0.241 0.344 0.447 0.560 0.717 0.874 1.031 1.188 1.345 1.502 1.659 1.816 1.973 2.130 2.287 2.444 2.768
+    -- custom 0.0708106472 0.000 0.071 0.141 0.248 0.354 0.460 0.576 0.738 0.899 1.061 1.222 1.384 1.545 1.707 1.868 2.030 2.191 2.353 2.514 2.848
+    -- custom 0.0708106472 0.000 0.073 0.145 0.254 0.364 0.473 0.592 0.758 0.924 1.090 1.256 1.423 1.589 1.755 1.921 2.087 2.253 2.419 2.585 2.928
+    -- custom 0.0708106472 0.000 0.075 0.149 0.261 0.374 0.486 0.608 0.779 0.950 1.120 1.291 1.461 1.632 1.803 1.973 2.144 2.314 2.485 2.656 3.008
+    -- custom 0.0708106472 0.000 0.077 0.153 0.268 0.384 0.499 0.625 0.800 0.975 1.150 1.325 1.500 1.675 1.851 2.026 2.201 2.376 2.551 2.726 3.088
+    -- custom 0.0708106472 0.000 0.079 0.157 0.275 0.394 0.512 0.641 0.820 1.000 1.180 1.360 1.539 1.719 1.899 2.078 2.258 2.438 2.617 2.797 3.168
+    -- custom 0.0708106472 0.000 0.081 0.161 0.282 0.404 0.525 0.657 0.841 1.025 1.210 1.394 1.578 1.762 1.947 2.131 2.315 2.499 2.683 2.868 3.248
+    -- custom 0.0708106472 0.000 0.083 0.165 0.289 0.414 0.538 0.673 0.862 1.051 1.239 1.428 1.617 1.806 1.995 2.183 2.372 2.561 2.750 2.938 3.328
+    -- custom 0.0708106472 0.000 0.085 0.169 0.296 0.424 0.551 0.689 0.883 1.076 1.269 1.463 1.656 1.849 2.042 2.236 2.429 2.622 2.816 3.009 3.409
+    -- custom 0.0708106472 0.000 0.087 0.173 0.303 0.433 0.564 0.706 0.903 1.101 1.299 1.497 1.695 1.893 2.090 2.288 2.486 2.684 2.882 3.080 3.489
+    -- custom 0.0708106472 0.000 0.089 0.177 0.310 0.443 0.577 0.722 0.924 1.126 1.329 1.531 1.734 1.936 2.138 2.341 2.543 2.746 2.948 3.150 3.569
+    -- custom 0.0708106472 0.000 0.091 0.181 0.317 0.453 0.590 0.738 0.945 1.152 1.359 1.566 1.773 1.979 2.186 2.393 2.600 2.807 3.014 3.221 3.649
+    -- custom 0.0708106472 0.000 0.093 0.185 0.324 0.463 0.603 0.754 0.966 1.177 1.389 1.600 1.811 2.023 2.234 2.446 2.657 2.869 3.080 3.292 3.729 <<<---- sensitivity_factor = 1.806122
+    accel_profile = [[custom 0.0708106472 0.000 0.051 0.102 0.178 0.254 0.331 0.414 0.530 0.646 0.763 0.879 0.995 1.111 1.227 1.343 1.459 1.575 1.692 1.808 2.048]],
+    rotation = 0,
+})
 
 
 
@@ -1103,7 +1168,43 @@ hl.bind(mainMod .. " + CTRL + SHIFT + down", hl.dsp.window.move({ direction = "d
 
 
 
+-- ---- Touchpad ----
 
+hl.bind(mainMod .. " + F8", function()
+
+    amazonBasicsTouchpad_enabled = not amazonBasicsTouchpad_enabled
+
+    hl.device({
+        name = [[telink-amazonbasics_touchpad-touchpad]],
+        enabled = amazonBasicsTouchpad_enabled,
+    })
+
+end)
+
+
+hl.bind(mainMod .. " + SHIFT + F8", function()
+
+    hl.config({ ["input.scroll_method"] = ((hl.get_config("input.scroll_method") == "2fg") and "edge" or "2fg") })
+
+end)
+
+-- TODO: can't do a good enable/disable toggle without gestures having their own disable method. Make this a toggleable gesture when those are available
+-- hl.gesture({ fingers = 2, direction = "pinch", action = "cursor_zoom", zoom_level = 1, mode = "live" })
+
+
+hl.gesture({
+    fingers = 4,
+    direction = "horizontal",
+    action = "workspace"
+})
+
+
+
+hl.gesture({
+    fingers = 3,
+    direction = "horizontal",
+    action = "scroll_move"
+})
 
 
 
