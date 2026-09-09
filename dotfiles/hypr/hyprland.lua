@@ -674,12 +674,11 @@ hl.config({
 
 -- TODO: WHEN DEVICE CONFIG OPT READINT IS A THING, GET THE VARS WITH THAT
 local amazonBasicsTouchpad_enabled = true
-local amazonBasicsTouchpad_rotation = 0
 
 hl.device({
     name = [[telink-amazonbasics_touchpad-touchpad]],
     enabled = amazonBasicsTouchpad_enabled,
-    sensitivity = amazonBasicsTouchpad_rotation,
+    sensitivity = 0,
 
     -- Decent values for accel_profile (slow to fast) -- for the specific size of this touchpad and size of the monitor (27'')
     -- custom 0.0708106472 0.000 0.035 0.070 0.122 0.175 0.227 0.285 0.364 0.444 0.524 0.604 0.684 0.763 0.843 0.923 1.003 1.083 1.162 1.242 1.407 <<<---- sensitivity_factor = 0.681633
@@ -1342,7 +1341,6 @@ hl.bind(mainMod .. " + SHIFT + C", hl.dsp.layout("colresize 0.5"))
 
 hl.bind(mainMod .. " + G", hl.dsp.layout("promote"))
 
--- TODO: a script/binds to move a column long distances horizontally without looping around - repeating.
 
 hl.bind(mainMod .. " + SHIFT + Z", hl.dsp.layout("swapcol l"), {repeating = true})
 hl.bind(mainMod .. " + SHIFT + X", hl.dsp.layout("swapcol r"), {repeating = true})
