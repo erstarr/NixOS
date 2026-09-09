@@ -1192,18 +1192,70 @@ end)
 -- hl.gesture({ fingers = 2, direction = "pinch", action = "cursor_zoom", zoom_level = 1, mode = "live" })
 
 
-hl.gesture({
-    fingers = 4,
-    direction = "horizontal",
-    action = "workspace"
-})
 
+hl.gesture({
+    fingers = 2,
+    direction = "pinch",
+    mods = "SUPER",
+    action = "cursor_zoom",
+    zoom_level = 1,
+    mode = "live"
+})
 
 
 hl.gesture({
     fingers = 3,
     direction = "horizontal",
     action = "scroll_move"
+})
+
+
+hl.gesture({
+    fingers = 3,
+    direction = "pinchout",
+    action = "resize"
+})
+
+
+hl.gesture({
+    fingers = 3,
+    direction = "pinchin",
+    action = "move"
+})
+
+
+hl.gesture({
+    fingers = 4,
+    direction = "horizontal",
+    action = "workspace"
+})
+
+hl.gesture({
+    fingers = 4,
+    direction = "pinchin",
+    action = "fullscreen",
+    mode = "maximize",
+})
+
+hl.gesture({
+    fingers = 4,
+    direction = "up",
+    action = "float",
+    mode = "float"
+})
+
+hl.gesture({
+    fingers = 4,
+    direction = "down",
+    action = "float",
+    mode = "tile"
+})
+
+
+hl.gesture({
+    fingers = 4,
+    direction = "pinchout",
+    action = "close",
 })
 
 
