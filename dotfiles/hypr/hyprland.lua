@@ -673,7 +673,7 @@ hl.config({
 
 
 -- TODO: WHEN DEVICE CONFIG OPT READINT IS A THING, GET THE VARS WITH THAT
-local amazonBasicsTouchpad_enabled = true
+local amazonBasicsTouchpad_enabled = false
 
 hl.device({
     name = [[telink-amazonbasics_touchpad-touchpad]],
