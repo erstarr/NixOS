@@ -94,9 +94,11 @@ prepend_rules = [
     { url = "*.bat",   use = [ "vscode", "kate", "copy_file_contents", "edit", "open", "reveal" ] },
     { url = "*.cmd",   use = [ "vscode", "kate", "copy_file_contents", "edit", "open", "reveal" ] },
 
+    { url = "*.pdf",   use = [ "open", "reveal" ] },
 
-    { url = "*.jpg", use = [ "satty", "open", "reveal" ] },
-    { url = "*.png", use = [ "satty", "open", "reveal" ] },
+
+    { url = "*.jpg",   use = [ "satty", "open", "reveal" ] },
+    { url = "*.png",   use = [ "satty", "open", "reveal" ] },
 
 
 ]
