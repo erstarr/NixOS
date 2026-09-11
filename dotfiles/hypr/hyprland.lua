@@ -597,10 +597,13 @@ hl.config({
         scroll_method = "2fg", -- touchpad scrolling related
 
         touchpad = {
-            natural_scroll = true,
             disable_while_typing = true,
             clickfinger_behavior = true, -- All the touchpad is one button
             -- drag_3fg = 1, -- enable 3 finger drag -- 2 = 4 finger drag
+            drag_lock = 0,
+            middle_button_emulation = false,
+            natural_scroll = true,
+            scroll_factor = 1.0,
             tap_and_drag = true,
             tap_button_map = "lrm",
             tap_to_click = true,
