@@ -56,7 +56,7 @@ prepend_rules = [
     { mime = "text/*", use = [ "vscode", "kate", "copy_file_contents", "edit", "open", "reveal" ] },
 
 
-    { url = "*/", use = [ "vscode", "edit", "open", "reveal" ] }, # Directories and Mount Points (btrfs makes it neccessary) since i have nix imperm
+    { url = "*/", use = [ "reveal", "vscode", "edit", "open" ] }, # Directories and Mount Points (btrfs makes it neccessary) since i have nix imperm
 
 
     { url = "*.txt",   use = [ "vscode", "kate", "copy_file_contents", "edit", "open", "reveal" ] }, # Explicit since it seems that files with spaces in names don't get picked up by mime = "text/plain"
