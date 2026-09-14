@@ -33,7 +33,7 @@
         connection = {
           # IPv6 Privacy
           "ipv6.ip6-privacy" = "2"; # TODO MAINTENANCE: This makes it through because it's unset in autogen configs. To check: `nmcli connection show "Wired connection 1" | grep ip6-privacy`
-          "addr-gen-mode" = "stable-privacy";
+          "ipv6.addr-gen-mode" = "stable-privacy";
 
           # NETWORMANAGER-DNS: Prevent Network Manager from injecting my router's DNS addresses ontained via DHCP into systemd-resolved (redundant if dns = "none") - autogen file has = false so this is useless here
           "ipv4.ignore-auto-dns" = true;
