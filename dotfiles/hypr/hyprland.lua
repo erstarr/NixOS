@@ -54,6 +54,8 @@ local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrap
 -- Screenshot - Grimblast (Uses grim, slurp, hyprpicker), satty (to edit/annotate the screenshots)
 local screenShot = "grimblast -f -t png save area - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot-$(date '+%Y%m%d-%H:%M:%S').png"
 
+local screenShot_JustCopy = [[grimblast -f -t png save area - | wl-copy]]
+
 -- OCR - Tesseract using grimblast to take the image
 local ocrCommand = [[grimblast -f -t png save area - | tesseract stdin stdout -l eng | wl-copy]]
 
@@ -863,6 +865,9 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(swaync_toggle))
 
 -- Screenshot
 hl.bind(mainMod .. " + F5", hl.dsp.exec_cmd(screenShot))
+-- Screenshot - Copy without image editor
+hl.bind(mainMod .. " + SHIFT + F5", hl.dsp.exec_cmd(screenShot_JustCopy))
+
 
 -- OCR
 hl.bind(mainMod .. " + F6", hl.dsp.exec_cmd(ocrCommand))
