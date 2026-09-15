@@ -16,13 +16,35 @@ local sharedScripts = require("./scripts/sharedScripts")
 ---------------------------------------------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------------------------------------------
 
+-----------------------------
+---- Forward Declerations----
+-----------------------------
+
+local scroll_windowTakeUpWholeColumn
+local scroll_execPropRefreshImmediately
+local scroll_enactWindowWorkspaceModifications
+local scroll_focusRight
+local scroll_focusLeft
+local scroll_scrollSpecificMaximse
+local window_active_scrollingModifications_fn
+
+
+
+
+
+
+
 
 local scroll_wholeScreenTag = "scroll_MaximiseCandidate"
 
+-- To prevent async execution of window.active event's instructions when another event is in progress
+-- This can be used to enqueue the exec of window.active's instructions until that other function has finished executing
+local window_active_scrollingModifications_mutex = false
 
 
 
-local function scroll_windowTakeUpWholeColumn(window)
+
+scroll_windowTakeUpWholeColumn = function(window)
 
     -- TODO - these are for VM debugging. This is the size of the VM window.
     -- local screenSize_y = 720
@@ -48,7 +70,7 @@ end
 
 
 
-local function scroll_execPropRefreshImmediately()
+scroll_execPropRefreshImmediately = function()
 
     -- on 0.56 when the workspace changes apply changed. It schedules a prop refresh event and execs it at the end of the current event.
     -- This helper function executes it immediately instead (removes the queued event too)
@@ -63,7 +85,8 @@ end
 
 
 -- enact the window/fullscreen modifications for my custom "maximised" kinda behaviour in scrolling layout
-local function scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, enact)
+scroll_enactWindowWorkspaceModifications = function(currentWindow, currentWorkspace, enact)
+    -- hl.notification.create({ text = "modification enaction: " .. tostring(enact), timeout = 1500, icon = "error" }) -- debug
 
     if currentWindow == nil then
         hl.notification.create({ text = "Window is NIL! This is an error!", timeout = 1500, icon = "error" })
@@ -109,17 +132,28 @@ end
 
 
 
--- Track if a prop refresh was executed already as a result of switching to the window on the left/right col. This is to prevent redundantly setting the window's properties again in window.active
-local propRefreshAppliedDueToWindowSwitch = false
-
-
-
 
 
 -- Script for moving view and focusing to the right column.
 -- ALSO SERVER A MONOCLE KEYBIND -- TODO: Don't use this exact function for monocle. Figure out a way to detect if the current workspace is monocle, and if it is: disable this keybind and use a monocle bind.
 -- Then, also modify this function and remove the "if monocle do this" part
-local function scroll_focusRight()
+scroll_focusRight = function()
+
+    -- hl.notification.create({ text = "Moving window to the RIGHT\npropRefreshAppliedDueToScrollingWindowSwitch:" .. tostring(propRefreshAppliedDueToScrollingWindowSwitch), timeout = 1500, icon = "error" }) -- debug
+
+    propRefreshAppliedDueToScrollingWindowSwitch = false
+    window_active_scrollingModifications_mutex = true
+
+    -- scope guard
+    local _guard <close> = setmetatable({}, {
+        __close = function()
+            window_active_scrollingModifications_mutex = false
+            -- assumes that hl.get_active_window() gets the same window as what window.active event would have gotten
+            -- If this function early returns, let window.active make its adjustments
+            window_active_scrollingModifications_fn(hl.get_active_window(), -5, propRefreshAppliedDueToScrollingWindowSwitch)
+        end
+    })
+
     
     local currentWorkspace = sharedScripts.getActiveWorkspace()
     local currentWindow = hl.get_active_window()
@@ -170,6 +204,7 @@ local function scroll_focusRight()
 
     -- if the focused window is partially hidden to the right, but it's "maximised" size; fit it to view
     if sharedScripts.windowTakesUpWholeScreen(currentWindow) and  currentWindow.at.x > 10 then
+        -- hl.notification.create({ text = "In MoveWidowRIGHT - Enacting modifs with TRUE:", timeout = 1500, icon = "error" }) -- debug
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, true)
         -- fit it fully to view - just in case in case
         hl.dispatch(hl.dsp.layout("fit active"))
@@ -191,6 +226,7 @@ local function scroll_focusRight()
 
     if (currentWindowMaximise_Sized and (not rightWindowMaximised)) then
         -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
+        -- hl.notification.create({ text = "In MoveWidowRIGHT - Enacting modifs with FALSE:", timeout = 1500, icon = "error" }) -- debug
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
     end
 
@@ -202,13 +238,15 @@ local function scroll_focusRight()
     
     -- if the window's size is ~ the monitor size AND the left corner is flush with the left corner of the monitor (i.e. the window takes up the entire screen)
     if sharedScripts.windowTakesUpWholeScreen(currentWindow) and sharedScripts.windowCurrentlyComplatelyInView(currentWindow) then
+        -- hl.notification.create({ text = "In MoveWidowRIGHT - Enacting modifs with TRUE:", timeout = 1500, icon = "error" }) -- debug
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, true)
         -- fit it fully to view - just in case in case
         hl.dispatch(hl.dsp.layout("fit active"))
     else
         -- Workspace was already given its gaps back before switching so no need to do it again here
     end
-    propRefreshAppliedDueToWindowSwitch = true
+    -- hl.notification.create({ text = "Moved Right\n propRefreshAppliedDueToScrollingWindowSwitch: " .. tostring(propRefreshAppliedDueToScrollingWindowSwitch), timeout = 1500, icon = "error" }) -- debug
+    propRefreshAppliedDueToScrollingWindowSwitch = true
 end
 
 
@@ -222,9 +260,24 @@ end
 -- Script for moving view and focusing to the LEFT column.
 -- ALSO SERVER A MONOCLE KEYBIND -- TODO: Don't use this exact function for monocle. Figure out a way to detect if the current workspace is monocle, and if it is: disable this keybind and use a monocle bind.
 -- Then, also modify this function and remove the "if monocle do this" part
-local function scroll_focusLeft()
-    
+scroll_focusLeft = function()
 
+    -- hl.notification.create({ text = "Moving window to the LEFT\npropRefreshAppliedDueToScrollingWindowSwitch:" .. tostring(propRefreshAppliedDueToScrollingWindowSwitch), timeout = 1500, icon = "error" }) -- debug
+
+    propRefreshAppliedDueToScrollingWindowSwitch = false
+    window_active_scrollingModifications_mutex = true
+
+    -- scope guard
+    local _guard <close> = setmetatable({}, {
+        __close = function()
+            window_active_scrollingModifications_mutex = false
+            -- assumes that hl.get_active_window() gets the same window as what window.active event would have gotten
+            -- If this function early returns, let window.active make its adjustments
+            window_active_scrollingModifications_fn(hl.get_active_window(), -5, propRefreshAppliedDueToScrollingWindowSwitch)
+        end
+    })
+
+    
     local currentWorkspace = sharedScripts.getActiveWorkspace()
     local currentWindow = hl.get_active_window()
 
@@ -275,6 +328,7 @@ local function scroll_focusLeft()
 
     -- if the focused window is partially hidden to the left, but it's "maximised" size; fit it to view
     if sharedScripts.windowTakesUpWholeScreen(currentWindow) and  currentWindow.at.x < -10 then
+        -- hl.notification.create({ text = "In MoveWidowLEFT - Enacting modifs with TRUE:", timeout = 1500, icon = "error" }) -- debug
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, true)
         -- fit it fully to view - just in case in case
         hl.dispatch(hl.dsp.layout("fit active"))
@@ -296,6 +350,7 @@ local function scroll_focusLeft()
 
     if (currentWindowMaximise_Sized and (not rightWindowMaximised)) then
         -- Reapply modifications so that the offset is correctly calculated when we switch to the window in <direction>
+        -- hl.notification.create({ text = "In MoveWidowLEFT - Enacting modifs with FALSE:", timeout = 1500, icon = "error" }) -- debug
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, false)
     end
 
@@ -307,18 +362,20 @@ local function scroll_focusLeft()
     
     -- if the window's size is ~ the monitor size AND the left corner is flush with the left corner of the monitor (i.e. the window takes up the entire screen)
     if sharedScripts.windowTakesUpWholeScreen(currentWindow) and sharedScripts.windowCurrentlyComplatelyInView(currentWindow) then
+        -- hl.notification.create({ text = "In MoveWidowLEFT - Enacting modifs with TRUE:", timeout = 1500, icon = "error" }) -- debug
         scroll_enactWindowWorkspaceModifications(currentWindow, currentWorkspace, true)
         -- fit it fully to view - just in case in case
         hl.dispatch(hl.dsp.layout("fit active"))
     else
         -- Workspace was already given its gaps back before switching so no need to do it again here
     end
-    propRefreshAppliedDueToWindowSwitch = true
+    -- hl.notification.create({ text = "Moved LEFT\npropRefreshAppliedDueToScrollingWindowSwitch: " .. tostring(propRefreshAppliedDueToScrollingWindowSwitch), timeout = 1500, icon = "error" }) -- debug
+    propRefreshAppliedDueToScrollingWindowSwitch = true
 end
 
 
 
-local function scroll_scrollSpecificMaximse()
+scroll_scrollSpecificMaximse = function()
     
     local currentWorkspace = sharedScripts.getActiveWorkspace()
     local currentWindow = hl.get_active_window()
@@ -381,26 +438,24 @@ end
 
 
 
+-- @param window HL.Window
+-- @param focusReasion int -- -5 if this is called from scroll_focusLeft/Right as a mutex unlock call
+-- @param propRefreshAppliedDueToScrollingWindowSwitch bool - Track if a prop refresh was executed already as a result of switching to the window on the left/right col. This is to prevent redundantly setting the window's properties again
+window_active_scrollingModifications_fn = function(window, focusReason, propRefreshAppliedDueToScrollingWindowSwitch)
 
 
+    if window_active_scrollingModifications_mutex then
+        return
+    end
+
+    -- hl.notification.create({ text = "window.active\nfocusReason: " .. tostring(focusReason), timeout = 1500, icon = "error" }) -- debug
 
 
--- -- Use this to see if more than one prop refresh is being enacted when it shouldn't
--- hl.on("config.props_refreshed", function(int)
---         hl.notification.create({ text = "Prop Refreshed! \nAs Scheduled: " .. tostring(int), timeout = 1500, icon = "error" })
-
--- end)
-
-
-
-hl.on("window.active", function(window, int)
-
-    
     local workspace = sharedScripts.getActiveWorkspace()
     
     -- if the window is nil
     if window == nil then
-        hl.notification.create({ text = "Window is NIL! This is an error! \nINT: " .. tostring(int), timeout = 1500, icon = "error" })
+        hl.notification.create({ text = "Window is NIL! This is an error! \nfocusReason: " .. tostring(focusReason), timeout = 1500, icon = "error" })
         return
     end
     
@@ -414,7 +469,7 @@ hl.on("window.active", function(window, int)
     
     -- if the workspace is nil
     if workspace == nil then
-        hl.notification.create({ text = "Workspace is NIL! This is an error! \nINT: " .. tostring(int), timeout = 1500, icon = "error" })
+        hl.notification.create({ text = "Workspace is NIL! This is an error! \nfocusReason: " .. tostring(focusReason), timeout = 1500, icon = "error" })
         return
     end
     
@@ -452,6 +507,7 @@ hl.on("window.active", function(window, int)
 
                 -- reenact modifs on it, even if the tag is already there (just in case) -- here we are focused on a floating window still! we are enacting modifs on the tiling window but the focus is still
                 -- on the floating window!
+                -- hl.notification.create({ text = "In window.active - Enacting modifs with TRUE:", timeout = 1500, icon = "error" }) -- debug
                 scroll_enactWindowWorkspaceModifications(currentlyInViewWindow_thatIsScrollMaximised,workspace,true)
             end
         end
@@ -462,11 +518,12 @@ hl.on("window.active", function(window, int)
 
         -- if the window currently in view and takes up the entire monitor AND window is NOT floating
         if sharedScripts.windowTakesUpWholeScreen(window) and sharedScripts.windowCurrentlyComplatelyInView(window) then
-        
+            -- hl.notification.create({ text = "in window.active - modification enactor\npropRefreshAppliedDueToScrollingWindowSwitch: " .. tostring(propRefreshAppliedDueToScrollingWindowSwitch), timeout = 1500, icon = "error" }) -- debug
             -- reenact modifs on it, even if the tag is already there (just in case)
             
             -- If we moved to right/left col in this event, doing this again is pointless
-            if not propRefreshAppliedDueToWindowSwitch then
+            if not propRefreshAppliedDueToScrollingWindowSwitch then
+                -- hl.notification.create({ text = "In window.active - Enacting modifs with TRUE:", timeout = 1500, icon = "error" }) -- debug
                 scroll_enactWindowWorkspaceModifications(window,workspace,true)
                 -- fit it fully to view - just in case in case
                 -- this should only happen to the window that's currently fully in view anyway so it shouldn't cause weird behaviour
@@ -478,7 +535,8 @@ hl.on("window.active", function(window, int)
             currentlyInViewWindow_thatIsScrollMaximised = window
         else
             -- If we moved to right/left col in this event, doing this again is pointless
-            if not propRefreshAppliedDueToWindowSwitch then
+            if not propRefreshAppliedDueToScrollingWindowSwitch then
+                -- hl.notification.create({ text = "In window.active - Enacting modifs with FALSE:", timeout = 1500, icon = "error" }) -- debug
                 scroll_enactWindowWorkspaceModifications(window,workspace,false)
             end
         end
@@ -521,7 +579,31 @@ hl.on("window.active", function(window, int)
     end
     
     -- After the current event (assuming window.active can only fire once per event here!), reset the flag
-    propRefreshAppliedDueToWindowSwitch = false
+    propRefreshAppliedDueToScrollingWindowSwitch = false
+
+end
+
+
+
+
+
+
+
+
+-- -- Use this to see if more than one prop refresh is being enacted when it shouldn't
+-- hl.on("config.props_refreshed", function(int)
+--         hl.notification.create({ text = "Prop Refreshed! \nAs Scheduled: " .. tostring(int), timeout = 1500, icon = "error" })
+
+-- end)
+
+
+
+hl.on("window.active", function(window, int)
+
+    -- hl.notification.create({ text = "RAW WINDOW.ACTIVE!\nfocusReason: " .. tostring(int), timeout = 1500, icon = "error" }) -- debug
+
+    window_active_scrollingModifications_fn(window, int, false)
+
 end)
 
 
