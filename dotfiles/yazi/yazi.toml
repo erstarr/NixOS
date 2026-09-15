@@ -39,7 +39,7 @@ kate = [
     { run = "flatpak run --file-forwarding org.kde.kate -n @@ %s1 @@", block = false, orphan = true, desc = "Kate", for = "unix" },
 ]
 satty = [
-    { run = "satty --filename %s1", block = true, orphan = true, desc = "Satty", for = "unix" },
+    { run = "kitty --detach satty --filename %s1", block = false, orphan = true, desc = "Satty", for = "unix" }, # Open satty in a detached kitty terminal
 ]
 copy_file_contents = [
     { run = "cat %s | wl-copy", block = false, orphan = true, desc = "Copy contents of selected file(s)", for = "unix" },
