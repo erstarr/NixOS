@@ -40,7 +40,7 @@ local scroll_wholeScreenTag = "scroll_MaximiseCandidate"
 -- To prevent async execution of window.active event's instructions when another event is in progress
 -- This can be used to enqueue the exec of window.active's instructions until that other function has finished executing
 local window_active_scrollingModifications_mutex = false
-local window_active_call_enqueued                     = false
+local window_active_call_enqueued                = false
 
 
 
