@@ -1288,15 +1288,10 @@ hl.bind("XF86AudioPrev",  hl.dsp.exec_cmd("playerctl previous"),   { locked = tr
 
 
 -----------------------
------ No-Op Keys ------
+----- No-Op Binds -----
 -----------------------
 
-hl.bind(mainMod .. " + minus", function()
-    return
-end)
-
-
-
+hl.bind(mainMod .. " + minus", hl.dsp.no_op())
 
 
 
