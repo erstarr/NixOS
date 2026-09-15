@@ -53,7 +53,6 @@ local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrap
 
 -- Screenshot - Grimblast (Uses grim, slurp, hyprpicker), satty (to edit/annotate the screenshots)
 local screenShot = "grimblast -f -t png save area - | satty --filename - --output-filename ~/Pictures/Screenshots/Screenshot-$(date '+%Y%m%d-%H:%M:%S').png"
-
 local screenShot_JustCopy = [[grimblast -f -t png save area - | wl-copy]]
 
 -- OCR - Tesseract using grimblast to take the image
