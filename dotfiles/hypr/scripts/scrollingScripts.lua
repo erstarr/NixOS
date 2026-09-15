@@ -577,10 +577,6 @@ window_active_scrollingModifications_fn = function(window, focusReason, propRefr
             end
         end
     end
-    
-    -- After the current event (assuming window.active can only fire once per event here!), reset the flag
-    propRefreshAppliedDueToScrollingWindowSwitch = false
-
 end
 
 
