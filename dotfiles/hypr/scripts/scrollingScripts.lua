@@ -40,6 +40,7 @@ local scroll_wholeScreenTag = "scroll_MaximiseCandidate"
 -- To prevent async execution of window.active event's instructions when another event is in progress
 -- This can be used to enqueue the exec of window.active's instructions until that other function has finished executing
 local window_active_scrollingModifications_mutex = false
+local window_active_call_enqueued                     = false
 
 
 
@@ -444,9 +445,11 @@ end
 window_active_scrollingModifications_fn = function(window, focusReason, propRefreshAppliedDueToScrollingWindowSwitch)
 
 
-    if window_active_scrollingModifications_mutex then
+    if window_active_scrollingModifications_mutex or (not window_active_call_enqueued) then
         return
     end
+
+    window_active_call_enqueued = false
 
     -- hl.notification.create({ text = "window.active\nfocusReason: " .. tostring(focusReason), timeout = 1500, icon = "error" }) -- debug
 
@@ -597,7 +600,7 @@ end
 hl.on("window.active", function(window, int)
 
     -- hl.notification.create({ text = "RAW WINDOW.ACTIVE!\nfocusReason: " .. tostring(int), timeout = 1500, icon = "error" }) -- debug
-
+    window_active_call_enqueued = true
     window_active_scrollingModifications_fn(window, int, false)
 
 end)
