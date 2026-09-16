@@ -77,7 +77,11 @@ sudo chmod 600 /mnt/persist/passwords/redstar
 
 confirm "STEP 5: Copy NixOS config to persistent home. Continue?"
 sudo mkdir -p /mnt/persist/home/redstar/.config/NixOS_Config
-sudo cp -r "$FLAKE_DIR/." /mnt/persist/home/redstar/.config/NixOS_Config/
+sudo cp -a "$FLAKE_DIR/." /mnt/persist/home/redstar/.config/NixOS_Config/
+
+confirm "STEP 5.1: Revoke the exec permission from installScript.sh in the copied nix config?"
+sudo chmod -x /mnt/persist/home/redstar/.config/NixOS_Config/scripts/installScript.sh
+
 
 
 # TODO TEMPORARY: Channels are not auto cleaned up after you disable them - and they are intalled on nixos-install so they persist in system
