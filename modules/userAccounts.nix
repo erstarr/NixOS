@@ -7,7 +7,9 @@ users = {
   groups = {
 
     # Create a group same as my username - enforce UPG
-    redstar = {};
+    redstar = {
+        gid = 1000;
+    };
 
   };
 
@@ -15,6 +17,7 @@ users = {
   users = {
 
     redstar = {
+      uid = 1000;
       isNormalUser = true;
       hashedPasswordFile = "/persist/passwords/redstar";
       group = "redstar";  # enforce UPG
