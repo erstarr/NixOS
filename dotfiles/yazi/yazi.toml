@@ -97,7 +97,7 @@ prepend_rules = [
     { url = "*.pdf",   use = [ "open", "reveal" ] },
 
 
-    { url = "*.jpg",   use = [ "satty", "open", "reveal" ] },
+    { url = "*.jpeg",   use = [ "satty", "open", "reveal" ] },
     { url = "*.png",   use = [ "satty", "open", "reveal" ] },
 
 
