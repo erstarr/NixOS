@@ -2,14 +2,6 @@
 {
 
 
-  boot.initrd.systemd.enable = true;
-
-
-
-
-
-
-
   # Libvirt
 
   # libvirt - socket only
