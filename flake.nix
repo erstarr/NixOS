@@ -37,7 +37,7 @@
 
     # Flake - Also has a nixpkgs version
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.56.2"; # Pinned to 0.56.2 release commit
+      url = "github:hyprwm/Hyprland/v0.57.2"; # Pinned to 0.57.2 release commit
       # Not following nixpkgs as hyprland has its own and mesa will be pinned according to the hyprland commit (using hyprland's own nixpkgs)
     };
 
@@ -66,7 +66,7 @@
         nixos = lib.nixosSystem {
           # Keep this the same as your hostname t oavoid having to do (...) --flake /etc/nixos#nixos
 
-          # When fresh installing, it needs this since it doesn't have a hardwareConfigurations file yet
+          # When fresh installing, it needs this since it doesn't have a hardwareConfigurations file yet -- TODO: This still true? iirc this was made redundant?
           # system = "x86_64-linux";
 
           # Passing dependencies to submodules - only those that are defined in outputs are visible

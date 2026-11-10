@@ -7,7 +7,7 @@ hyprland,
 ...}:
 
 let
-  useFlake = false;
+  useFlake = true;
   sys      = pkgs.stdenv.hostPlatform.system;
 in
 {
@@ -72,20 +72,6 @@ in
     # Required so non-root users are allowed to use the above substituter/keys.
     # Use @wheel for all sudo users, or list your username explicitly.
     trusted-users = ["root" "@wheel"];
-  };
-
-
-
-  # TODO TEMPORARY - Hyprland -- In the next major version (or maybe .3?) this will be made redundant. Remove this and the lines in hyprland config
-  # Graphical Session for Hyprland (since it's def at system level, it's defined for all users) - Need to do this manually at least for now ---- Started by hyprland
-  systemd.user.targets.hyprland-session = {
-    unitConfig = {
-      Description = "Hyprland session";
-      BindsTo = "graphical-session.target";
-      Wants = "graphical-session-pre.target";
-      After = "graphical-session-pre.target";
-      PropagatesStopTo = "graphical-session.target";
-    };
   };
 
 }

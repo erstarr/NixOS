@@ -151,6 +151,7 @@ local function workspaceRule_RemoveGaps(workspace, apply)
 
     if apply == true then
         hl.workspace_rule({
+            -- TODO TEMPORARY: Workaround because workspace selectors don't accept workspace objects (bug)
             workspace = workspace.name,
             gaps_in = 0,
             gaps_out = 0,
@@ -158,6 +159,7 @@ local function workspaceRule_RemoveGaps(workspace, apply)
 
     else 
         hl.workspace_rule({
+            -- TODO TEMPORARY: Workaround because workspace selectors don't accept workspace objects (bug)
             workspace = workspace.name,
             gaps_in = sharedConstants.HYPRLAND_GAPS_IN,
             gaps_out = sharedConstants.HYPRLAND_GAPS_OUT,

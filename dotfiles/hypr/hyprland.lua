@@ -92,24 +92,6 @@ local swaync_toggle = "swaync-client -t -sw"
 
 hl.on("hyprland.start", function ()
 
-    -- ---------------------------------------------------------------------------------
-    -- ---------------------------------------------------------------------------------
-    -- THIS IS A PATCH FOR GRAPHICAL SESSION TARGET PROBLEM - NOTED IN OBSIDIAN NOTEBOOK
-    --     AFTER A MORE PERMA FIX IS IMPLEMENTED, GET RID OF THIS LINE AS WELL AS DOING
-    --        THE STUFF NOTED IN OBSIDIAN NOTEBOOK
-    -- ---------------------------------------------------------------------------------
-    -- ---------------------------------------------------------------------------------
-    hl.exec_cmd("systemctl --user start hyprland-session.target")
-
-
-
-
-
-
-
-
-
-
     -- Wallpaper ---
 
     -- The image itself will be variable depending on the theme I'm using
@@ -149,24 +131,6 @@ end)
 
 
 hl.on("hyprland.shutdown", function ()
-
-
-    -- ---------------------------------------------------------------------------------
-    -- ---------------------------------------------------------------------------------
-    -- THIS IS A PATCH FOR GRAPHICAL SESSION TARGET PROBLEM - NOTED IN OBSIDIAN NOTEBOOK
-    --     AFTER A MORE PERMA FIX IS IMPLEMENTED, GET RID OF THIS LINE AS WELL AS DOING
-    --        THE STUFF NOTED IN OBSIDIAN NOTEBOOK
-    -- ---------------------------------------------------------------------------------
-    -- ---------------------------------------------------------------------------------
-    os.execute("systemctl --user stop hyprland-session.target && sleep 0.1")
-
-
-
-
-
-
-
-
 
     -- Clean-up awww during shutdown
     hl.exec_cmd("awww clear-cache && pkill awww") -- NIX: in nix awww is wrapped. I want to make it work in both nix and arch so just kill by pattern
@@ -309,6 +273,14 @@ hl.config({
             vibrancy  = 0.1696,
             special = false,
             popups = true,
+
+            -- Blur Variants
+            -- glass = {
+            --     refraction = 20.0,
+            -- },
+            -- acrylic = {
+            --     refraction = 24.0
+            -- },
         },
 
         glow = {
@@ -317,6 +289,10 @@ hl.config({
 
         -- motion_blur = {
         --     enabled = false
+        -- },
+
+        -- wobble = {
+        --     enabled = false,
         -- },
   },
 })
@@ -335,7 +311,7 @@ hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
 
 -- Default springs (Modified)
-hl.curve("easy",           { type = "spring", mass = 1, stiffness = 878.5, dampening = 59.29 })
+hl.curve("easy",           { type = "spring", mass = 1, stiffness = 878.5, damping = 59.29 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
@@ -431,8 +407,8 @@ hl.config({
         insert_after_current = true,
         focus_removed_window = true,
         drag_into_group = 2,
-        merge_groups_on_drag = false,
-        merge_groups_on_groupbar = true,
+        merge_groups_on_drag = true,
+        merge_groups_on_groupbar = true, -- needs `drag_into_group = 2` and `merge_groups_on_drag = true`
         merge_floated_into_tiled_on_groupbar = false, -- whether dragging a floating window into a tiled window groupbar will merge them
         group_on_movetoworkspace = false,
 
@@ -523,7 +499,6 @@ hl.config({
         vrr = 3, -- Make this 0 if there are any problems with Adaptive Sync being on. 3 is for game and video content auto detection.
 
         always_follow_on_dnd = true,
-        layers_hog_keyboard_focus = true, -- If true, will make keyboard-interactive layers keep their focus on mouse move (e.g. wofi, bemenu)
 
         animate_manual_resizes = false,
         animate_mouse_windowdragging = false,
@@ -543,7 +518,7 @@ hl.config({
 
 
         on_focus_under_fullscreen = 2,
-        exit_window_retains_fullscreen = false,
+        exit_window_retains_fullscreen = 0,
 
         -- render_unfocused_fps = 15, -- Let deafult be, but be aware that this is an option
 
@@ -551,9 +526,25 @@ hl.config({
 
         -- disable_watchdog_warning = false, -- THIS IS ONLY TO BE USED IN DEBUG ENVIRONMENTS (in those envs make it true)
 
+        float_force_onscreen = 0,
+        new_float_force_onscreen = 2,
+
     },
 })
 
+
+
+
+----------------
+---  Layers  ---
+----------------
+
+hl.config({
+    layers = {
+        allow_new_top_layers_over_existing_fullscreen = true,
+        layers_hog_keyboard_focus = true, -- If true, will make keyboard-interactive layers keep their focus on mouse move (e.g. wofi, bemenu)
+    },
+})
 
 
 
@@ -631,6 +622,7 @@ hl.config({
         inactive_timeout = 0,
         no_warps = false,
         warp_on_change_workspace = 0,
+        warp_on_monitor_change = -1,
         warp_on_toggle_special = 0,
         hide_on_key_press = false,
         hide_on_touch = true,
@@ -738,6 +730,8 @@ hl.config ({
         window_direction_monitor_fallback = false, -- multi-monitor stuff
         disable_keybind_grabbing = false, -- If enabled, apps that request keybinds to be disabled (e.g. VMs) will not be able to do so.
         allow_pin_fullscreen = true, -- If enabled, Allow fullscreen to pinned windows, and restore their pinned status afterwards
+        client_requested_fs_uses_layout_handler = true, -- Allow client requested FS to use layout handler if present
+        drag_center_window = true, -- If enabled, dragging a tiled or fullscreen window will center it on the cursor when it becomes floating.
     },
 })
 
@@ -1156,7 +1150,7 @@ hl.bind(mainMod .. " + SHIFT + BRACKETRIGHT", hl.dsp.group.move_window({forward 
 hl.bind(mainMod .. " + SHIFT + BRACKETLEFT", hl.dsp.group.move_window({forward = false, window = "activewindow"}), {repeating = true})
 
 -- Lock group - toggle
-hl.bind(mainMod .. " + L", hl.dsp.group.lock_active({action = "toggle"}))
+hl.bind(mainMod .. " + L", hl.dsp.group.lock({action = "toggle"}))
 
 -- Move a window in/out of a group if a group exists in that direction, otherwise just move it in that direction
 hl.bind(mainMod .. " + CTRL + SHIFT + left", hl.dsp.window.move({ direction = "left", group_aware = true }), {repeating = true})
@@ -1316,6 +1310,7 @@ hl.bind(mainMod .. " + F9", function()
     local activeWorkspace = sharedScripts.getActiveWorkspace()
     
     hl.workspace_rule({
+        -- TODO TEMPORARY: Workaround because workspace selectors don't accept workspace objects (bug)
         workspace = activeWorkspace.name,
         layout = "scrolling"
     })
@@ -1379,6 +1374,7 @@ hl.bind(mainMod .. " + F10", function()
     local activeWorkspace = sharedScripts.getActiveWorkspace()
     
     hl.workspace_rule({
+        -- TODO TEMPORARY: Workaround because workspace selectors don't accept workspace objects (bug)
         workspace = activeWorkspace.name,
         layout = "dwindle"
     })
@@ -1402,6 +1398,7 @@ hl.bind(mainMod .. " + F11", function()
     local activeWorkspace = sharedScripts.getActiveWorkspace()
     
     hl.workspace_rule({
+        -- TODO TEMPORARY: Workaround because workspace selectors don't accept workspace objects (bug)
         workspace = activeWorkspace.name,
         layout = "master"
     })
@@ -1426,6 +1423,7 @@ hl.bind(mainMod .. " + F12", function()
     local activeWorkspace = sharedScripts.getActiveWorkspace()
     
     hl.workspace_rule({
+        -- TODO TEMPORARY: Workaround because workspace selectors don't accept workspace objects (bug)
         workspace = activeWorkspace.name,
         layout = "monocle"
     })
@@ -1566,6 +1564,17 @@ hl.window_rule({
     border_size = 0,
     rounding = 0,
 })
+
+
+-- Disable xdg_drag for all windows
+hl.window_rule({
+    name = "Disable xdg_drag for all windows",
+    match = {
+        class = ".*"
+    },
+    no_xdg_drags = true
+})
+
 
 
 
