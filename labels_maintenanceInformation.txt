@@ -4,6 +4,8 @@ IMPORTANT --> Self Explanatory
 
 NIX: In non-nix specific files, this is used to indicate that a certain change has been made because I'm on NixOS
 
+DEPRECATED - deprecated (NixOS side) options that don't have a new strict-equivalent and, to maintain arch parity, necessitate an explanation
+
 TODO - packageOrCategoryName(general,flatpak,etc...) --> action asap
 
 TODO MAINTENANCE - packageOrCategoryName(general,flatpak,etc...) --> To be done periodically or after some event

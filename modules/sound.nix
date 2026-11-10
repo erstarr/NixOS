@@ -6,7 +6,7 @@
     alsa.enable = true;
     alsa.support32Bit = true; # just in case
     pulse.enable = true;
-    jack.enable = true;
+    # jack.enable = true; # DEPRECATED: Arch parity - Was global. Deprecated in favour of setting this per app.
   };
 
 

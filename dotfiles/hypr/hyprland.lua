@@ -1,5 +1,5 @@
 -- Refer to the wiki for more information.
--- https://wiki.hypr.land/Configuring/Start/
+-- https://wiki.hypr.land/configuring/
 
 
 ---------------------------
@@ -18,7 +18,7 @@ local sharedConstants = require("./scripts/sharedConstants")
 ---- MONITORS ----
 ------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Monitors/
+-- See https://wiki.hypr.land/configuring/core/monitors/
 
 
 -- MSI 1440p 180hz Monitor
@@ -79,7 +79,7 @@ local swaync_toggle = "swaync-client -t -sw"
 ---- AUTOSTART ----
 -------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Autostart/
+-- See https://wiki.hypr.land/configuring/core/autostart/
 
 -- Autostart necessary processes (like notifications daemons, status bars, etc.)
 -- Or execute your favorite apps at launch like this:
@@ -153,14 +153,14 @@ end)
 ---- ENVIRONMENT VARIABLES ----
 -------------------------------
 
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
+-- See https://wiki.hypr.land/configuring/core/environment-variables/
 
 -- Hyprland Default Env Vars (from example config)
 hl.env("XCURSOR_SIZE", "24")
 hl.env("HYPRCURSOR_SIZE", "24")
 
 
--- This part is my doing. Taken From the wiki: https://wiki.hypr.land/Configuring/Environment-variables/ -- Didn't try the aquamarine env vars yet. Should be no need as long as hyprland uses DGPU
+-- This part is my doing. Taken From the wiki: https://wiki.hypr.land/configuring/core/environment-variables/-- Didn't try the aquamarine env vars yet. Should be no need as long as hyprland uses DGPU
 
 
 hl.env("GDK_BACKEND", "wayland,x11,*")
@@ -175,13 +175,15 @@ hl.env("CLUTTER_BACKEND", "wayland")
 -- for grimblast - manually passing arguments to slurp
 hl.env("SLURP_ARGS", "-c #ff0000ff")
 
+-- -- Don't disable GTK blur (need to explicitly pass as of November 2026) --- NIX(?): need to do this in nix config files cuz swaync starts with graphical session target and HL-side setting would be too late
+-- hl.env("GDK_WAYLAND_DISABLE", "ext_background_effect_manager_v1")
 
 
 -----------------------------------
 ----- ECOSYSTEM & PERMISSIONS -----
 -----------------------------------
 
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Permissions/
+-- See https://wiki.hypr.land/configuring/core/advanced-configuration/permissions/
 -- Please note permission changes here require a Hyprland restart and are not applied on-the-fly
 -- for security reasons
 
@@ -203,7 +205,7 @@ hl.config({
 ---- LOOK AND FEEL ----
 -----------------------
 
--- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
+-- Refer to https://wiki.hypr.land/configuring/core/config-options/
 hl.config({
     general = {
         gaps_in  = sharedConstants.HYPRLAND_GAPS_IN,
@@ -222,7 +224,7 @@ hl.config({
         -- Set to true to enable resizing windows by clicking and dragging on borders and gaps
         resize_on_border = false,
 
-        -- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
+        -- Please see https://wiki.hypr.land/configuring/extra/tearing/ before you turn this on
         allow_tearing = false,
 
         layout = "scrolling",
@@ -331,7 +333,7 @@ hl.animation({ leaf = "workspacesIn",  enabled = true,  speed = 1.21, bezier = "
 hl.animation({ leaf = "workspacesOut", enabled = true,  speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "quick" })
 
--- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+-- Ref https://wiki.hypr.land/configuring/core/rules/workspace-rules/
 -- "Smart gaps" / "No gaps when only"
 -- uncomment all if you wish to use that.
 -- hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
@@ -349,7 +351,7 @@ hl.animation({ leaf = "zoomFactor",    enabled = true,  speed = 7,    bezier = "
 --     rounding    = 0,
 -- })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
+-- See https://wiki.hypr.land/configuring/layouts/dwindle-layout/ for more
 hl.config({
     dwindle = {        
         preserve_split = true, -- You probably want this
@@ -360,7 +362,7 @@ hl.config({
     },
 })
 
--- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
+-- See https://wiki.hypr.land/configuring/layouts/master-layout/ for more
 hl.config({
     master = {
         new_status = "slave",
@@ -536,7 +538,7 @@ hl.config({
 
 
 ----------------
----  Layers  ---
+---- LAYERS ----
 ----------------
 
 hl.config({
@@ -549,7 +551,7 @@ hl.config({
 
 
 ----------------
----- Layout ----
+---- LAYOUT ----
 ----------------
 
 -- hl.config({
@@ -661,7 +663,7 @@ hl.config({
 ---------------------------------
 
 -- Example per-device config
--- See https://wiki.hypr.land/Configuring/Advanced-and-Cool/Devices/ for more
+-- See https://wiki.hypr.land/configuring/core/devices/ for more
 -- hl.device({
 --     name        = "epic-mouse-v1",
 --     sensitivity = -0.5,
@@ -841,7 +843,7 @@ local minimiseScripts = require("./scripts/minimiseScripts")
 
 local mainMod = "SUPER" -- Sets "Windows" key as main modifier
 
--- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
+-- Example binds, see https://wiki.hypr.land/configuring/core/binds/ for more
 hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd(terminal))
 
 hl.bind(mainMod .. " + CTRL + ALT + SHIFT + M", hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
@@ -1445,8 +1447,7 @@ end)
 ---- WINDOWS AND WORKSPACES ----
 --------------------------------
 
--- See https://wiki.hypr.land/Configuring/Basics/Window-Rules/
--- and https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
+-- See https://wiki.hypr.land/configuring/core/rules/
 
 
 
