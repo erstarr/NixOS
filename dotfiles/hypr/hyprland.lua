@@ -733,7 +733,7 @@ hl.config ({
         disable_keybind_grabbing = false, -- If enabled, apps that request keybinds to be disabled (e.g. VMs) will not be able to do so.
         allow_pin_fullscreen = true, -- If enabled, Allow fullscreen to pinned windows, and restore their pinned status afterwards
         client_requested_fs_uses_layout_handler = true, -- Allow client requested FS to use layout handler if present
-        drag_center_window = true, -- If enabled, dragging a tiled or fullscreen window will center it on the cursor when it becomes floating.
+        drag_center_window = false, -- If enabled, dragging a tiled or fullscreen window will center it on the cursor when it becomes floating.
     },
 })
 
@@ -774,11 +774,11 @@ hl.config({
 ----------------------
 
 
-
--- hl.config({
---     render = {
---     },
--- })
+hl.config({
+    render = {
+        cm_auto_hdr = 0,
+    },
+})
 
 
 
