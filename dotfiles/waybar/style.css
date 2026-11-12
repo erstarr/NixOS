@@ -101,8 +101,7 @@
 @define-color ws_active_border             rgba(199, 199, 199, 0.987);
 
 @define-color ws_urgent_text               rgba(213, 213, 213, 0.95);
- /*TODO TEMPORARY: THIS IS A PATCH CUZ WAYBAR 1.15 INTERPRETS EMPTY WORKSPACE IN HYPRLAND AS URGENT! Might be fixed in 1.16*/
-@define-color ws_urgent_bg                 rgba(38, 38, 38, 0.81);
+@define-color ws_urgent_bg                 rgba(176, 60, 60, 0.95);
 @define-color ws_urgent_border             rgba(162, 162, 162, 0.988);
 
 @define-color ws_hover_text                rgba(244, 244, 244, 0.979);
@@ -127,7 +126,13 @@
 @define-color ws_taskbar_window_hover_border  rgba(255, 0, 0, 1);
 
 
-
+/* Workspace taskbar window buttons (.taskbar-window) */
+@define-color ws_win_bg            transparent;
+@define-color ws_win_border        transparent;
+@define-color ws_win_active_bg     transparent;
+@define-color ws_win_active_border transparent;
+@define-color ws_win_hover_bg      transparent;
+@define-color ws_win_hover_border  transparent;
 
 
 
@@ -378,7 +383,19 @@ tooltip label {
 }
 
 
-
+#workspaces button.taskbar-window {
+    background: @ws_win_bg;
+    border: 1px solid @ws_win_border;
+    box-shadow: none;
+}
+#workspaces button.taskbar-window.active {
+    background: @ws_win_active_bg;
+    border-color: @ws_win_active_border;
+}
+#workspaces button.taskbar-window:hover {
+    background: @ws_win_hover_bg;
+    border-color: @ws_win_hover_border;
+}
 
 
 

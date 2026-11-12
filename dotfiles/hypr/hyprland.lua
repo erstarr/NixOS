@@ -48,7 +48,8 @@ local fileManager_yazi = "FZF_DEFAULT_OPTS='--walker-skip=.nix-defexpr' " .. ter
 
 
 -- Rofi Rounded Corners with proper blurring, use this: -transient-window
-local menu = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrapped in nix but do -r just in case
+local menu_run = "pkill rofi || rofi -show drun -replace -i" -- NIX: Rofi isn't wrapped in nix but do -r just in case
+local menu_window = "pkill rofi || rofi -show window -replace -i" -- NIX: Rofi isn't wrapped in nix but do -r just in case
 
 
 -- Screenshot - Grimblast (Uses grim, slurp, hyprpicker), satty (to edit/annotate the screenshots)
@@ -907,9 +908,11 @@ hl.bind(mainMod .. " + V", hl.dsp.window.float({ action = "toggle", window = "ac
 hl.bind(mainMod .. " + K", hl.dsp.window.pin({ window = "activewindow" }))
 
 
--- open menu
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu))
+-- open app launcher
+hl.bind(mainMod .. " + R", hl.dsp.exec_cmd(menu_run))
 
+-- open window switcher
+hl.bind(mainMod .. " + SHIFT + R", hl.dsp.exec_cmd(menu_window))
 
 -- set active window as pseudotiling
 hl.bind(mainMod .. " + P", hl.dsp.window.pseudo({ action = "toggle", window = "activewindow" }))

@@ -104,7 +104,7 @@ configuration {
 
 
     window-format:              "{w} · {c} · {t}";               /* Format for window entries */
-    // window-command:          "";
+    window-command:             "hyprctl dispatch 'hl.dsp.window.move({ window = \"stableid:{window}\", workspace = \"+0\" })'";
 
     
     hover-select:               false;                           /* Disable hover selection */
