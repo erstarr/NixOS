@@ -104,7 +104,8 @@ configuration {
 
 
     window-format:              "{w} · {c} · {t}";               /* Format for window entries */
-    window-command:             "hyprctl dispatch 'hl.dsp.window.move({ window = \"stableid:{window}\", workspace = \"+0\" })'";
+    // TODO TEMPORARY: still doesn't work for some reason!
+    window-command:             "hyprctl --batch dispatch 'hl.dsp.window.move({ window = \"stableid:{window}\", workspace = \"+0\" }); hl.dsp.layout(\"fit_into_view\")'";
 
     
     hover-select:               false;                           /* Disable hover selection */
