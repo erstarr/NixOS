@@ -861,6 +861,8 @@ hl.bind(mainMod .. " + N", hl.dsp.exec_cmd(swaync_toggle))
 
 -- Screenshot
 hl.bind(mainMod .. " + F5", hl.dsp.exec_cmd(screenShot))
+-- Screenshot - Delayed
+hl.bind(mainMod .. " + CTRL + F5", hl.dsp.exec_cmd([[sleep 2 && ]] .. screenShot))
 -- Screenshot - Copy without image editor
 hl.bind(mainMod .. " + SHIFT + F5", hl.dsp.exec_cmd(screenShot_JustCopy))
 
