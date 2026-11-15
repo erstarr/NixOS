@@ -267,6 +267,114 @@ end
 
 
 
+local function toggleFs(fullscreenMode, actionValue, layoutAware, propRefreshNow)
+
+
+    local mode_string = nil
+
+    if fullscreenMode == 1 then
+        mode_string = "maximized"
+    elseif fullscreenMode == 2 then
+        mode_string = "fullscreen"
+    else
+        hl.notification.create({ text = "Invalid fullscreenMode passed - This is a bug", timeout = 5000, icon = "error" })
+        return
+
+    end
+
+
+
+    local workspace = getActiveWorkspace()
+
+    if workspace == nil then
+        return
+    end
+    
+    local windowValue = hl.get_active_window()
+
+
+    local isWorkspaceLayoutScrolling = workspace.tiled_layout == "scrolling"
+
+
+    -- Avoid viewport move -- TODO TEMPORARY: this will have to be adjusted once scrolling fullscreen viewport restore token MR is merged
+    if isWorkspaceLayoutScrolling then
+        hl.dispatch(hl.dsp.layout("inhibit_scroll true"))
+        -- scope guard
+        local _guard <close> = setmetatable({}, {
+            __close = function()
+                hl.dispatch(hl.dsp.layout("inhibit_scroll false"))
+            end
+        })
+    end
+
+    -- also accounts for the FSing of a floating window: may have an underlying covering MaxLike tiled window
+    local scrollSpecific_haveMaxLikeScreenFullyInview = ((isWorkspaceLayoutScrolling) and (windowValue.tags[1] == "scroll_MaximiseCandidate"))
+
+
+    -- Scrolling specific - If Fullscreening a scrolling specific "maximise-like" window, simply (un)fullscreen it as we trust that scrolling specific scripts to have set its workspace rules correctly
+    if  (scrollSpecific_haveMaxLikeScreenFullyInview) then
+
+        if (actionValue == "unsetOverride") then
+            hl.dispatch(
+                hl.dsp.window.fullscreen({
+                    mode = mode_string,
+                    action = "unset",
+                    window = "activewindow", -- same as windowValue's value in this case
+                    layout_aware = layoutAware,
+                })
+            )
+        else
+            hl.dispatch(
+                hl.dsp.window.fullscreen({
+                    mode = mode_string,
+                    action = actionValue,
+                    window = "activewindow", -- same as windowValue's value in this case
+                    layout_aware = layoutAware,
+                })
+            )
+        end
+        return
+    end
+
+
+    -- Normalise
+    if (actionValue == "unsetOverride") then
+        actionValue = "unset"
+    end
+
+
+
+    -- If we are unFullscreening the window, give the workspace back its gaps (read below comments for why we can't leave this to f[1])
+    if ( ((actionValue == "toggle") and (windowValue.fullscreen == fullscreenMode)) or (actionValue == "unset") )then
+        workspaceRule_RemoveGaps(workspace, false)
+    
+    -- If fullscreening the window
+    else
+        -- This is the rule that is used to remove gaps from workspaces in scrolling related (and possibly more in the fuuture) scripts
+        workspaceRule_RemoveGaps(workspace, true)
+
+    end
+
+
+    if (propRefreshNow) then
+        -- Make workspace rule apply immediately
+        hl.exec_scheduled_prop_refresh_immediately()
+    end
+    
+    hl.dispatch(
+        hl.dsp.window.fullscreen({
+            mode = mode_string,
+            action = actionValue,
+            window = "activewindow",
+            layout_aware = layoutAware,
+        })
+    )
+
+
+end
+
+
+
 
 
 
@@ -278,8 +386,9 @@ return {
     -- anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView = anyTiledWindowInWorkspace_TakesUpWholeScreen_AND_ComplatelyInView,
     workspaceRule_RemoveGaps                   = workspaceRule_RemoveGaps,
     getLastTiledOrFloatingWindowInWorkspace    = getLastTiledOrFloatingWindowInWorkspace,
-    getTiledWindowOnTheRight                        = getTiledWindowOnTheRight,
-    getTiledWindowOnTheLeft                         = getTiledWindowOnTheLeft,
+    getTiledWindowOnTheRight                   = getTiledWindowOnTheRight,
+    getTiledWindowOnTheLeft                    = getTiledWindowOnTheLeft,
+    toggleFs                                   = toggleFs,
 
 }
 

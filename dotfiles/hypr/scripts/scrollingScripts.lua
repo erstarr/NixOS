@@ -182,12 +182,14 @@ scroll_focusRight = function()
     -- if the current window is a Default Handled fullscreened window, dispel that first
     if currentWindow.fullscreen == 1 then
         if currentWindow.fullscreen_handler == "default" then
-            hl.dispatch(hl.dsp.window.fullscreen({mode = "maximized", action = "unset", window = currentWindow }))
+            -- don't prop refresh immediately, let the final workspace modifications value apply
+            sharedScripts.toggleFs(1, "unset", true, false)
             currentWindow = hl.get_active_window() -- just in case
         end
     elseif currentWindow.fullscreen == 2 then
         if currentWindow.fullscreen_handler == "default" then
-            hl.dispatch(hl.dsp.window.fullscreen({mode = "fullscreen", action = "unset", window = currentWindow }))
+            -- don't prop refresh immediately, let the final workspace modifications value apply
+            sharedScripts.toggleFs(2, "unset", true, false)
             currentWindow = hl.get_active_window() -- just in case
         end
     end
@@ -305,13 +307,15 @@ scroll_focusLeft = function()
     -- if the current window is a Default Handled fullscreened window, dispel that first
     if currentWindow.fullscreen == 1 then
         if currentWindow.fullscreen_handler == "default" then
-            hl.dispatch(hl.dsp.window.fullscreen({mode = "maximized", action = "unset", window = currentWindow }))
+            -- don't prop refresh immediately, let the final workspace modifications value apply
+            sharedScripts.toggleFs(1, "unset", true, false)
             currentWindow = hl.get_active_window() -- just in case
         end
 
     elseif currentWindow.fullscreen == 2 then
         if currentWindow.fullscreen_handler == "default" then
-            hl.dispatch(hl.dsp.window.fullscreen({mode = "fullscreen", action = "unset", window = currentWindow }))
+            -- don't prop refresh immediately, let the final workspace modifications value apply
+            sharedScripts.toggleFs(2, "unset", true, false)
             currentWindow = hl.get_active_window() -- just in case
         end
     end
@@ -405,11 +409,21 @@ scroll_scrollSpecificMaximse = function()
 
     -- if the current window is a fullscreened window, dispel it and that's it
     if currentWindow.fullscreen == 1 then
-        hl.dispatch(hl.dsp.window.fullscreen({mode = "maximized", action = "unset", window = currentWindow }))
-        return
+            -- don't prop refresh immediately, let the final workspace modifications value apply
+            sharedScripts.toggleFs(1, "unsetOverride", true, false)
+            -- if the window takes up entire screen and you are dispatching this funcion, it is assumed that you don't want window to be "funcitonally taking up the entire screen(FS or no)"
+            -- since prev col value of the screen is 1.0, we assume you want 0.5
+            if (not sharedScripts.windowTakesUpWholeScreen(currentWindow)) then
+                return
+            end
     elseif currentWindow.fullscreen == 2 then
-        hl.dispatch(hl.dsp.window.fullscreen({mode = "fullscreen", action = "unset", window = currentWindow }))
-        return
+            -- don't prop refresh immediately, let the final workspace modifications value apply
+            sharedScripts.toggleFs(2, "unsetOverride", true, false)
+            -- if the window takes up entire screen and you are dispatching this funcion, it is assumed that you don't want window to be "funcitonally taking up the entire screen(FS or no)"
+            -- since prev col value of the screen is 1.0, we assume you want 0.5
+            if (not sharedScripts.windowTakesUpWholeScreen(currentWindow)) then
+                return
+            end
     end
 
 
