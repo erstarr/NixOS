@@ -473,7 +473,7 @@ window_active_scrollingModifications_fn = function(window, focusReason, propRefr
     -- if the window is nil
     -- focus reason isn't in the list of expected window.active fires
     if (window == nil) then
-        if (focusReason ~= 2048) and (focusReason ~= 16) and (focusReason ~= 2) then 
+        if (focusReason ~= 2048) and (focusReason ~= 16) and (focusReason ~= 2) and (focusReason ~= 256) then 
             hl.notification.create({ text = "Window is NIL! This is an error! \nfocusReason: " .. tostring(focusReason), timeout = 1500, icon = "error" })
         end
         return
