@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  utils,
   impermanence,
   ...
 }:
@@ -144,7 +145,12 @@
 
         description = "Ephemeral root and home rollback";
         wantedBy = [ "initrd.target" ];
-        after = [ "initrd-root-device.target" ];
+        requires = [ "${utils.escapeSystemdPath "/dev/disk/by-label/root_subvol"}.device" ]; # Wait for the disk to appear
+        after = [
+          "${utils.escapeSystemdPath "/dev/disk/by-label/root_subvol"}.device"
+          "initrd-root-device.target"
+          # "local-fs-pre.target" # Only matters if hibernating: lets resume run before anything is altered.
+        ];
         before = [ "sysroot.mount" ];
         unitConfig.DefaultDependencies = false;
         serviceConfig.Type = "oneshot";
@@ -157,6 +163,7 @@
           # by label: root part is labelled as root_subvol
           # root btrfs subvolume (the one that contains every other subvol).
           mount /dev/disk/by-label/root_subvol /btrfs_tmp -o subvol=/ 
+          trap 'umount /btrfs_tmp' EXIT # unmount even in case of script fail. Might boot into old FS, might boot into emergency shell depending on failiure point
 
           # Root Impermanence - rollback
           # Move the old root to /persist/old_roots
@@ -238,8 +245,6 @@
 
           # Create a fresh home.
           btrfs subvolume create /btrfs_tmp/home
-
-          umount /btrfs_tmp
         '';
       };
     };
