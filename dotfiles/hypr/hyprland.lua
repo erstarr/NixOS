@@ -382,7 +382,7 @@ hl.config({
         fullscreen_on_one_column = false,
         column_width = 0.5,
         focus_fit_method = 1,
-        follow_focus = false,
+        follow_focus = 0,
 --      follow_min_visible = 0.4, -- This is only for when follow_focus = true
 --      explicit_column_widths = "...", I don't use +/-conf
         wrap_focus = false,
